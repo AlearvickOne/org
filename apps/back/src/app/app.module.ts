@@ -13,6 +13,6 @@ import { DatabaseModule } from './database/database.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes('us');
+    consumer.apply(AuthMiddleware).forRoutes('*');
   }
 }

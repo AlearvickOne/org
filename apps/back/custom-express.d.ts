@@ -1,9 +1,9 @@
-import { UsersEntity } from './src/app/database/entitys/users.entity';
+import { UsersModel } from '../../types/models/users.model';
 
 declare global {
   namespace Express {
     interface Request {
-      user: UsersEntity;
+      user: UsersModel;
     }
   }
 }

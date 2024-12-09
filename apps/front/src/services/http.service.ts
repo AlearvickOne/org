@@ -4,18 +4,8 @@ import { backUrl } from '../../conf';
 
 @injectable()
 export class HttpService {
-  private _token = '';
-
-  set token(v: string) {
-    this._token = v;
-  }
-
   config() {
-    return {
-      headers: {
-        authorization: `Bearer ${this._token}`,
-      },
-    };
+    return { withCredentials: true, credentials: 'include' };
   }
 
   async get(url: string) {

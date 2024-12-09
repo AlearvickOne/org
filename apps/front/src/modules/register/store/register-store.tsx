@@ -26,9 +26,13 @@ export class RegisterStore {
   }
 
   async register() {
-    await this.userService.register({
-      email: this.email,
-      password: this.password,
-    });
+    try {
+      await this.userService.register({
+        email: this.email,
+        password: this.password,
+      });
+    } catch (error: any) {
+      alert(error.message);
+    }
   }
 }

@@ -8,3 +8,12 @@ export interface UsersModel {
   token?: string;
   created_at?: string;
 }
+
+export const defaultUser: UsersModel = {
+  id: -1,
+  role: -1,
+  name: '',
+  surname: '',
+  email: '',
+  phone: '',
+};

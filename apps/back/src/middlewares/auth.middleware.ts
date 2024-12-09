@@ -1,20 +1,22 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, Logger, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { UserService } from '../app/user/user.service';
+import { defaultUser } from '../../../../types/models/users.model';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   constructor(private userService: UserService) {}
 
-  use(req: Request, res: Response, next: NextFunction) {
-    const token = req.headers.authorization.split(' ')[1];
+  async use(req: Request, res: Response, next: NextFunction) {
+    const token = req.cookies.token;
 
-    if (!token) {
-      return next();
+    const user = await this.userService.getUserByToken(token);
+
+    if (user) {
+      req.user = user;
+    } else {
+      req.user = defaultUser;
     }
-
-    this.userService
-      .getUserByToken(token)
-      .then((data) => (data ? (req.user = data) : {}));
+    next();
   }
 }

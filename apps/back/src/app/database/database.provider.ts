@@ -1,6 +1,7 @@
 import { DataSource } from 'typeorm';
 import { dataSource } from '../../../../../data-source';
 import { UsersEntity } from './entitys/users.entity';
+import { Logger } from '@nestjs/common';
 
 const entities = [UsersEntity];
 
@@ -14,8 +15,10 @@ export const databaseProviders = [
           migrations: [],
         })
         .initialize()
-        .then(() => console.log('Подключение прошло успешно'))
-        .catch((e) => console.log(`Подключение не удачное - ${e.message}`));
+        .then(() => Logger.debug('Подключение к базе данных прошло успешно'))
+        .catch((e) => {
+          throw new Error(`Ошибка подключения к базе данных - ${e.message}`);
+        });
     },
   },
 ];

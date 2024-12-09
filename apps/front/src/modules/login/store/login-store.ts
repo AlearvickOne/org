@@ -17,13 +17,7 @@ export class LoginStore {
     this.userService = container.get<UserService>('UserService');
   }
 
-  async init() {
-    await this.getMessage();
-  }
-
-  async getMessage() {
-    this.message = await this.userService.getMessage();
-  }
+  async init() {}
 
   setEmail(v: string) {
     this.email = v;
@@ -33,5 +27,14 @@ export class LoginStore {
     this.password = v;
   }
 
-  async login() {}
+  async login() {
+    try {
+      await this.userService.login({
+        email: this.email,
+        password: this.password,
+      });
+    } catch (error: any) {
+      alert(error.message);
+    }
+  }
 }

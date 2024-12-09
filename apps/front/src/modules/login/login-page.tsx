@@ -3,10 +3,13 @@ import container from '../../../ioc/ioc';
 import { LoginStore } from './store/login-store';
 import { useEffect } from 'react';
 import { Button, InputAuth } from '@org/common-next';
+import { useRouter } from 'next/router';
 
 const loginStore = container.get<LoginStore>('LoginStore');
 
 export const LoginPage = observer(() => {
+  const router = useRouter();
+
   useEffect(() => {
     loginStore.init().then();
   }, []);
@@ -28,7 +31,17 @@ export const LoginPage = observer(() => {
           onChange={(v) => loginStore.setPassword(v)}
         />
 
-        <Button onClick={() => null}>Войти</Button>
+        <Button
+          onClick={() =>
+            loginStore
+              .login()
+              .then(() =>
+                window.location.replace('http://localhost:4200/dashboard')
+              )
+          }
+        >
+          Войти
+        </Button>
       </form>
     </div>
   );
