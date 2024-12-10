@@ -12,6 +12,9 @@ export class LoginStore {
   email: string = '';
   password: string = '';
 
+  errorsValidate: any = {};
+  error: string = '';
+
   constructor() {
     makeAutoObservable(this);
     this.userService = container.get<UserService>('UserService');
@@ -33,8 +36,19 @@ export class LoginStore {
         email: this.email,
         password: this.password,
       });
+      window.location.replace('http://localhost:4200/dashboard');
     } catch (error: any) {
-      alert(error.message);
+      this.setErrors(error);
     }
+  }
+
+  async logout() {
+    await this.userService.logout();
+  }
+
+  setErrors(error: any) {
+    const er = error.response.data;
+    this.errorsValidate = er ? er : {};
+    this.error = er.message;
   }
 }

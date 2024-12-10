@@ -6,11 +6,15 @@ export class UserService {
   constructor(@inject('HttpService') private httpService: HttpService) {}
 
   async register(data: any) {
-    return this.httpService.post('user/register', data);
+    return this.httpService.post('auth/register', data);
   }
 
   async login(data: { password: string; email: string }) {
-    return this.httpService.post('user/login', data);
+    return this.httpService.post('auth/login', data);
+  }
+
+  async logout() {
+    return this.httpService.get('auth/logout');
   }
 
   async getMyUser() {

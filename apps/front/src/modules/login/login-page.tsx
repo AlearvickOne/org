@@ -22,6 +22,7 @@ export const LoginPage = observer(() => {
           type="email"
           value={loginStore.email}
           onChange={(v) => loginStore.setEmail(v)}
+          error={loginStore.errorsValidate['email']}
         />
 
         <InputAuth
@@ -29,19 +30,11 @@ export const LoginPage = observer(() => {
           type="password"
           value={loginStore.password}
           onChange={(v) => loginStore.setPassword(v)}
+          error={loginStore.errorsValidate['password']}
         />
 
-        <Button
-          onClick={() =>
-            loginStore
-              .login()
-              .then(() =>
-                window.location.replace('http://localhost:4200/dashboard')
-              )
-          }
-        >
-          Войти
-        </Button>
+        <Button onClick={() => loginStore.login()}>Войти</Button>
+        <div className="">{loginStore.error}</div>
       </form>
     </div>
   );
