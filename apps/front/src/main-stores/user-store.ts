@@ -16,6 +16,10 @@ export class UserStore {
   }
 
   async loadUser() {
-    this.user = await this.userService.getMyUser();
+    try {
+      this.user = await this.userService.getMyUser();
+    } catch (error) {
+      throw error;
+    }
   }
 }

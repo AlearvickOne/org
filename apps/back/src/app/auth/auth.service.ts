@@ -3,6 +3,7 @@ import * as argon2 from 'argon2';
 import { UsersEntity } from '../database/entitys/users.entity';
 import { Response, NextFunction } from 'express';
 import { dataSource } from '../../../../../data-source';
+import { RegistrationDto } from '../common/dto/registration.dto';
 
 @Injectable()
 export class AuthService {
@@ -10,14 +11,19 @@ export class AuthService {
 
   constructor() {}
 
-  async register(data: any) {
-    const { email, password } = data;
+  async register(data: RegistrationDto) {
+    const { password, ...u } = data;
+
     const hashPass = await argon2.hash(password, { type: argon2.argon2id });
 
-    const token = await argon2.hash(email + Date.now().toString());
+    const token = await argon2.hash(u.email + Date.now().toString());
 
     const user = new UsersEntity();
-    user.email = email;
+    user.name = u.name;
+    user.surname = u.surname;
+    user.role = 1;
+    user.phone = u.phone;
+    user.email = u.email;
     user.password = hashPass;
     user.token = token;
     await user.save();

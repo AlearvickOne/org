@@ -14,6 +14,7 @@ export const RegisterPage = observer(() => {
           type="email"
           value={registerStore.email}
           onChange={(v) => registerStore.setEmail(v)}
+          error={registerStore.errorsValidate['email']}
         />
 
         <InputAuth
@@ -21,6 +22,31 @@ export const RegisterPage = observer(() => {
           type="password"
           value={registerStore.password}
           onChange={(v) => registerStore.setPassword(v)}
+          error={registerStore.errorsValidate['password']}
+        />
+
+        <InputAuth
+          label="Имя"
+          type="text"
+          value={registerStore.name}
+          onChange={(v) => registerStore.setName(v)}
+          error={registerStore.errorsValidate['name']}
+        />
+
+        <InputAuth
+          label="Фамилия"
+          type="text"
+          value={registerStore.surname}
+          onChange={(v) => registerStore.setSurname(v)}
+          error={registerStore.errorsValidate['surname']}
+        />
+
+        <InputAuth
+          label="Телефон"
+          type="tel"
+          value={registerStore.phone}
+          onChange={(v) => registerStore.setPhone(v)}
+          error={registerStore.errorsValidate['phone']}
         />
 
         <Button onClick={() => registerStore.register()}>

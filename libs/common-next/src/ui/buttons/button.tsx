@@ -12,7 +12,7 @@ export const Button = ({ children, onClick }: ButtonProps) => {
   return (
     <button
       onClick={handleClick}
-      className="bg-blue-500 text-white py-2 px-8 rounded-[10px]"
+      className="bg-blue-500 text-white py-2 px-8 rounded-[10px] w-full"
     >
       {children}
     </button>
