@@ -1,23 +1,13 @@
 import { observer } from 'mobx-react';
-import { Button } from '@org/common-next';
-import ioc from '../../../../ioc/ioc';
-import { LoginStore } from '../../login/store/login-store';
-
-const loginStore = ioc.get<LoginStore>('LoginStore');
+import { Layout } from '../../../components/layout';
 
 export const DashboardPage = observer(() => {
   return (
-    <div>
-      Вход успешен
-      <div className="">
-        <Button
-          onClick={() =>
-            loginStore.logout().then(() => window.location.reload())
-          }
-        >
-          Выход
-        </Button>
+    <Layout>
+      <div>
+        Вход успешен
+        <div className=""></div>
       </div>
-    </div>
+    </Layout>
   );
 });

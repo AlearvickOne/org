@@ -1,9 +1,9 @@
 import { IsEmail, MinLength, MaxLength } from 'class-validator';
 
 export class AuthDto {
-  @IsEmail({}, { message: 'В этом поле должен быть email' })
+  @IsEmail({}, { message: 'Поле не содержит Email' })
   email: string;
 
-  @MaxLength(16, { message: 'Пароль должен содержать меньше 16 символов' })
+  @MaxLength(16, { message: 'Не более 16 символов' })
   password: string;
 }

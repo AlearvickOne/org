@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import { injectable } from 'inversify';
 import { UserService } from '../../../services/user.service';
 import container from '../../../../ioc/ioc';
+import { pagesNames } from '../../../pages/pages-names';
 
 @injectable()
 export class LoginStore {
@@ -36,7 +37,7 @@ export class LoginStore {
         email: this.email,
         password: this.password,
       });
-      window.location.replace('http://localhost:4200/dashboard');
+      window.location.replace(`http://localhost:4200/${pagesNames.dashboard}`);
     } catch (error: any) {
       this.setErrors(error);
     }
@@ -44,6 +45,7 @@ export class LoginStore {
 
   async logout() {
     await this.userService.logout();
+    window.location.reload();
   }
 
   setErrors(error: any) {

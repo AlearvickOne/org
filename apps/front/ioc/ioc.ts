@@ -1,6 +1,5 @@
 import { Container } from 'inversify';
 import 'reflect-metadata';
-import { TestStore } from '../src/modules/test/store/test-store';
 import { UserService } from '../src/services/user.service';
 import { LoginStore } from '../src/modules/login/store/login-store';
 import { HttpService } from '../src/services/http.service';
@@ -10,7 +9,6 @@ import { UserStore } from '../src/main-stores/user-store';
 const container = new Container();
 
 // Сторы
-container.bind<TestStore>('TestStore').to(TestStore).inSingletonScope();
 container.bind<LoginStore>('LoginStore').to(LoginStore).inSingletonScope();
 container
   .bind<RegisterStore>('RegisterStore')

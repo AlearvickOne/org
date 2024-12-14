@@ -10,12 +10,18 @@ export class RegisterStore {
   message = '';
 
   email: string = '';
+
   password: string = '';
+  passwordCheck: string = '';
+  isPasswordCheckError: boolean = false;
+
   name: string = '';
   surname: string = '';
   phone: string = '';
 
   errorsValidate: any = {};
+
+  isSuccessRegister: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -28,6 +34,16 @@ export class RegisterStore {
 
   setPassword(v: string) {
     this.password = v;
+  }
+
+  setPasswordCheck(v: string) {
+    this.passwordCheck = v;
+
+    if (this.passwordCheck !== this.password) {
+      this.isPasswordCheckError = true;
+      return;
+    }
+    this.isPasswordCheckError = false;
   }
 
   setName(v: string) {
@@ -51,13 +67,17 @@ export class RegisterStore {
         surname: this.surname,
         phone: this.phone,
       });
+
+      this.setErrors({});
+      this.isSuccessRegister = true;
     } catch (error: any) {
       this.setErrors(error);
+      this.isSuccessRegister = false;
     }
   }
 
   setErrors(error: any) {
-    const er = error.response.data;
+    const er = error.response?.data;
     this.errorsValidate = er ? er : {};
   }
 }

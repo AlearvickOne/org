@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import ioc from '../../ioc/ioc';
 import { UserStore } from '../main-stores/user-store';
 import { useEffect, useState } from 'react';
+import { pagesNames } from './pages-names';
 
 const userStore = ioc.get<UserStore>('UserStore');
 
@@ -24,15 +25,15 @@ function CustomApp({ Component, pageProps }: AppProps) {
         await userStore.loadUser();
 
         if (
-          isLocation('/') ||
-          isLocation('/login') ||
-          isLocation('/register')
+          isLocation(pagesNames.main) ||
+          isLocation(pagesNames.login) ||
+          isLocation(pagesNames.register)
         ) {
           return setIsLoading(false);
         }
 
         if (!userStore.user.id) {
-          await router.replace('/login');
+          await router.replace(pagesNames.login);
           return setIsLoading(false);
         }
         return setIsLoading(false);
@@ -44,8 +45,8 @@ function CustomApp({ Component, pageProps }: AppProps) {
 
   if (isError) {
     return (
-      <div className="h-screen w-full flex justify-center items-center">
-        <div className="text-red-500 font-medium text-[26px] border-2 border-red-500 p-5 rounded-[20px]">
+      <div className="h-screen w-full flex justify-center items-center bg-default">
+        <div className="text-white font-medium text-[26px] p-5 bg-red-500 rounded-[15px]  drop-shadow-xl shadow-color-red">
           Ошибка загрузки!
         </div>
       </div>
@@ -59,7 +60,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
       </Head>
       <main className="app bg-default">
         {isLoading ? (
-          <div className="h-screen flex justify-center items-center">
+          <div className="h-screen flex justify-center items-center text-white text-[26px]">
             Загрузка...
           </div>
         ) : (
