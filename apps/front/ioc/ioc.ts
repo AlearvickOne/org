@@ -5,6 +5,7 @@ import { LoginStore } from '../src/modules/login/store/login-store';
 import { HttpService } from '../src/services/http.service';
 import { RegisterStore } from '../src/modules/register/store/register-store';
 import { UserStore } from '../src/main-stores/user-store';
+import { AccountStore } from '../src/modules/_users-pages/account/store/account-store';
 
 const container = new Container();
 
@@ -15,6 +16,10 @@ container
   .to(RegisterStore)
   .inSingletonScope();
 container.bind<UserStore>('UserStore').to(UserStore).inSingletonScope();
+container
+  .bind<AccountStore>('AccountStore')
+  .to(AccountStore)
+  .inSingletonScope();
 
 // Сервисы
 container.bind<HttpService>('HttpService').to(HttpService).inSingletonScope();

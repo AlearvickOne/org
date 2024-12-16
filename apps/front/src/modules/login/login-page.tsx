@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import container from '../../../ioc/ioc';
 import { LoginStore } from './store/login-store';
 import { useEffect } from 'react';
-import { Button, InputAuth } from '@org/common-next';
+import { Button, InputBase } from '@org/common-next';
 import { useRouter } from 'next/router';
 import { pagesNames } from '../../pages/pages-names';
 
@@ -26,7 +26,7 @@ export const LoginPage = observer(() => {
         <div className="text-red-500 text-[14px]">{loginStore.error}</div>
 
         <form className="flex flex-col justify-center items-center gap-y-5 w-full">
-          <InputAuth
+          <InputBase
             label="Email"
             type="email"
             value={loginStore.email}
@@ -35,7 +35,7 @@ export const LoginPage = observer(() => {
             placeholder="Введите Email"
           />
 
-          <InputAuth
+          <InputBase
             label="Пароль"
             type="password"
             value={loginStore.password}

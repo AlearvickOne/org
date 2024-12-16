@@ -1,4 +1,4 @@
-interface InputAuthProps {
+interface InputBaseProps {
   label: string;
   type: 'text' | 'password' | 'email' | 'tel';
   value: string;
@@ -7,14 +7,14 @@ interface InputAuthProps {
   error?: string | undefined;
 }
 
-export const InputAuth = ({
+export const InputBase = ({
   label,
   type,
   value,
   placeholder,
   onChange,
   error,
-}: InputAuthProps) => {
+}: InputBaseProps) => {
   return (
     <div className="w-full">
       <div className="flex flex-col gap-y-1">

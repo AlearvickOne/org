@@ -16,4 +16,8 @@ export class HttpService {
     return (await axios.post(backUrl + `/api/${url}`, data, this.config()))
       .data;
   }
+
+  async put(url: string, data: any) {
+    return (await axios.put(backUrl + `/api/${url}`, data, this.config())).data;
+  }
 }

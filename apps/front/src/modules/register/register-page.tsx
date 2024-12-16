@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 import container from '../../../ioc/ioc';
-import { Button, InputAuth } from '@org/common-next';
+import { Button, InputBase } from '@org/common-next';
 import { RegisterStore } from './store/register-store';
 import { useRouter } from 'next/router';
 import { pagesNames } from '../../pages/pages-names';
@@ -23,7 +23,7 @@ export const RegisterPage = observer(() => {
         </div>
         <div className="overflow-y-auto h-[500px] md:h-auto w-full">
           <form className="flex flex-col justify-center items-center gap-y-5 w-full md:overflow-hidden">
-            <InputAuth
+            <InputBase
               label="Email"
               type="email"
               value={registerStore.email}
@@ -33,7 +33,7 @@ export const RegisterPage = observer(() => {
             />
 
             <div className="flex flex-col w-full md:grid md:grid-cols-2 gap-x-5">
-              <InputAuth
+              <InputBase
                 label="Пароль"
                 type="password"
                 value={registerStore.password}
@@ -42,7 +42,7 @@ export const RegisterPage = observer(() => {
                 placeholder={'Введите пароль'}
               />
 
-              <InputAuth
+              <InputBase
                 label="Повторите пароль"
                 type="password"
                 value={registerStore.passwordCheck}
@@ -57,7 +57,7 @@ export const RegisterPage = observer(() => {
             </div>
 
             <div className="flex flex-col w-full md:grid md:grid-cols-2 gap-x-5">
-              <InputAuth
+              <InputBase
                 label="Имя"
                 type="text"
                 value={registerStore.name}
@@ -66,7 +66,7 @@ export const RegisterPage = observer(() => {
                 placeholder={'Введите имя'}
               />
 
-              <InputAuth
+              <InputBase
                 label="Фамилия"
                 type="text"
                 value={registerStore.surname}
@@ -76,7 +76,7 @@ export const RegisterPage = observer(() => {
               />
             </div>
 
-            <InputAuth
+            <InputBase
               label="Телефон"
               type="tel"
               value={registerStore.phone}

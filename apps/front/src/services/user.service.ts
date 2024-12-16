@@ -1,5 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { HttpService } from './http.service';
+import { UsersModel } from '../../../../types/models/users.model';
 
 @injectable()
 export class UserService {
@@ -19,5 +20,9 @@ export class UserService {
 
   async getMyUser() {
     return this.httpService.get('user/get-my-user');
+  }
+
+  async saveUser(user: UsersModel) {
+    return this.httpService.put('user/save-user', user);
   }
 }

@@ -1,15 +1,9 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpException,
-  Post,
-  Res,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { NextFunction, Request, Response } from 'express';
+import { Response } from 'express';
 import { AuthDto } from '../common/dto/auth.dto';
 import { RegistrationDto } from '../common/dto/registration.dto';
+import { httpError } from '../common/errors';
 
 @Controller('auth')
 export class AuthController {
@@ -28,7 +22,7 @@ export class AuthController {
     const token = await this.authService.login(data);
 
     if (!token) {
-      throw new HttpException('Не верный логин или пароль', 401);
+      throw httpError('Не верный логин или пароль');
     }
 
     await this.authService.saveTokenInCookie(res, token);
