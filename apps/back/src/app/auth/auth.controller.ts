@@ -26,7 +26,6 @@ export class AuthController {
     }
 
     await this.authService.saveTokenInCookie(res, token);
-    return true;
   }
 
   @Get('logout')

@@ -1,22 +1,42 @@
 import { Injectable } from '@nestjs/common';
-import * as argon2 from 'argon2';
 import { UsersEntity } from '../database/entitys/users.entity';
-import { Response, NextFunction } from 'express';
+import { Response } from 'express';
 import { dataSource } from '../../../../../data-source';
 import { RegistrationDto } from '../common/dto/registration.dto';
+import { inject } from 'inversify';
+import { TYPES } from '../../types';
+import { ConfigService } from '../../services/config.service';
+import { StringSharesNodeLib } from '../../../../../libs/common-node/src';
 
 @Injectable()
 export class AuthService {
-  private TOKEN_NAME = 'token';
+  private readonly TOKEN_NAME: string;
 
-  constructor() {}
+  constructor(
+    @inject(TYPES.ConfigService) private configService: ConfigService
+  ) {
+    this.TOKEN_NAME = this.configService.get('TOKEN_NAME');
+  }
+
+  async getUserByToken(token: string) {
+    if (!token) {
+      return null;
+    }
+
+    const decodeToken = await StringSharesNodeLib.toDecodeBase64(token);
+
+    return await UsersEntity.findOneBy({
+      token: decodeToken,
+    });
+  }
 
   async register(data: RegistrationDto) {
     const { password, ...u } = data;
 
-    const hashPass = await argon2.hash(password, { type: argon2.argon2id });
-
-    const token = await argon2.hash(u.email + Date.now().toString());
+    const hashPass = await StringSharesNodeLib.toHashArgon2(password);
+    const newToken = await StringSharesNodeLib.toHashArgon2(
+      u.email + new Date().toLocaleString()
+    );
 
     const user = new UsersEntity();
     user.name = u.name;
@@ -25,7 +45,7 @@ export class AuthService {
     user.phone = u.phone;
     user.email = u.email;
     user.password = hashPass;
-    user.token = token;
+    user.token = newToken;
     await user.save();
   }
 
@@ -34,18 +54,21 @@ export class AuthService {
     const user = await dataSource
       .getRepository(UsersEntity)
       .createQueryBuilder('user')
-      .where('user.email = :Email', { Email: email }) // Добавлен двоеточие (:)
-      .addSelect(['user.password', 'user.token']) // Указываем путь к полям
+      .where('user.email = :Email', { Email: email })
+      .addSelect(['user.password', 'user.token'])
       .getOne();
 
     if (!user) {
       return null;
     }
 
-    const verifyPass = await argon2.verify(user.password, password);
+    const verifyPass = await StringSharesNodeLib.verifyHashArgon2(
+      user.password,
+      password
+    );
 
     if (verifyPass) {
-      return user.token;
+      return await StringSharesNodeLib.toEncodeBase64(user.token);
     }
 
     return null;
@@ -55,7 +78,7 @@ export class AuthService {
     return res.cookie(this.TOKEN_NAME, token, {
       httpOnly: true,
       domain: 'localhost',
-      expires: new Date(Date.now() + 60 * 60 * 1000),
+      maxAge: 100_000 * 100_000,
       secure: true,
       sameSite: 'none',
     });

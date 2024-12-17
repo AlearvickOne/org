@@ -93,7 +93,7 @@ export const RegisterPage = observer(() => {
               Уже есть аккаунт?{' '}
               <span
                 className="text-blue-500 underline cursor-pointer"
-                onClick={() => router.push(pagesNames.register)}
+                onClick={() => router.push(pagesNames.login)}
               >
                 Войти!
               </span>

@@ -7,11 +7,12 @@ import { AuthMiddleware } from '../middlewares/auth.middleware';
 import { DatabaseModule } from './database/database.module';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
+import { ConfigService } from '../services/config.service';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [AppController, UserController, AuthController],
-  providers: [AppService, UserService, AuthService],
+  providers: [AppService, UserService, AuthService, ConfigService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

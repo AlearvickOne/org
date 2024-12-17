@@ -22,8 +22,4 @@ export class UserStore {
       throw error;
     }
   }
-
-  setNameThisUser(v: string) {
-    this.user.name = v;
-  }
 }

@@ -4,14 +4,6 @@ import { UsersModel } from '../../../../../types/models/users.model';
 
 @Injectable()
 export class UserService {
-  async getUserByToken(token: string) {
-    if (!token) {
-      return null;
-    }
-
-    return await UsersEntity.findOneBy({ token: token });
-  }
-
   async getMyUser(id: number) {
     return UsersEntity.findOneBy({ id: id });
   }
