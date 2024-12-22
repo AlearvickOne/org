@@ -20,6 +20,10 @@ export class AccountStore {
   }
 
   user: UsersModel = defaultUser;
+
+  password = '';
+  checkedPassword = '';
+
   activeTab = 0;
 
   tabs = [
@@ -56,9 +60,17 @@ export class AccountStore {
     this.user.surname = v;
   }
 
+  setPassword(v: string) {
+    this.password = v;
+  }
+
+  setCheckedPassword(v: string) {
+    this.checkedPassword = v;
+  }
+
   async saveUser() {
     try {
-      await this.userService.saveUser(this.user);
+      await this.userService.saveUser(this.user, this.password);
       window.location.reload();
     } catch (error) {
       console.error(error);

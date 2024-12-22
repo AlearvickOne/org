@@ -41,8 +41,8 @@ export class AuthService {
     const user = new UsersEntity();
     user.name = u.name;
     user.surname = u.surname;
+    user.nickname = u.nickname;
     user.role = 1;
-    user.phone = u.phone;
     user.email = u.email;
     user.password = hashPass;
     user.token = newToken;

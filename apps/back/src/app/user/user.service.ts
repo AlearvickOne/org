@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UsersEntity } from '../database/entitys/users.entity';
 import { UsersModel } from '../../../../../types/models/users.model';
+import { StringSharesNodeLib } from '../../../../../libs/common-node/src';
 
 @Injectable()
 export class UserService {
@@ -13,6 +14,13 @@ export class UserService {
 
     foundUser.name = user.name;
     foundUser.surname = user.surname;
+
+    if (user.password) {
+      foundUser.password = await StringSharesNodeLib.toHashArgon2(
+        user.password
+      );
+    }
+
     return await foundUser.save();
   }
 }

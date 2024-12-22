@@ -1,13 +1,13 @@
 import { observer } from 'mobx-react';
-import { Layout } from '../../../components/layout';
+import { LayoutUser } from '../../../components/layout-user';
 
 export const DashboardPage = observer(() => {
   return (
-    <Layout>
+    <LayoutUser>
       <div>
         Вход успешен
         <div className=""></div>
       </div>
-    </Layout>
+    </LayoutUser>
   );
 });

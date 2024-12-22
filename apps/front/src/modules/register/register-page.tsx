@@ -77,15 +77,18 @@ export const RegisterPage = observer(() => {
             </div>
 
             <InputBase
-              label="Телефон"
-              type="tel"
-              value={registerStore.phone}
-              onChange={(v) => registerStore.setPhone(v)}
-              error={registerStore.errorsValidate['phone']}
-              placeholder={'Введите телефон'}
+              label="Ваш ник"
+              type="text"
+              value={registerStore.nickname}
+              onChange={(v) => registerStore.setNickname(v)}
+              error={registerStore.errorsValidate['nickname']}
+              placeholder={'Введите ваш ник'}
             />
 
-            <Button onClick={() => registerStore.register()}>
+            <Button
+              isDisabled={registerStore.isPasswordCheckError}
+              onClick={() => registerStore.register()}
+            >
               Зарегистрироваться
             </Button>
 

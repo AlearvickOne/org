@@ -2,8 +2,16 @@ export default {
   displayName: 'front',
   preset: '../../jest.preset.js',
   transform: {
-    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
-    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/next/babel'] }],
+    '^.+\\.[tj]sx?$': [
+      'babel-jest',
+      {
+        presets: ['@nx/next/babel'],
+        plugins: [
+          ['@babel/plugin-proposal-decorators', { version: 'legacy' }],
+          ['@babel/plugin-proposal-class-properties', { loose: true }],
+        ],
+      },
+    ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/apps/front',

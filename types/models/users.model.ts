@@ -3,9 +3,10 @@ export interface UsersModel {
   role: number;
   name: string;
   surname: string;
+  nickname: string;
   email: string;
-  phone: string;
   token?: string;
+  password?: string;
   created_at?: string;
 }
 
@@ -14,6 +15,6 @@ export const defaultUser: UsersModel = {
   role: -1,
   name: '',
   surname: '',
+  nickname: '',
   email: '',
-  phone: '',
 };

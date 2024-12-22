@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import { Layout } from '../../../components/layout';
+import { LayoutUser } from '../../../components/layout-user';
 import { MenuAccount } from './components/menu-account';
 import { UserStore } from '../../../main-stores/user-store';
 import ioc from '../../../../ioc/ioc';
@@ -25,12 +25,12 @@ export const AccountPage = observer(() => {
   };
 
   return (
-    <Layout>
+    <LayoutUser>
       <div className="flex gap-x-20">
         <MenuAccount userStore={userStore} accountStore={accountStore} />
 
         {activeTab(accountStore.activeTab)}
       </div>
-    </Layout>
+    </LayoutUser>
   );
 });

@@ -15,11 +15,11 @@ export class UsersEntity extends BaseEntity implements UsersModel {
   @Column()
   surname: string;
 
-  @Column({ select: false })
-  email: string;
+  @Column()
+  nickname: string;
 
   @Column({ select: false })
-  phone: string;
+  email: string;
 
   @Column({ select: false })
   password: string;

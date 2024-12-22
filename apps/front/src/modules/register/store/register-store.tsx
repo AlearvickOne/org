@@ -17,7 +17,7 @@ export class RegisterStore {
 
   name: string = '';
   surname: string = '';
-  phone: string = '';
+  nickname: string = '';
 
   errorsValidate: any = {};
 
@@ -34,11 +34,15 @@ export class RegisterStore {
 
   setPassword(v: string) {
     this.password = v;
+    this.localCheckedPassword();
   }
 
   setPasswordCheck(v: string) {
     this.passwordCheck = v;
+    this.localCheckedPassword();
+  }
 
+  private localCheckedPassword() {
     if (this.passwordCheck !== this.password) {
       this.isPasswordCheckError = true;
       return;
@@ -54,8 +58,8 @@ export class RegisterStore {
     this.surname = v;
   }
 
-  setPhone(v: string) {
-    this.phone = v;
+  setNickname(v: string) {
+    this.nickname = v;
   }
 
   async register() {
@@ -65,7 +69,7 @@ export class RegisterStore {
         password: this.password,
         name: this.name,
         surname: this.surname,
-        phone: this.phone,
+        nickname: this.nickname,
       });
 
       this.setErrors({});

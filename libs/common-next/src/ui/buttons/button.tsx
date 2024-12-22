@@ -1,9 +1,16 @@
+import { clsx } from 'clsx';
+
 interface ButtonProps {
   children: React.ReactNode;
+  isDisabled?: boolean;
   onClick: () => void;
 }
 
-export const Button = ({ children, onClick }: ButtonProps) => {
+export const Button = ({
+  children,
+  onClick,
+  isDisabled = false,
+}: ButtonProps) => {
   const handleClick = (e: any) => {
     e.preventDefault();
     onClick();
@@ -11,8 +18,12 @@ export const Button = ({ children, onClick }: ButtonProps) => {
 
   return (
     <button
+      disabled={isDisabled}
       onClick={handleClick}
-      className="bg-blue-500 text-white py-2 px-8 rounded-[10px] w-full"
+      className={clsx(
+        `text-white py-2 px-8 rounded-[10px] w-full`,
+        isDisabled ? `bg-blue-300` : `bg-blue-500`
+      )}
     >
       {children}
     </button>

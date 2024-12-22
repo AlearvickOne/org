@@ -11,7 +11,10 @@ interface Props {
 export const MenuAccount = observer(({ userStore, accountStore }: Props) => {
   return (
     <div className="w-full max-w-[250px] border-1 px-5 py-8">
-      <div className="">{`${userStore.user.name} ${userStore.user.surname}`}</div>
+      <div className="">
+        <div>{`${userStore.user.name} ${userStore.user.surname}`}</div>
+        <div>{`${userStore.user.nickname}`}</div>
+      </div>
 
       <div className="border-b-1 my-5"></div>
 

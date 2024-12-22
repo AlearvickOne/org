@@ -8,9 +8,9 @@ export class CreateTableUsers1733670537627 implements MigrationInterface {
         role INT,
         name VARCHAR(50),
         surname VARCHAR(50),
+        nickname VARCHAR(50),
         email VARCHAR(50),
         password VARCHAR(255),
-        phone VARCHAR(50),
         token VARCHAR(255),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )

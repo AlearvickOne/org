@@ -22,7 +22,14 @@ export class UserService {
     return this.httpService.get('user/get-my-user');
   }
 
-  async saveUser(user: UsersModel) {
-    return this.httpService.put('user/save-user', user);
+  async saveUser(user: UsersModel, password: string) {
+    const path = 'user/save-user';
+
+    if (password.length > 0) {
+      const u = { ...user, password: password };
+      return this.httpService.put(path, u);
+    }
+
+    return this.httpService.put(path, user);
   }
 }

@@ -5,12 +5,12 @@ import {
 } from 'class-validator';
 import { UsersEntity } from '../../../app/database/entitys/users.entity';
 
-interface IsEmailExistProps {
+interface IsNicknameExistProps {
   message: string;
 }
 
-export function IsEmailExist(
-  options: IsEmailExistProps,
+export function IsNicknameExist(
+  options: IsNicknameExistProps,
   validationOptions?: ValidatorOptions
 ) {
   return function (object: Object, propertyName: string) {
@@ -22,7 +22,7 @@ export function IsEmailExist(
       options: validationOptions,
       validator: {
         async validate(value: any, args: ValidationArguments) {
-          const user = await UsersEntity.findOneBy({ email: value });
+          const user = await UsersEntity.findOneBy({ nickname: value });
 
           return !user ? true : false;
         },

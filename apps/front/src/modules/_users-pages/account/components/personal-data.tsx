@@ -25,6 +25,24 @@ export const PersonalData = observer(({ accountStore }: Props) => {
         }}
         placeholder="Введите вашу фамилию"
       />
+      <InputBase
+        label="Новый пароль"
+        type="password"
+        value={accountStore.password}
+        onChange={(v) => {
+          accountStore.setPassword(v);
+        }}
+        placeholder="Введите новый пароль"
+      />
+      <InputBase
+        label="Повторите пароль"
+        type="password"
+        value={accountStore.checkedPassword}
+        onChange={(v) => {
+          accountStore.setCheckedPassword(v);
+        }}
+        placeholder="Повторите новый пароль"
+      />
 
       <Button onClick={() => accountStore.saveUser()}>Сохранить</Button>
     </div>

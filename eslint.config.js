@@ -10,6 +10,7 @@ module.exports = [
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
+      'no-unneeded-ternary': 'off',
       '@nx/enforce-module-boundaries': [
         'error',
         {
