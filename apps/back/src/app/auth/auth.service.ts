@@ -51,9 +51,7 @@ export class AuthService {
 
   async login(data: any) {
     const { email, password } = data;
-    const user = await dataSource
-      .getRepository(UsersEntity)
-      .createQueryBuilder('user')
+    const user = await UsersEntity.createQueryBuilder('user')
       .where('user.email = :Email', { Email: email })
       .addSelect(['user.password', 'user.token'])
       .getOne();

@@ -1,6 +1,5 @@
 import { injectable } from 'inversify';
 import { makeAutoObservable } from 'mobx';
-import { UserStore } from '../../../../main-stores/user-store';
 import ioc from '../../../../../ioc/ioc';
 import {
   defaultUser,
@@ -10,26 +9,25 @@ import { UserService } from '../../../../services/user.service';
 
 @injectable()
 export class AccountStore {
-  userStore: UserStore;
   userService: UserService;
 
   constructor() {
     makeAutoObservable(this);
-    this.userStore = ioc.get<UserStore>('UserStore');
+
     this.userService = ioc.get<UserService>('UserService');
   }
 
   user: UsersModel = defaultUser;
 
   password = '';
-  checkedPassword = '';
+  passwordCheck = '';
+  isPasswordCheckError: boolean = false;
 
   activeTab = 0;
 
   tabs = [
     { id: 0, title: 'Личные данные', isActive: false },
-    { id: 1, title: 'Личные данные1', isActive: false },
-    { id: 2, title: 'Личные данные2', isActive: false },
+    { id: 1, title: 'Сменить пароль', isActive: false },
   ];
 
   async init() {
@@ -38,7 +36,7 @@ export class AccountStore {
   }
 
   async loadUser() {
-    this.user = { ...this.userStore.user };
+    this.user = await this.userService.getMyUserAndEmail();
   }
 
   setActiveTab(v: number) {
@@ -62,10 +60,20 @@ export class AccountStore {
 
   setPassword(v: string) {
     this.password = v;
+    this.localCheckedPassword();
   }
 
-  setCheckedPassword(v: string) {
-    this.checkedPassword = v;
+  setPasswordCheck(v: string) {
+    this.passwordCheck = v;
+    this.localCheckedPassword();
+  }
+
+  private localCheckedPassword() {
+    if (this.passwordCheck !== this.password) {
+      this.isPasswordCheckError = true;
+      return;
+    }
+    this.isPasswordCheckError = false;
   }
 
   async saveUser() {

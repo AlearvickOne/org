@@ -8,7 +8,7 @@ interface Props {
 
 export const PersonalData = observer(({ accountStore }: Props) => {
   return (
-    <div className="w-full">
+    <div className="flex flex-col gap-y-[15px] w-full">
       <InputBase
         label="Имя"
         type="text"
@@ -16,6 +16,7 @@ export const PersonalData = observer(({ accountStore }: Props) => {
         onChange={(v) => accountStore.setName(v)}
         placeholder="Введите ваше имя"
       />
+
       <InputBase
         label="Фамилия"
         type="text"
@@ -25,26 +26,35 @@ export const PersonalData = observer(({ accountStore }: Props) => {
         }}
         placeholder="Введите вашу фамилию"
       />
+
       <InputBase
-        label="Новый пароль"
-        type="password"
-        value={accountStore.password}
+        label="Ваш ник"
+        type="text"
+        value={accountStore.user.nickname}
         onChange={(v) => {
-          accountStore.setPassword(v);
+          accountStore.setSurname(v);
         }}
-        placeholder="Введите новый пароль"
-      />
-      <InputBase
-        label="Повторите пароль"
-        type="password"
-        value={accountStore.checkedPassword}
-        onChange={(v) => {
-          accountStore.setCheckedPassword(v);
-        }}
-        placeholder="Повторите новый пароль"
+        placeholder="Введите вашу фамилию"
       />
 
-      <Button onClick={() => accountStore.saveUser()}>Сохранить</Button>
+      <InputBase
+        label="Email"
+        type="text"
+        value={accountStore.user.email}
+        onChange={(v) => {
+          accountStore.setSurname(v);
+        }}
+        placeholder="Введите ваш email"
+      />
+
+      <div className="w-[150px]">
+        <Button
+          isDisabled={accountStore.isPasswordCheckError}
+          onClick={() => accountStore.saveUser()}
+        >
+          Сохранить
+        </Button>
+      </div>
     </div>
   );
 });

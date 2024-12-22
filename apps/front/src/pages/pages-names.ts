@@ -1,5 +1,5 @@
 export const pagesNames = {
-  main: '/',
+  home: '/',
   login: '/login',
   register: '/register',
   dashboard: '/dashboard',

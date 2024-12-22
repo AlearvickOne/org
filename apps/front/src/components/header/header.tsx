@@ -13,31 +13,47 @@ export const Header = observer(() => {
 
   return (
     <div className="bg-white h-[50px] flex justify-between items-center">
-      <div className="ml-12 cursor-pointer">Лого</div>
+      <div
+        className="ml-12 cursor-pointer"
+        onClick={() => router.push(pagesNames.home)}
+      >
+        Лого
+      </div>
 
-      <ul className="flex items-center">
-        <li
-          className="cursor-pointer"
-          onClick={() => router.push(pagesNames.dashboard)}
-        >
-          Dashboard
-        </li>
-      </ul>
+      {userStore.user ? (
+        <>
+          <ul className="flex items-center">
+            <li
+              className="cursor-pointer"
+              onClick={() => router.push(pagesNames.dashboard)}
+            >
+              Dashboard
+            </li>
+          </ul>
 
-      <div className="flex gap-x-12">
-        <div
-          className="cursor-pointer"
-          onClick={() => router.push(pagesNames.account)}
-        >
-          {`${userStore.user.name} ${userStore.user.surname}`}
-        </div>
+          <div className="flex gap-x-12">
+            <div
+              className="cursor-pointer"
+              onClick={() => router.push(pagesNames.account)}
+            >
+              {`${userStore.user.name} ${userStore.user.surname}`}
+            </div>
+            <div
+              className="mr-12 cursor-pointer"
+              onClick={() => loginStore.logout()}
+            >
+              Выход
+            </div>
+          </div>
+        </>
+      ) : (
         <div
           className="mr-12 cursor-pointer"
-          onClick={() => loginStore.logout()}
+          onClick={() => router.push(pagesNames.login)}
         >
-          Выход
+          Войти
         </div>
-      </div>
+      )}
     </div>
   );
 });

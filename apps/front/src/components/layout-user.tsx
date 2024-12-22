@@ -1,10 +1,10 @@
 import { Header } from './header/header';
 import { Footer } from './footer/footer';
-
 import { observer } from 'mobx-react';
+import { ReactNode } from 'react';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export const LayoutUser = observer(({ children }: LayoutProps) => {
@@ -13,7 +13,9 @@ export const LayoutUser = observer(({ children }: LayoutProps) => {
       <div className="max-w-[1366px] w-full flex flex-col bg-white">
         <Header />
 
-        <div className="flex-grow mx-[50px]">{children}</div>
+        <div className="flex-grow mx-[50px]">
+          <div className="w-full">{children}</div>
+        </div>
 
         <Footer />
       </div>

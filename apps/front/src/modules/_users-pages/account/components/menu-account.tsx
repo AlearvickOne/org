@@ -10,15 +10,18 @@ interface Props {
 
 export const MenuAccount = observer(({ userStore, accountStore }: Props) => {
   return (
-    <div className="w-full max-w-[250px] border-1 px-5 py-8">
-      <div className="">
-        <div>{`${userStore.user.name} ${userStore.user.surname}`}</div>
-        <div>{`${userStore.user.nickname}`}</div>
+    <div className="w-full h-full max-w-[300px] border-1 border-blue-500 rounded-[20px] px-5 py-8">
+      <div className="flex items-center justify-center gap-x-10">
+        <div className="">Фото</div>
+        <div className="">
+          <div>{`${userStore.user.name} ${userStore.user.surname}`}</div>
+          <div className="font-medium">{`Ваш ник: ${userStore.user.nickname}`}</div>
+        </div>
       </div>
 
       <div className="border-b-1 my-5"></div>
 
-      <div className="">
+      <div className="flex flex-col justify-center items-center">
         <ul>
           {accountStore.tabs.map((tab) => (
             <li

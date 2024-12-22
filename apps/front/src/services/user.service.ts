@@ -22,6 +22,10 @@ export class UserService {
     return this.httpService.get('user/get-my-user');
   }
 
+  async getMyUserAndEmail() {
+    return this.httpService.get('user/get-my-user-and-email');
+  }
+
   async saveUser(user: UsersModel, password: string) {
     const path = 'user/save-user';
 

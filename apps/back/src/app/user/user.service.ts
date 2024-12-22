@@ -9,6 +9,15 @@ export class UserService {
     return UsersEntity.findOneBy({ id: id });
   }
 
+  async getMyUserAndEmail(id: number) {
+    return await UsersEntity.createQueryBuilder('user')
+      .where('user.id = :userId', {
+        userId: id,
+      })
+      .addSelect('user.email')
+      .getOne();
+  }
+
   async saveUser(user: UsersModel) {
     let foundUser = await UsersEntity.findOneBy({ id: user.id });
 

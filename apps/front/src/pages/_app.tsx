@@ -25,7 +25,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
         await userStore.loadUser();
 
         if (
-          isLocation(pagesNames.main) ||
+          isLocation(pagesNames.home) ||
           isLocation(pagesNames.login) ||
           isLocation(pagesNames.register)
         ) {
@@ -33,7 +33,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
         }
 
         if (!userStore.user.id) {
-          await router.replace(pagesNames.login);
+          await router.replace(pagesNames.home);
           return setIsLoading(false);
         }
         return setIsLoading(false);

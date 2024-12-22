@@ -12,6 +12,11 @@ export class UserController {
     return await this.userService.getMyUser(req.user.id);
   }
 
+  @Get('get-my-user-and-email')
+  async getMyUserAndEmail(@Req() req: Request) {
+    return await this.userService.getMyUserAndEmail(req.user.id);
+  }
+
   @Put('save-user')
   async saveUser(@Req() req: Request) {
     const user = req.body;
