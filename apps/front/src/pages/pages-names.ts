@@ -3,6 +3,9 @@ export const pagesNames = {
   login: '/login',
   register: '/register',
   dashboard: '/dashboard',
-  admin: '/admin',
   account: '/account',
+
+  // Admin
+  adminDashboard: 'admin/admin-dashboard',
+  adminBlogs: 'admin/admin-blogs',
 };

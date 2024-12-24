@@ -6,6 +6,7 @@ import { HttpService } from '../src/services/http.service';
 import { RegisterStore } from '../src/modules/register/store/register-store';
 import { UserStore } from '../src/main-stores/user-store';
 import { AccountStore } from '../src/modules/_users-pages/account/store/account-store';
+import { AdminStore } from '../src/main-stores/admin-store';
 
 const container = new Container();
 
@@ -20,6 +21,7 @@ container
   .bind<AccountStore>('AccountStore')
   .to(AccountStore)
   .inSingletonScope();
+container.bind<AdminStore>('AdminStore').to(AdminStore).inSingletonScope();
 
 // Сервисы
 container.bind<HttpService>('HttpService').to(HttpService).inSingletonScope();
