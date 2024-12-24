@@ -56,9 +56,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to front!</title>
+        <title>Блог</title>
       </Head>
-      <main className="app bg-default">
+      <main className="bg-default font-sans">
         {isLoading ? (
           <div className="h-screen flex justify-center items-center text-white text-[26px]">
             Загрузка...

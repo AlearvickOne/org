@@ -21,7 +21,7 @@ export const Button = ({
       disabled={isDisabled}
       onClick={handleClick}
       className={clsx(
-        `text-white py-2 px-8 rounded-[10px] w-full`,
+        `text-white py-2 px-8 rounded-[15px] w-full`,
         isDisabled ? `bg-blue-300` : `bg-blue-500`
       )}
     >
