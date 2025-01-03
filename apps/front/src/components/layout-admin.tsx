@@ -12,9 +12,9 @@ export const LayoutAdmin = observer(({ children }: LayoutAdminProps) => {
     <div className="flex justify-center min-h-screen">
       <div className="max-w-[1366px] w-full flex flex-col bg-white">
         <Header />
-        <div className="flex mt-10 px-[20px]">
+        <div className="flex gap-x-12 mt-10 px-[20px]">
           <AdminPaths />
-          <div className="">{children}</div>
+          <div className="w-full">{children}</div>
         </div>
       </div>
     </div>
