@@ -3,13 +3,27 @@ import { LayoutAdmin } from '../../../../components/layout-admin';
 import ioc from '../../../../../ioc/ioc';
 import { AdminUsersStore } from '../store/admin-users-store';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { InputBase } from '@org/common-next';
+import { useEffect, useState } from 'react';
+import { AdminUserEditCommon } from './admin-user-edit-common';
+import { AdminUserEditPassword } from './admin-user-edit-password';
 
 const adminUsersStore = ioc.get<AdminUsersStore>('AdminUsersStore');
 
 export const AdminUserEdit = observer(() => {
+  const [tabIndex, setTabIndex] = useState<number>(0);
+
   const router = useRouter();
+
+  const tabs = [
+    {
+      title: 'Общее',
+      component: <AdminUserEditCommon adminUsersStore={adminUsersStore} />,
+    },
+    {
+      title: 'Пароль',
+      component: <AdminUserEditPassword adminUsersStore={adminUsersStore} />,
+    },
+  ];
 
   useEffect(() => {
     adminUsersStore.loadUser(router.query.id as string).then();
@@ -18,40 +32,13 @@ export const AdminUserEdit = observer(() => {
   const userFio = `${adminUsersStore.user.name} ${adminUsersStore.user.surname} - ( ${adminUsersStore.user.nickname} )`;
 
   return (
-    <LayoutAdmin titleHead={userFio}>
-      <div className="grid grid-rows-2 grid-cols-2 gap-x-8 gap-y-5">
-        <InputBase
-          label={'Имя'}
-          type={'text'}
-          value={adminUsersStore.user.name}
-          placeholder={'Введите имя пользователя'}
-          onChange={(v) => adminUsersStore.setName(v)}
-        />
-        <InputBase
-          label={'Фамилия'}
-          type={'text'}
-          value={adminUsersStore.user.surname}
-          placeholder={'Введите фамилию пользователя'}
-          onChange={(v) => {
-            adminUsersStore.setSurname(v);
-          }}
-        />
-
-        <InputBase
-          label={'Ник'}
-          type={'text'}
-          value={adminUsersStore.user.nickname}
-          placeholder={'Введите ник пользователя'}
-          onChange={(v) => adminUsersStore.setNickname(v)}
-        />
-        <InputBase
-          label={'Email'}
-          type={'text'}
-          value={adminUsersStore.user.email}
-          placeholder={'Введите email пользователя'}
-          onChange={(v) => adminUsersStore.setEmail(v)}
-        />
-      </div>
+    <LayoutAdmin
+      titleHead={userFio}
+      tabs={tabs}
+      tabIndex={tabIndex}
+      setTabIndex={(v) => setTabIndex(v)}
+    >
+      {tabs[tabIndex].component}
     </LayoutAdmin>
   );
 });
