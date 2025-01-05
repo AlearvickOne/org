@@ -21,7 +21,7 @@ export const LayoutAdmin = observer(({ children }: LayoutAdminProps) => {
           <div className="w-full bg-blue-200 rounded-md">
             <div className="px-[40px] py-[50px]">
               <div className="bg-white rounded-md p-5 border-1 border-blue-500">
-                <div className="text-h4 font-medium">
+                <div className="text-h5-2 font-medium">
                   {adminStore.adminPaths[adminStore.currentPageId].name}
                 </div>
                 <div className="border-b-1 border-blue-500 w-full mt-3 mb-5" />
