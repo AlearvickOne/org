@@ -18,7 +18,7 @@ export const AdminTable = ({ heads, bodys }: AdminTableProps) => {
         </thead>
         <tbody>
           {bodys.map((b, index) => (
-            <tr className="border-b" key={index}>
+            <tr className="border-b-1" key={index}>
               {Object.values(b).map((value, vIndex) => (
                 <td className="py-2 px-5" key={vIndex}>
                   {value}

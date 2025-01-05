@@ -8,4 +8,5 @@ export const pagesNames = {
   // Admin
   adminDashboard: 'admin/admin-dashboard',
   adminBlogs: 'admin/admin-blogs',
+  adminUsers: 'admin/admin-users',
 };

@@ -1,29 +1,41 @@
 import { observer } from 'mobx-react';
-import ioc from '../../../ioc/ioc';
 import { AdminStore } from '../../main-stores/admin-store';
 import { useRouter } from 'next/router';
 import { clsx } from 'clsx';
 
-const adminStore = ioc.get<AdminStore>('AdminStore');
+interface AdminPathsProps {
+  adminStore: AdminStore;
+}
 
-export const AdminPaths = observer(() => {
+export const AdminPaths = observer(({ adminStore }: AdminPathsProps) => {
   const router = useRouter();
 
   return (
-    <div className="border-1 px-2 py-5 rounded-[15px] min-w-[120px] flex flex-col items-center gap-y-[10px] border-blue-500">
-      {adminStore.adminPaths.map((path) => (
-        <div
-          key={path.id}
-          onClick={() => router.push(path.pathname.split('/')[1])}
-          className={clsx(
-            window.location.pathname === `/${path.pathname}`
-              ? 'text-blue-500'
-              : 'text-black'
-          )}
-        >
-          {path.name}
-        </div>
-      ))}
+    <div className="px-2 py-5 rounded-[15px] w-full max-w-[200px] flex flex-col gap-y-[10px]">
+      {adminStore.adminPaths.map((path) => {
+        const isCurrentPath = window.location.pathname === `/${path.pathname}`;
+
+        if (isCurrentPath) {
+          adminStore.setCurrentPageId(path.id);
+        }
+
+        return (
+          <div
+            key={path.id}
+            onClick={() => {
+              adminStore.setCurrentPageId(path.id);
+              return router.push(path.pathname.split('/')[1]);
+            }}
+            className={clsx(
+              'flex gap-x-2 pb-3 items-center border-b-1 cursor-pointer',
+              isCurrentPath ? 'text-blue-500 border-blue-500' : 'text-black'
+            )}
+          >
+            {path.icon}
+            {path.name}
+          </div>
+        );
+      })}
     </div>
   );
 });
