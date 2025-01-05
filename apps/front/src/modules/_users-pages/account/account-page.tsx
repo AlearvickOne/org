@@ -16,7 +16,6 @@ const accountStore = ioc.get<AccountStore>('AccountStore');
 export const AccountPage = observer(() => {
   useEffect(() => {
     accountStore.init().then();
-    console.log(accountStore.user);
   }, []);
 
   const activeTab = (tabNumber: number) => {
