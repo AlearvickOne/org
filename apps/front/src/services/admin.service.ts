@@ -8,4 +8,8 @@ export class AdminService {
   async getAllUsers() {
     return await this.httpService.get('admin/get-all-users');
   }
+
+  async getUser(id: string) {
+    return await this.httpService.get(`admin/get-user?id=${id}`);
+  }
 }

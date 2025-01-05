@@ -8,7 +8,7 @@ export const AdminTable = ({ heads, bodys }: AdminTableProps) => {
     <div className="rounded-md overflow-hidden">
       <table className="w-full">
         <thead className="bg-violet-50 font-medium">
-          <tr>
+          <tr className="text-[15px]">
             {heads.map((head, index) => (
               <td className="py-2 px-5" key={index}>
                 {head}
@@ -18,7 +18,7 @@ export const AdminTable = ({ heads, bodys }: AdminTableProps) => {
         </thead>
         <tbody>
           {bodys.map((b, index) => (
-            <tr className="border-b-1" key={index}>
+            <tr className="border-b-1 text-[14px]" key={index}>
               {Object.values(b).map((value, vIndex) => (
                 <td className="py-2 px-5" key={vIndex}>
                   {value}

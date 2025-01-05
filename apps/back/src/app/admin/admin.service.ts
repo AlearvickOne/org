@@ -6,12 +6,15 @@ export class AdminService {
   constructor() {}
 
   async getAllUsers() {
-    const users = await UsersEntity.createQueryBuilder('users')
+    return await UsersEntity.createQueryBuilder('users')
       .addSelect(['users.email'])
       .getMany();
+  }
 
-    console.log(users);
-
-    return users;
+  async getUser(id: number) {
+    return await UsersEntity.createQueryBuilder('users')
+      .where('id = :Id', { Id: id })
+      .addSelect(['users.email'])
+      .getOne();
   }
 }

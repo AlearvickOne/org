@@ -6,7 +6,7 @@ export const pagesNames = {
   account: '/account',
 
   // Admin
-  adminDashboard: 'admin/admin-dashboard',
-  adminBlogs: 'admin/admin-blogs',
-  adminUsers: 'admin/admin-users',
+  adminDashboard: '/admin/admin-dashboard',
+  adminBlogs: '/admin/admin-blogs',
+  adminUsers: '/admin/admin-users',
 };
