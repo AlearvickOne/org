@@ -1,4 +1,4 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Post, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { AdminService } from './admin.service';
 
@@ -20,5 +20,12 @@ export class AdminController {
     }
 
     return await this.adminService.getUser(userId);
+  }
+
+  @Post('save-user')
+  async saveUser(@Req() req: Request) {
+    const user = req.body;
+
+    return await this.adminService.saveUser(user);
   }
 }

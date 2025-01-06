@@ -1,6 +1,11 @@
 import { observer } from 'mobx-react';
 import { LayoutAdmin } from '../../../components/layout-admin';
-import { AdminTable, DateTimeLib, IconEditor } from '@org/common-next';
+import {
+  AdminTable,
+  DateTimeLib,
+  IconEditor,
+  IconNewUser,
+} from '@org/common-next';
 import ioc from '../../../../ioc/ioc';
 import { AdminUsersStore } from './store/admin-users-store';
 import { useEffect } from 'react';
@@ -18,6 +23,15 @@ export const AdminUsersPage = observer(() => {
 
   return (
     <LayoutAdmin>
+      <div className="flex">
+        <div
+          className="mb-5 cursor-pointer p-1 rounded-md bg-violet-100"
+          onClick={() => router.push(`${pagesNames.adminUsers}/user`)}
+        >
+          <IconNewUser />
+        </div>
+      </div>
+
       <AdminTable
         heads={['id', 'Email', 'Роль', 'ФИО', 'Ник', 'Дата создания', '']}
         bodys={adminUsersStore.users.map((user) => {

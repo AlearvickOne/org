@@ -45,7 +45,9 @@ export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
 
       <div className="flex mt-5">
         <div className="">
-          <Button onClick={() => {}}>Сохранить</Button>
+          <Button onClick={() => adminUsersStore.saveEditUser()}>
+            Сохранить
+          </Button>
         </div>
       </div>
     </div>

@@ -7,7 +7,6 @@ import {
 import { AdminService } from '../../../../services/admin.service';
 import ioc from '../../../../../ioc/ioc';
 import { pagesNames } from '../../../../pages/pages-names';
-import { IconClipboard, IconMonitor, IconUsers } from '@org/common-next';
 
 @injectable()
 export class AdminUsersStore {
@@ -16,6 +15,11 @@ export class AdminUsersStore {
   users: UsersModel[] = [];
 
   user: UsersModel = defaultUser;
+
+  password = '';
+  passwordCheck = '';
+
+  isButtonSaveDisabled = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -32,6 +36,8 @@ export class AdminUsersStore {
   }
 
   async loadUser(id?: string) {
+    this.user = defaultUser;
+
     if (!id) {
       return;
     }
@@ -53,5 +59,32 @@ export class AdminUsersStore {
 
   setNickname(v: string) {
     this.user.nickname = v;
+  }
+
+  setPassword(v: string) {
+    this.password = v;
+    this.checkerPassword();
+  }
+
+  setPasswordCheck(v: string) {
+    this.passwordCheck = v;
+    this.checkerPassword();
+  }
+
+  checkerPassword() {
+    this.isButtonSaveDisabled = this.passwordCheck !== this.password;
+  }
+
+  async saveEditUser() {
+    try {
+      if (this.password !== '') {
+        this.user = { ...this.user, password: this.password };
+      }
+
+      const userId = await this.adminService.saveEditUser(this.user);
+      window.location.replace(`${pagesNames.adminUsers}/user?id=${userId}`);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

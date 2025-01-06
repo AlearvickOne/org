@@ -29,7 +29,11 @@ export const AdminUserEdit = observer(() => {
     adminUsersStore.loadUser(router.query.id as string).then();
   }, [router.query]);
 
-  const userFio = `${adminUsersStore.user.name} ${adminUsersStore.user.surname} - ( ${adminUsersStore.user.nickname} )`;
+  const name = adminUsersStore.user.name;
+  const surname = adminUsersStore.user.surname;
+  const nickname = adminUsersStore.user.nickname;
+
+  const userFio = `${name} ${surname} ${nickname && `- ( ${nickname} )`}`;
 
   return (
     <LayoutAdmin

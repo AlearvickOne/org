@@ -12,24 +12,34 @@ export const AdminUserEditPassword = observer(({ adminUsersStore }: Props) => {
       <div className="grid grid-rows-2 grid-cols-2 gap-x-8 gap-y-5">
         <InputBase
           label={'Пароль'}
-          type={'text'}
-          value={adminUsersStore.user.name}
+          type={'password'}
+          value={adminUsersStore.password}
           placeholder={'Введите пароль'}
-          onChange={(v) => adminUsersStore.setName(v)}
+          onChange={(v) => adminUsersStore.setPassword(v)}
         />
         <InputBase
           label={'Подтверждение пароля'}
-          type={'text'}
-          value={adminUsersStore.user.surname}
+          type={'password'}
+          value={adminUsersStore.passwordCheck}
           placeholder={'Повторите пароль'}
           onChange={(v) => {
-            adminUsersStore.setSurname(v);
+            adminUsersStore.setPasswordCheck(v);
           }}
+          error={
+            adminUsersStore.isButtonSaveDisabled ? 'Пароли не совпадают' : ''
+          }
         />
       </div>
       <div className="flex mt-5">
         <div className="">
-          <Button onClick={() => {}}>Сохранить</Button>
+          <Button
+            isDisabled={
+              adminUsersStore.isButtonSaveDisabled || !adminUsersStore.password
+            }
+            onClick={() => adminUsersStore.saveEditUser()}
+          >
+            Сохранить
+          </Button>
         </div>
       </div>
     </div>
