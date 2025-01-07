@@ -1,6 +1,9 @@
-import { Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { AdminService } from './admin.service';
+import { RegistrationFromAdminDto } from '../common/dto/registration-from-admin.dto';
+import { UsersEntity } from '../database/entitys/users.entity';
+import { httpError } from '../common/errors';
 
 @Controller('admin')
 export class AdminController {
@@ -23,8 +26,12 @@ export class AdminController {
   }
 
   @Post('save-user')
-  async saveUser(@Req() req: Request) {
-    const user = req.body;
+  async saveUser(@Body() body: RegistrationFromAdminDto) {
+    const user = body as any;
+
+    if (!user) {
+      throw httpError('Пользователь не получен');
+    }
 
     return await this.adminService.saveUser(user);
   }

@@ -1,8 +1,9 @@
 import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator';
 import { IsEmailExist } from '../../../common/decorators/validate';
 import { IsNicknameExist } from '../../../common/decorators/validate/is.nickname.exist';
+import { UsersEntity } from '../../database/entitys/users.entity';
 
-export class RegistrationDto {
+export class RegistrationDto extends UsersEntity {
   @IsNotEmpty({ message: 'Заполните поле' })
   name: string;
 

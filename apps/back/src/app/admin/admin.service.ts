@@ -50,9 +50,11 @@ export class AdminService {
     newUser.surname = user.surname;
     newUser.nickname = user.nickname;
     newUser.role = user.role ?? 1;
-    newUser.password = await StringSharesNodeLib.toHashArgon2(
-      Math.random().toString()
-    );
+
+    newUser.password =
+      user.password ??
+      (await StringSharesNodeLib.toHashArgon2(Math.random().toString()));
+
     newUser.token = await StringSharesNodeLib.toHashArgon2(
       newUser.email + new Date().toLocaleString()
     );

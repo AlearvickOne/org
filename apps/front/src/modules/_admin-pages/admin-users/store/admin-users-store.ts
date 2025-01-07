@@ -21,6 +21,8 @@ export class AdminUsersStore {
 
   isButtonSaveDisabled = false;
 
+  errors: any = {};
+
   constructor() {
     makeAutoObservable(this);
     this.adminService = ioc.get<AdminService>('AdminService');
@@ -83,8 +85,8 @@ export class AdminUsersStore {
 
       const userId = await this.adminService.saveEditUser(this.user);
       window.location.replace(`${pagesNames.adminUsers}/user?id=${userId}`);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      this.errors = error.response.data;
     }
   }
 }

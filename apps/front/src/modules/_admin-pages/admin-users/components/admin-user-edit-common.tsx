@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import { Button, InputBase } from '@org/common-next';
+import { Button, ComboboxBase, InputBase } from '@org/common-next';
 import { AdminUsersStore } from '../store/admin-users-store';
 
 interface Props {
@@ -9,14 +9,16 @@ interface Props {
 export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
   return (
     <div className="px-3">
-      <div className="grid grid-rows-2 grid-cols-2 gap-x-8 gap-y-5">
+      <div className="grid grid-rows-3 grid-cols-2 gap-x-8 gap-y-5">
         <InputBase
           label={'Имя'}
           type={'text'}
           value={adminUsersStore.user.name}
           placeholder={'Введите имя пользователя'}
           onChange={(v) => adminUsersStore.setName(v)}
+          error={adminUsersStore.errors['name']}
         />
+
         <InputBase
           label={'Фамилия'}
           type={'text'}
@@ -25,6 +27,7 @@ export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
           onChange={(v) => {
             adminUsersStore.setSurname(v);
           }}
+          error={adminUsersStore.errors['surname']}
         />
 
         <InputBase
@@ -33,6 +36,7 @@ export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
           value={adminUsersStore.user.nickname}
           placeholder={'Введите ник пользователя'}
           onChange={(v) => adminUsersStore.setNickname(v)}
+          error={adminUsersStore.errors['nickname']}
         />
         <InputBase
           label={'Email'}
@@ -40,6 +44,21 @@ export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
           value={adminUsersStore.user.email}
           placeholder={'Введите email пользователя'}
           onChange={(v) => adminUsersStore.setEmail(v)}
+          error={adminUsersStore.errors['email']}
+        />
+
+        <ComboboxBase
+          label={'Роль'}
+          options={[
+            { value: '1', label: '1' },
+            { value: '2', label: '2' },
+            { value: '3', label: '3' },
+            { value: '4', label: '4' },
+          ]}
+          // value={adminUsersStore.user.email}
+          // placeholder={'Введите email пользователя'}
+          // onChange={(v) => adminUsersStore.setEmail(v)}
+          // error={adminUsersStore.errors['email']}
         />
       </div>
 
