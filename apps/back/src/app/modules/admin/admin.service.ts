@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { UsersEntity } from '../database/entitys/users.entity';
-import { UsersModel } from '../../../../../types/models/users.model';
-import { StringSharesNodeLib } from '../../../../../libs/common-node/src';
+import { UsersModel } from '@org/types/models';
+import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
+import { RolesEntity, UsersEntity } from '../../database/entities';
 
 @Injectable()
 export class AdminService {
@@ -32,7 +32,7 @@ export class AdminService {
     u.name = user.name;
     u.surname = user.surname;
     u.nickname = user.nickname;
-    u.role = user.role ?? 1;
+    u.role = user.role ?? '3';
 
     if (user.password) {
       u.password = await StringSharesNodeLib.toHashArgon2(user.password);
@@ -49,7 +49,7 @@ export class AdminService {
     newUser.name = user.name;
     newUser.surname = user.surname;
     newUser.nickname = user.nickname;
-    newUser.role = user.role ?? 1;
+    newUser.role = user.role ?? '3';
 
     newUser.password =
       user.password ??
@@ -61,5 +61,20 @@ export class AdminService {
 
     await newUser.save();
     return newUser.id;
+  }
+
+  async getRoles() {
+    return await RolesEntity.find();
+  }
+
+  async userArchived(userId: number, isArchived: boolean) {
+    return await UsersEntity.update(
+      { id: userId },
+      { is_archived: isArchived }
+    );
+  }
+
+  async deleteUser(userId: number) {
+    return await UsersEntity.delete({ id: userId });
   }
 }

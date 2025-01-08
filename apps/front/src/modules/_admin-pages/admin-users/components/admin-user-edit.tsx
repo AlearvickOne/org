@@ -12,6 +12,10 @@ const adminUsersStore = ioc.get<AdminUsersStore>('AdminUsersStore');
 export const AdminUserEdit = observer(() => {
   const [tabIndex, setTabIndex] = useState<number>(0);
 
+  useEffect(() => {
+    adminUsersStore.loadRoles().then();
+  }, []);
+
   const router = useRouter();
 
   const tabs = [

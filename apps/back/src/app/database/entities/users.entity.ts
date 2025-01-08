@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { UsersModel } from '../../../../../../types/models/users.model';
+import { UsersModel } from '@org/types/models';
 
 @Entity('users')
 export class UsersEntity extends BaseEntity implements UsersModel {
@@ -7,7 +7,7 @@ export class UsersEntity extends BaseEntity implements UsersModel {
   id: number;
 
   @Column()
-  role: number;
+  role: string;
 
   @Column()
   name: string;
@@ -26,6 +26,9 @@ export class UsersEntity extends BaseEntity implements UsersModel {
 
   @Column({ select: false })
   token: string;
+
+  @Column()
+  is_archived: boolean;
 
   @Column()
   created_at: string;

@@ -3,3 +3,8 @@ export * from './icon-monitor';
 export * from './icon-users';
 export * from './icon-editor';
 export * from './icon-new-user';
+export * from './icon-arrow-mini';
+export * from './icon-minus-square';
+export * from './icon-plus-square';
+export * from './icon-delete';
+export * from './icon-close';

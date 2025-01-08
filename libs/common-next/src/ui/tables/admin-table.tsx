@@ -20,7 +20,7 @@ export const AdminTable = ({ heads, bodys }: AdminTableProps) => {
           {bodys.map((b, index) => (
             <tr className="border-b-1 text-[14px]" key={index}>
               {Object.values(b).map((value, vIndex) => (
-                <td className="py-2 px-5" key={vIndex}>
+                <td className="py-3 px-5" key={vIndex}>
                   {value}
                 </td>
               ))}

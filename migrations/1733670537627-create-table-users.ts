@@ -5,13 +5,14 @@ export class CreateTableUsers1733670537627 implements MigrationInterface {
     await queryRunner.query(`
         CREATE TABLE users (
         id INT UNSIGNED UNIQUE AUTO_INCREMENT PRIMARY KEY,
-        role INT,
+        role VARCHAR(2),
         name VARCHAR(50),
         surname VARCHAR(50),
         nickname VARCHAR(50),
         email VARCHAR(50),
         password VARCHAR(255),
         token VARCHAR(255),
+        is_archived TINYINT DEFAULT 0,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
         `);

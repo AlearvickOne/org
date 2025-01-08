@@ -1,5 +1,11 @@
 import { observer } from 'mobx-react';
-import { Button, ComboboxBase, InputBase } from '@org/common-next';
+import {
+  Button,
+  ButtonText,
+  ComboboxBase,
+  IconClose,
+  InputBase,
+} from '@org/common-next';
 import { AdminUsersStore } from '../store/admin-users-store';
 
 interface Props {
@@ -49,25 +55,35 @@ export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
 
         <ComboboxBase
           label={'Роль'}
-          options={[
-            { value: '1', label: '1' },
-            { value: '2', label: '2' },
-            { value: '3', label: '3' },
-            { value: '4', label: '4' },
-          ]}
-          // value={adminUsersStore.user.email}
-          // placeholder={'Введите email пользователя'}
-          // onChange={(v) => adminUsersStore.setEmail(v)}
-          // error={adminUsersStore.errors['email']}
+          value={adminUsersStore.role}
+          options={adminUsersStore.roles}
+          placeholder={'Выберите роль из списка'}
+          onChange={(v) => adminUsersStore.setRole(v)}
+          error={adminUsersStore.errors['role']}
         />
       </div>
 
-      <div className="flex mt-5">
+      <div className="flex justify-between items-end mt-5">
         <div className="">
           <Button onClick={() => adminUsersStore.saveEditUser()}>
             Сохранить
           </Button>
         </div>
+
+        {adminUsersStore.user.id !== -1 ? (
+          <div className="">
+            <ButtonText
+              onClick={() =>
+                adminUsersStore.deleteUser(adminUsersStore.user.id)
+              }
+            >
+              <div className="flex gap-x-2 items-center">
+                <IconClose />
+                <div>Удалить пользователя</div>
+              </div>
+            </ButtonText>
+          </div>
+        ) : null}
       </div>
     </div>
   );

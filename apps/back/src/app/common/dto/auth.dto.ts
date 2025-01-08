@@ -1,4 +1,4 @@
-import { IsEmail, MinLength, MaxLength } from 'class-validator';
+import { IsEmail, MaxLength } from 'class-validator';
 
 export class AuthDto {
   @IsEmail({}, { message: 'Поле не содержит Email' })

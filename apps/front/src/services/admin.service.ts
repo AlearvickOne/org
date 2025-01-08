@@ -17,4 +17,18 @@ export class AdminService {
   async saveEditUser(user: UsersModel) {
     return await this.httpService.post('admin/save-user', user);
   }
+
+  async getRoles() {
+    return await this.httpService.get('admin/get-roles');
+  }
+
+  async userArchived(userId: number, isArchived: boolean) {
+    return await this.httpService.post(`admin/user-archived?id=${userId}`, {
+      isArchived: +isArchived,
+    });
+  }
+
+  async deleteUser(userId: number) {
+    return await this.httpService.delete(`admin/user-delete?id=${userId}`);
+  }
 }

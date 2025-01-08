@@ -4,7 +4,9 @@ import {
   AdminTable,
   DateTimeLib,
   IconEditor,
+  IconMinusSquare,
   IconNewUser,
+  IconPlusSquare,
 } from '@org/common-next';
 import ioc from '../../../../ioc/ioc';
 import { AdminUsersStore } from './store/admin-users-store';
@@ -33,7 +35,7 @@ export const AdminUsersPage = observer(() => {
       </div>
 
       <AdminTable
-        heads={['id', 'Email', 'Роль', 'ФИО', 'Ник', 'Дата создания', '']}
+        heads={['id', 'Email', 'Роль', 'ФИО', 'Ник', 'Дата создания', '', '']}
         bodys={adminUsersStore.users.map((user) => {
           return {
             id: user.id,
@@ -50,6 +52,18 @@ export const AdminUsersPage = observer(() => {
                 }
               >
                 <IconEditor />
+              </div>
+            ),
+            btnToArchived: (
+              <div
+                className="cursor-pointer"
+                onClick={() =>
+                  adminUsersStore
+                    .userArchived(user.id, !user.is_archived)
+                    .then((w) => (user.is_archived = w))
+                }
+              >
+                {user.is_archived ? <IconPlusSquare /> : <IconMinusSquare />}
               </div>
             ),
           };

@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { UsersEntity } from '../database/entitys/users.entity';
 import { Response } from 'express';
-import { dataSource } from '../../../../../data-source';
-import { RegistrationDto } from '../common/dto/registration.dto';
+import { RegistrationDto } from '../../common/dto/registration.dto';
 import { inject } from 'inversify';
-import { TYPES } from '../../types';
-import { ConfigService } from '../../services/config.service';
-import { StringSharesNodeLib } from '../../../../../libs/common-node/src';
+import { TYPES } from '../../../types';
+import { ConfigService } from '../../../services/config.service';
+import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
+import { UsersEntity } from '../../database/entities';
 
 @Injectable()
 export class AuthService {
@@ -42,7 +41,7 @@ export class AuthService {
     user.name = u.name;
     user.surname = u.surname;
     user.nickname = u.nickname;
-    user.role = 1;
+    user.role = '3';
     user.email = u.email;
     user.password = hashPass;
     user.token = newToken;
