@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UsersModel } from '@org/types/models';
+import { RolesEnum, UsersModel } from '@org/types';
 import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
 import { RolesEntity, UsersEntity } from '../../database/entities';
 
@@ -32,7 +32,7 @@ export class AdminService {
     u.name = user.name;
     u.surname = user.surname;
     u.nickname = user.nickname;
-    u.role = user.role ?? '3';
+    u.role = user.role ?? RolesEnum.user;
 
     if (user.password) {
       u.password = await StringSharesNodeLib.toHashArgon2(user.password);
@@ -49,7 +49,7 @@ export class AdminService {
     newUser.name = user.name;
     newUser.surname = user.surname;
     newUser.nickname = user.nickname;
-    newUser.role = user.role ?? '3';
+    newUser.role = user.role ?? RolesEnum.user;
 
     newUser.password =
       user.password ??

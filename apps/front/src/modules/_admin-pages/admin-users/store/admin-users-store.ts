@@ -1,6 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 import { injectable } from 'inversify';
-import { defaultUser, RolesModel, UsersModel } from '@org/types/models';
+import {
+  defaultComboBox,
+  defaultUser,
+  IComboBox,
+  RolesModel,
+  UsersModel,
+} from '@org/types';
 import { AdminService } from '../../../../services/admin.service';
 import ioc from '../../../../../ioc/ioc';
 import { pagesNames } from '../../../../pages/pages-names';
@@ -16,8 +22,8 @@ export class AdminUsersStore {
   password = '';
   passwordCheck = '';
 
-  roles: { value: string; label: string }[] = [{ value: '', label: '' }];
-  role: { value: string; label: string } = this.roles[0];
+  roles: IComboBox[] = [defaultComboBox];
+  role: IComboBox = defaultComboBox;
 
   isButtonSaveDisabled = false;
 
@@ -38,7 +44,7 @@ export class AdminUsersStore {
 
   async loadUser(id?: string) {
     this.user = defaultUser;
-    this.role = { value: '', label: '' };
+    this.role = defaultComboBox;
 
     if (!id) {
       return;
@@ -82,7 +88,7 @@ export class AdminUsersStore {
     this.checkerPassword();
   }
 
-  setRole(v: { value: string; label: string }) {
+  setRole(v: IComboBox) {
     this.role = v;
     this.user.role = this.role.value;
   }

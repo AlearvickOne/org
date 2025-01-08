@@ -1,12 +1,13 @@
 import { useRef, useState } from 'react';
 import { useOutsideClick } from '../../hooks';
 import { IconArrowMini } from '../icons';
+import { IComboBox } from '@org/types';
 
 interface ComboboxBaseProps {
   label: string;
-  options: { value: string; label: string }[];
-  value: { value: string; label: string };
-  onChange: (value: { value: string; label: string }) => void;
+  options: IComboBox[];
+  value: IComboBox;
+  onChange: (value: IComboBox) => void;
   placeholder?: string;
   error?: string | undefined;
 }
@@ -26,7 +27,7 @@ export const ComboboxBase = ({
     setIsOpen(false);
   }, optionsRef);
 
-  const handleOnChange = (v: { value: string; label: string }) => {
+  const handleOnChange = (v: IComboBox) => {
     onChange(v);
     setIsOpen(false);
   };

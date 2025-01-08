@@ -17,7 +17,7 @@
     "paths": {
       "@org/common-next": ["libs/common-next/src/index.ts"],
       "test": ["./declares-types/test"],
-      "@org/types/models": ["types/models"],
+      "@org/types": ["types"]
     }
   },
   "exclude": ["node_modules", "tmp"]

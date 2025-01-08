@@ -35,7 +35,16 @@ export const AdminUsersPage = observer(() => {
       </div>
 
       <AdminTable
-        heads={['id', 'Email', 'Роль', 'ФИО', 'Ник', 'Дата создания', '', '']}
+        heads={[
+          'id',
+          'Email',
+          'Роль',
+          'ФИО',
+          'Ник',
+          'Дата создания',
+          '',
+          'Архив',
+        ]}
         bodys={adminUsersStore.users.map((user) => {
           return {
             id: user.id,
@@ -46,7 +55,7 @@ export const AdminUsersPage = observer(() => {
             createdAt: DateTimeLib.mySqlDatetimeToString(user.created_at),
             btnEditor: (
               <div
-                className="cursor-pointer"
+                className="cursor-pointer flex justify-center"
                 onClick={() =>
                   router.push(`${pagesNames.adminUsers}/user?id=${user.id}`)
                 }
@@ -56,14 +65,14 @@ export const AdminUsersPage = observer(() => {
             ),
             btnToArchived: (
               <div
-                className="cursor-pointer"
+                className="cursor-pointer flex justify-center"
                 onClick={() =>
                   adminUsersStore
                     .userArchived(user.id, !user.is_archived)
                     .then((w) => (user.is_archived = w))
                 }
               >
-                {user.is_archived ? <IconPlusSquare /> : <IconMinusSquare />}
+                {user.is_archived ? <IconMinusSquare /> : <IconPlusSquare />}
               </div>
             ),
           };

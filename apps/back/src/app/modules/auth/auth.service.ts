@@ -6,6 +6,7 @@ import { TYPES } from '../../../types';
 import { ConfigService } from '../../../services/config.service';
 import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
 import { UsersEntity } from '../../database/entities';
+import { RolesEnum } from '@org/types';
 
 @Injectable()
 export class AuthService {
@@ -41,7 +42,7 @@ export class AuthService {
     user.name = u.name;
     user.surname = u.surname;
     user.nickname = u.nickname;
-    user.role = '3';
+    user.role = RolesEnum.user;
     user.email = u.email;
     user.password = hashPass;
     user.token = newToken;

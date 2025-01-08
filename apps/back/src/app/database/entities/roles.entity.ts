@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { RolesModel } from '@org/types/models';
+import { RolesModel } from '@org/types';
 
 @Entity('roles')
 export class RolesEntity extends BaseEntity implements RolesModel {
