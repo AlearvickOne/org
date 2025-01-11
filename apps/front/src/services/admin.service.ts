@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { HttpService } from './http.service';
-import { UsersModel } from '../../../../types/models/users.model';
+import { UsersModel } from '@org/types';
 
 @injectable()
 export class AdminService {
