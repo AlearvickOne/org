@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
-import { LayoutAdmin } from '../../../components/layout-admin';
+import { LayoutAdmin } from '../../../../components/layout-admin';
 
-export const AdminBlogPage = observer(() => {
+export const AdminBlogEdit = observer(() => {
   return (
     <LayoutAdmin>
       <div className=""></div>
