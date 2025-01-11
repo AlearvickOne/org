@@ -13,7 +13,7 @@ export const AdminPaths = observer(({ adminStore }: AdminPathsProps) => {
   return (
     <div className="px-2 py-5 rounded-[15px] w-full max-w-[200px] flex flex-col gap-y-[10px]">
       {adminStore.adminPaths.map((path) => {
-        const isCurrentPath = window.location.pathname === `/${path.pathname}`;
+        const isCurrentPath = router.pathname.includes(path.pathname);
 
         if (isCurrentPath) {
           adminStore.setCurrentPageId(path.id);
@@ -24,7 +24,7 @@ export const AdminPaths = observer(({ adminStore }: AdminPathsProps) => {
             key={path.id}
             onClick={() => {
               adminStore.setCurrentPageId(path.id);
-              return router.push(path.pathname.split('/')[1]);
+              return router.push(path.pathname);
             }}
             className={clsx(
               'flex gap-x-2 pb-3 items-center border-b-1 cursor-pointer',

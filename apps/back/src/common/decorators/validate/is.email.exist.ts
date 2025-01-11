@@ -3,7 +3,7 @@ import {
   ValidationArguments,
   ValidatorOptions,
 } from 'class-validator';
-import { UsersEntity } from '../../../app/database/entitys/users.entity';
+import { UsersEntity } from '../../../app/database/entities';
 
 interface IsEmailExistProps {
   message: string;

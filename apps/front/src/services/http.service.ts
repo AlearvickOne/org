@@ -20,4 +20,8 @@ export class HttpService {
   async put(url: string, data: any) {
     return (await axios.put(backUrl + `/api/${url}`, data, this.config())).data;
   }
+
+  async delete(url: string) {
+    return (await axios.delete(backUrl + `/api/${url}`, this.config())).data;
+  }
 }

@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { defaultUser } from '../../../../types/models/users.model';
-import { AuthService } from '../app/auth/auth.service';
+import { defaultUser } from '@org/types';
+import { AuthService } from '../app/modules/auth/auth.service';
 import { inject } from 'inversify';
 import { TYPES } from '../types';
 

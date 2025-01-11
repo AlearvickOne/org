@@ -1,7 +1,7 @@
 import { Controller, Get, Put, Req } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Request } from 'express';
-import { httpError } from '../common/errors';
+import { httpError } from '../../common/errors';
 
 @Controller('user')
 export class UserController {
