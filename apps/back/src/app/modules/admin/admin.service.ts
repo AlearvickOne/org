@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { RolesEnum, UsersModel } from '@org/types';
 import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
 import { RolesEntity, UsersEntity } from '../../database/entities';
+import { BlogsEntity } from '../../database/entities/blogs.entity';
 
 @Injectable()
 export class AdminService {
@@ -76,5 +77,22 @@ export class AdminService {
 
   async deleteUser(userId: number) {
     return await UsersEntity.delete({ id: userId });
+  }
+
+  async saveContentBlog(userId: number, data: any) {
+    const newBlog = new BlogsEntity();
+
+    newBlog.user_id = userId;
+    newBlog.content = data.content;
+
+    await newBlog.save();
+  }
+
+  async getContentBlog(id: number) {
+    return await BlogsEntity.findOneBy({ id: id });
+  }
+
+  async getBlogs() {
+    return await BlogsEntity.find();
   }
 }

@@ -2,8 +2,9 @@ import { DataSource } from 'typeorm';
 import { dataSource } from '../../../../../data-source';
 import { Logger } from '@nestjs/common';
 import { RolesEntity, UsersEntity } from './entities';
+import { BlogsEntity } from './entities/blogs.entity';
 
-const entities = [UsersEntity, RolesEntity];
+const entities = [UsersEntity, RolesEntity, BlogsEntity];
 
 export const databaseProviders = [
   {

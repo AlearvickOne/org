@@ -9,6 +9,8 @@ import { AccountStore } from '../src/modules/_users-pages/account/store/account-
 import { AdminStore } from '../src/main-stores/admin-store';
 import { AdminUsersStore } from '../src/modules/_admin-pages/admin-users/store/admin-users-store';
 import { AdminService } from '../src/services/admin.service';
+import { AdminBlogEditStore } from '../src/modules/_admin-pages/admin-blogs/blog/store/admin-blog-edit-store';
+import { AdminBlogsStore } from '../src/modules/_admin-pages/admin-blogs/store/admin-blogs-store';
 
 const container = new Container();
 
@@ -27,6 +29,14 @@ container.bind<AdminStore>('AdminStore').to(AdminStore).inSingletonScope();
 container
   .bind<AdminUsersStore>('AdminUsersStore')
   .to(AdminUsersStore)
+  .inSingletonScope();
+container
+  .bind<AdminBlogEditStore>('AdminBlogEditStore')
+  .to(AdminBlogEditStore)
+  .inSingletonScope();
+container
+  .bind<AdminBlogsStore>('AdminBlogsStore')
+  .to(AdminBlogsStore)
   .inSingletonScope();
 
 // Сервисы
