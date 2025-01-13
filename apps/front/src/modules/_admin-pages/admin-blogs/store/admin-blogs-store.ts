@@ -18,4 +18,17 @@ export class AdminBlogsStore {
   async getBlogs() {
     this.blogs = await this.adminService.getBlogs();
   }
+
+  async deleteBlog(id: number) {
+    try {
+      if (!id) {
+        return;
+      }
+
+      await this.adminService.deleteBlog(id);
+      await this.getBlogs();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

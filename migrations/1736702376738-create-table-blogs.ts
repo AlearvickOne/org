@@ -8,7 +8,8 @@ export class CreateTableBlogs1736702376738 implements MigrationInterface {
     title VARCHAR(255),
     description VARCHAR(255),
     photo VARCHAR(255),
-    content LONGTEXT
+    content LONGTEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   )`);
   }
 

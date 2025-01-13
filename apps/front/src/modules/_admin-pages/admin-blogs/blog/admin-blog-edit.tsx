@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react';
 import { LayoutAdmin } from '../../../../components/layout-admin';
-import { TitleBig } from './components/title-big';
+import { EditorBlogContent } from './components/editor-blog-content';
 import ioc from '../../../../../ioc/ioc';
 import { AdminBlogEditStore } from './store/admin-blog-edit-store';
-import { Button, InputBase } from '@org/common-next';
+import { Button, InputBase, TextareaBase } from '@org/common-next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
@@ -13,38 +13,45 @@ export const AdminBlogEdit = observer(() => {
   const router = useRouter();
 
   useEffect(() => {
-    const id = router.query.id as string;
-    adminBlogEditStore.getContentBlog(id).then();
+    adminBlogEditStore.getContentBlog(router.query.id as string).then();
   }, [router.query]);
 
   return (
-    <LayoutAdmin>
-      <InputBase
-        label="Заголовок"
-        type={'text'}
-        value={adminBlogEditStore.title}
-        onChange={(v) => adminBlogEditStore.setTitle(v)}
-      />
+    <LayoutAdmin
+      titleHead={`Редактирование блога под Id - ${adminBlogEditStore.blog.id}`}
+    >
+      <div className="mb-4">
+        <InputBase
+          label="Заголовок"
+          type={'text'}
+          value={adminBlogEditStore.blog.title}
+          onChange={(v) => adminBlogEditStore.setTitle(v)}
+        />
+      </div>
 
-      <InputBase
-        label="Описание"
-        type={'text'}
-        value={adminBlogEditStore.description}
-        onChange={(v) => adminBlogEditStore.setDescription(v)}
-      />
+      <div className="mb-4">
+        <TextareaBase
+          label="Описание"
+          value={adminBlogEditStore.blog.description}
+          onChange={(v) => adminBlogEditStore.setDescription(v)}
+        />
+      </div>
 
-      <div className="mb-10">
-        <TitleBig
-          value={adminBlogEditStore.content}
+      <div className="mb-4">
+        <EditorBlogContent
+          label="Контент"
+          value={adminBlogEditStore.blog.content}
           setValue={(v) => adminBlogEditStore.setContent(v)}
         />
       </div>
-      <Button onClick={() => adminBlogEditStore.saveContentBlog()}>
-        Сохранить
-      </Button>
-      <div
-        dangerouslySetInnerHTML={{ __html: adminBlogEditStore.content }}
-      ></div>
+
+      <div className="flex">
+        <div>
+          <Button onClick={() => adminBlogEditStore.saveContentBlog()}>
+            Сохранить
+          </Button>
+        </div>
+      </div>
     </LayoutAdmin>
   );
 });

@@ -8,3 +8,4 @@ export * from './icon-minus-square';
 export * from './icon-plus-square';
 export * from './icon-delete';
 export * from './icon-close';
+export * from './icon-add-blog';

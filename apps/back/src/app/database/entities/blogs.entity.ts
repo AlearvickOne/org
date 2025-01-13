@@ -20,4 +20,7 @@ export class BlogsEntity extends BaseEntity implements BlogsModel {
 
   @Column()
   content: string;
+
+  @Column()
+  created_at?: string;
 }

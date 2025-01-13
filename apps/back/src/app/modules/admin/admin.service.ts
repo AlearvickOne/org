@@ -80,12 +80,16 @@ export class AdminService {
   }
 
   async saveContentBlog(userId: number, data: any) {
-    const newBlog = new BlogsEntity();
+    const newBlog =
+      (await BlogsEntity.findOneBy({ id: data.id })) ?? new BlogsEntity();
 
     newBlog.user_id = userId;
+    newBlog.title = data.title;
+    newBlog.description = data.description;
     newBlog.content = data.content;
 
     await newBlog.save();
+    return newBlog.id;
   }
 
   async getContentBlog(id: number) {
@@ -94,5 +98,9 @@ export class AdminService {
 
   async getBlogs() {
     return await BlogsEntity.find();
+  }
+
+  async deleteBlog(id: number) {
+    return await BlogsEntity.delete({ id: id });
   }
 }

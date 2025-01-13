@@ -1,6 +1,12 @@
 import { observer } from 'mobx-react';
 import { LayoutAdmin } from '../../../components/layout-admin';
-import { AdminTable } from '@org/common-next';
+import {
+  AdminTable,
+  DateTimeLib,
+  IconAddBlog,
+  IconDelete,
+  IconEditor,
+} from '@org/common-next';
 import ioc from '../../../../ioc/ioc';
 import { AdminBlogsStore } from './store/admin-blogs-store';
 import { useEffect } from 'react';
@@ -19,17 +25,23 @@ export const AdminBlogsPage = observer(() => {
   return (
     <LayoutAdmin>
       <div className="mb-5 flex">
-        <div className="border-1 p-1 rounded-md border-blue-500">Создать</div>
+        <div
+          onClick={() => router.push(`${pagesNames.adminBlogs}/blog`)}
+          className="cursor-pointer p-1 rounded-md bg-violet-100"
+        >
+          <IconAddBlog />
+        </div>
       </div>
 
       <AdminTable
         heads={[
-          'id',
-          'id пользователя',
+          'Id',
+          'Id пользователя',
           'Фото',
           'Название',
           'Описание',
-          'Дата',
+          'Дата создания',
+          '',
           '',
         ]}
         bodys={adminBlogsStore.blogs.map((blog) => {
@@ -39,7 +51,7 @@ export const AdminBlogsPage = observer(() => {
             photo: blog.photo,
             title: blog.title,
             desc: blog.description,
-            date: '43343',
+            date: DateTimeLib.mySqlDatetimeToString(blog.created_at),
             editBtn: (
               <div
                 className="cursor-pointer"
@@ -47,7 +59,15 @@ export const AdminBlogsPage = observer(() => {
                   router.push(`${pagesNames.adminBlogs}/blog?id=${blog.id}`)
                 }
               >
-                Эдит
+                <IconEditor />
+              </div>
+            ),
+            deleteBlog: (
+              <div
+                className="cursor-pointer"
+                onClick={() => adminBlogsStore.deleteBlog(blog.id)}
+              >
+                <IconDelete />
               </div>
             ),
           };

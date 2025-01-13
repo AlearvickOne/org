@@ -90,4 +90,15 @@ export class AdminController {
 
     return await this.adminService.getContentBlog(id);
   }
+
+  @Delete('delete-blog')
+  async deleteBlog(@Req() req: Request) {
+    const id = Number(req.query.id);
+
+    if (!id) {
+      throw httpError('id блога не получено');
+    }
+
+    return await this.adminService.deleteBlog(id);
+  }
 }
