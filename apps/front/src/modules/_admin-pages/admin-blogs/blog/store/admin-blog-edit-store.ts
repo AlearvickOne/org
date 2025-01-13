@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import { injectable } from 'inversify';
 import { AdminService } from '../../../../../services/admin.service';
 import ioc from '../../../../../../ioc/ioc';
-import { pagesNames } from '../../../../../pages/pages-names';
+import { pagesNames } from '../../../../../pages-names';
 import { BlogsModel, defaultBlogsModel } from '@org/types';
 
 @injectable()

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import ioc from '../../ioc/ioc';
 import { UserStore } from '../main-stores/user-store';
 import { useEffect, useState } from 'react';
-import { pagesNames } from './pages-names';
+import { pagesNames } from '../pages-names';
 
 const userStore = ioc.get<UserStore>('UserStore');
 
