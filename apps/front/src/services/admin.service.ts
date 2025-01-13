@@ -31,4 +31,20 @@ export class AdminService {
   async deleteUser(userId: number) {
     return await this.httpService.delete(`admin/user-delete?id=${userId}`);
   }
+
+  async saveContentBlog(data: any) {
+    return await this.httpService.post('admin/save-content-blog', data);
+  }
+
+  async getBlogs() {
+    return await this.httpService.get('admin/get-blogs');
+  }
+
+  async getContentBlog(id: string) {
+    return await this.httpService.get(`admin/get-content-blog?id=${id}`);
+  }
+
+  async deleteBlog(id: number) {
+    return await this.httpService.delete(`admin/delete-blog?id=${id}`);
+  }
 }

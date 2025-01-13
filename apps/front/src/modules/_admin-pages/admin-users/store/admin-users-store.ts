@@ -9,7 +9,7 @@ import {
 } from '@org/types';
 import { AdminService } from '../../../../services/admin.service';
 import ioc from '../../../../../ioc/ioc';
-import { pagesNames } from '../../../../pages/pages-names';
+import { pagesNames } from '../../../../pages-names';
 
 @injectable()
 export class AdminUsersStore {

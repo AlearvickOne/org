@@ -62,4 +62,43 @@ export class AdminController {
 
     return await this.adminService.deleteUser(userId);
   }
+
+  @Post('save-content-blog')
+  async saveContentBlog(@Req() req: Request) {
+    const userId = Number(req.user.id.toString());
+    const data = req.body;
+
+    if (!userId || !data) {
+      throw httpError('userId или content не найдены');
+    }
+
+    return await this.adminService.saveContentBlog(userId, data);
+  }
+
+  @Get('get-blogs')
+  async getBlogs() {
+    return await this.adminService.getBlogs();
+  }
+
+  @Get('get-content-blog')
+  async getContentBlog(@Req() req: Request) {
+    const id = Number(req.query.id);
+
+    if (!id) {
+      throw httpError('id блога не получено');
+    }
+
+    return await this.adminService.getContentBlog(id);
+  }
+
+  @Delete('delete-blog')
+  async deleteBlog(@Req() req: Request) {
+    const id = Number(req.query.id);
+
+    if (!id) {
+      throw httpError('id блога не получено');
+    }
+
+    return await this.adminService.deleteBlog(id);
+  }
 }

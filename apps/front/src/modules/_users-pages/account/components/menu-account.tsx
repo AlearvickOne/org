@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import { UserStore } from '../../../../main-stores/user-store';
 import { AccountStore } from '../store/account-store';
 import { clsx } from 'clsx';
-import { pagesNames } from '../../../../pages/pages-names';
+import { pagesNames } from '../../../../pages-names';
 
 interface Props {
   userStore: UserStore;

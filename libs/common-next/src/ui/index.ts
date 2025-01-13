@@ -4,3 +4,5 @@ export * from './bread-crumbs';
 export * from './tables';
 export * from './icons';
 export * from './combobox';
+export * from './textarea';
+export * from './checkbox';

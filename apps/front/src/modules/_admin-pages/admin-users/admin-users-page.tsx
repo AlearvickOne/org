@@ -12,7 +12,7 @@ import ioc from '../../../../ioc/ioc';
 import { AdminUsersStore } from './store/admin-users-store';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { pagesNames } from '../../../pages/pages-names';
+import { pagesNames } from '../../../pages-names';
 
 const adminUsersStore = ioc.get<AdminUsersStore>('AdminUsersStore');
 

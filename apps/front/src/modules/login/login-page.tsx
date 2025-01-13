@@ -4,7 +4,7 @@ import { LoginStore } from './store/login-store';
 import { useEffect } from 'react';
 import { Button, InputBase } from '@org/common-next';
 import { useRouter } from 'next/router';
-import { pagesNames } from '../../pages/pages-names';
+import { pagesNames } from '../../pages-names';
 
 const loginStore = container.get<LoginStore>('LoginStore');
 

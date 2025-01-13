@@ -3,7 +3,7 @@ import container from '../../../ioc/ioc';
 import { Button, InputBase } from '@org/common-next';
 import { RegisterStore } from './store/register-store';
 import { useRouter } from 'next/router';
-import { pagesNames } from '../../pages/pages-names';
+import { pagesNames } from '../../pages-names';
 
 const registerStore = container.get<RegisterStore>('RegisterStore');
 

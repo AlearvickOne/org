@@ -7,7 +7,7 @@ import { PersonalData } from './components/personal-data';
 import { AccountStore } from './store/account-store';
 import { useEffect } from 'react';
 import { PasswordChange } from './components/password-change';
-import { pagesNames } from '../../../pages/pages-names';
+import { pagesNames } from '../../../pages-names';
 import { BreadCrumbs } from '@org/common-next';
 
 const userStore = ioc.get<UserStore>('UserStore');

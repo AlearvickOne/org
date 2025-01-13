@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import { injectable } from 'inversify';
 import { UserService } from '../../../services/user.service';
 import container from '../../../../ioc/ioc';
-import { pagesNames } from '../../../pages/pages-names';
+import { pagesNames } from '../../../pages-names';
 
 @injectable()
 export class LoginStore {

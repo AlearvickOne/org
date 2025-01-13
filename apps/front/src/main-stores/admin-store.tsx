@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { injectable } from 'inversify';
-import { pagesNames } from '../pages/pages-names';
+import { pagesNames } from '../pages-names';
 import { IconClipboard, IconMonitor, IconUsers } from '@org/common-next';
 
 interface IAdminPaths {

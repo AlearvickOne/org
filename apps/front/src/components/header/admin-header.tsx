@@ -3,7 +3,7 @@ import ioc from '../../../ioc/ioc';
 import { LoginStore } from '../../modules/login/store/login-store';
 import { UserStore } from '../../main-stores/user-store';
 import { useRouter } from 'next/router';
-import { pagesNames } from '../../pages/pages-names';
+import { pagesNames } from '../../pages-names';
 
 const loginStore = ioc.get<LoginStore>('LoginStore');
 const userStore = ioc.get<UserStore>('UserStore');
