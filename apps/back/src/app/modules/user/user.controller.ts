@@ -22,9 +22,25 @@ export class UserController {
     const user = req.body;
 
     if (!user) {
-      throw httpError('Поьзователь для сохранения не получен');
+      throw httpError('Пользователь для сохранения не получен');
     }
 
     return await this.userService.saveUser(user);
+  }
+
+  @Get('get-blogs')
+  async getBlogs() {
+    return await this.userService.getBlogs();
+  }
+
+  @Get('get-blog')
+  async getBlog(@Req() req: Request) {
+    const id = Number(req.query.id);
+
+    if (!id) {
+      throw httpError('id блога не получено');
+    }
+
+    return await this.userService.getBlog(id);
   }
 }

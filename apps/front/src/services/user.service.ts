@@ -36,4 +36,12 @@ export class UserService {
 
     return this.httpService.put(path, user);
   }
+
+  getBlogs() {
+    return this.httpService.get('user/get-blogs');
+  }
+
+  async getBlog(id: string) {
+    return this.httpService.get(`user/get-blog?id=${id}`);
+  }
 }

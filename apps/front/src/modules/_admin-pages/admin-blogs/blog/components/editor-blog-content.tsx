@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react';
 import dynamic from 'next/dynamic';
-import 'react-quill/dist/quill.snow.css';
 import { CheckboxBase } from '@org/common-next';
 import { useState } from 'react';
 

@@ -6,6 +6,7 @@ import ioc from '../../ioc/ioc';
 import { UserStore } from '../main-stores/user-store';
 import { useEffect, useState } from 'react';
 import { pagesNames } from '../pages-names';
+import 'react-quill/dist/quill.snow.css';
 
 const userStore = ioc.get<UserStore>('UserStore');
 
