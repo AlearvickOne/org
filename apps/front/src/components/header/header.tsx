@@ -12,7 +12,7 @@ export const Header = observer(() => {
   const router = useRouter();
 
   return (
-    <div className="bg-white h-[50px] flex justify-between items-center border-b-1">
+    <div className="bg-white h-[50px] flex justify-between items-center border-b-1 shadow-xl">
       <div
         className="ml-12 cursor-pointer"
         onClick={() => router.push(pagesNames.home)}

@@ -1,14 +1,13 @@
 import { observer } from 'mobx-react';
 import { BlogsModel } from '@org/types';
-import { NextRouter } from 'next/router';
 import { pagesNames } from '../../../../pages-names';
+import Link from 'next/link';
 
 interface Props {
   blog: BlogsModel;
-  router: NextRouter;
 }
 
-export const BlogCard = observer(({ blog, router }: Props) => {
+export const BlogCard = observer(({ blog }: Props) => {
   return (
     <div className="p-5 bg-white shadow-xl">
       <div className="flex gap-x-10 items-center">
@@ -19,11 +18,13 @@ export const BlogCard = observer(({ blog, router }: Props) => {
         </div>
       </div>
 
-      <div
-        className="text-blue-500 text-right cursor-pointer hover:text-blue-400"
-        onClick={() => router.push(`${pagesNames.blog}?id=${blog.id}`)}
-      >
-        Читать
+      <div className="w-full flex justify-end">
+        <Link
+          className="text-blue-500 cursor-pointer hover:text-blue-400"
+          href={pagesNames.blog + `?id=${blog.id}`}
+        >
+          Читать
+        </Link>
       </div>
     </div>
   );

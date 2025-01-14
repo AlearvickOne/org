@@ -10,7 +10,7 @@ interface BreadCrumbsProps {
 
 export const BreadCrumbs = ({ crumbs, router }: BreadCrumbsProps) => {
   return (
-    <div className="mt-[10px] mb-[10px] flex gap-x-1 items-center bg-white p-2">
+    <div className="mt-[10px] mb-[10px] flex gap-x-1 items-center bg-white p-2 shadow-xl">
       {crumbs?.map((crumb, index) => {
         return (
           <Fragment key={index}>

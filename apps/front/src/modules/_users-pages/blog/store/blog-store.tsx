@@ -16,6 +16,10 @@ export class BlogStore {
   blog: BlogsModel = defaultBlogsModel;
   randomBlogs: BlogsModel[] = [];
 
+  comments: string[] = [];
+
+  newComment: string = '';
+
   async loadBlog(id: string) {
     if (!id) {
       return;
@@ -26,5 +30,14 @@ export class BlogStore {
 
   async loadRandomBlogs() {
     this.randomBlogs = await this.userService.getRandomBlogs();
+  }
+
+  setNewComment(v: string) {
+    this.newComment = v;
+  }
+
+  pushComment() {
+    this.comments.push(this.newComment);
+    this.newComment = '';
   }
 }

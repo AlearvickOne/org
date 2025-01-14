@@ -18,7 +18,7 @@ export const BlogHome = observer(() => {
     <div className="flex flex-col gap-y-[14px]">
       {homeBlogsStore.blogs.map((blog) => (
         <Fragment key={blog.id}>
-          <BlogCard router={router} blog={blog} />
+          <BlogCard blog={blog} />
         </Fragment>
       ))}
     </div>

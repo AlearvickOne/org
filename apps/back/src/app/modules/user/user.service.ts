@@ -39,7 +39,10 @@ export class UserService {
   }
 
   async getBlog(id: number) {
-    return await BlogsEntity.findOneBy({ id: id });
+    return await BlogsEntity.createQueryBuilder('blogs')
+      .where('blogs.id = :Id', { Id: id })
+      .leftJoinAndSelect('blogs.user', 'user')
+      .getOne();
   }
 
   async getRandomBlogs() {
