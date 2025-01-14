@@ -41,4 +41,11 @@ export class UserService {
   async getBlog(id: number) {
     return await BlogsEntity.findOneBy({ id: id });
   }
+
+  async getRandomBlogs() {
+    return await BlogsEntity.createQueryBuilder('blogs')
+      .orderBy('RAND()')
+      .limit(10)
+      .getMany();
+  }
 }

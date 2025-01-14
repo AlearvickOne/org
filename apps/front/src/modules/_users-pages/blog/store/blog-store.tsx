@@ -14,6 +14,7 @@ export class BlogStore {
   }
 
   blog: BlogsModel = defaultBlogsModel;
+  randomBlogs: BlogsModel[] = [];
 
   async loadBlog(id: string) {
     if (!id) {
@@ -21,5 +22,9 @@ export class BlogStore {
     }
 
     this.blog = await this.userService.getBlog(id);
+  }
+
+  async loadRandomBlogs() {
+    this.randomBlogs = await this.userService.getRandomBlogs();
   }
 }

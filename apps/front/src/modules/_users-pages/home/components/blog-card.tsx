@@ -10,7 +10,7 @@ interface Props {
 
 export const BlogCard = observer(({ blog, router }: Props) => {
   return (
-    <div className="border-1 border-blue-500 p-5 rounded-[15px]">
+    <div className="p-5 bg-white shadow-xl">
       <div className="flex gap-x-10 items-center">
         <div className="">Фотка</div>
         <div>

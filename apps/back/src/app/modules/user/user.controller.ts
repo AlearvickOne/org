@@ -43,4 +43,9 @@ export class UserController {
 
     return await this.userService.getBlog(id);
   }
+
+  @Get('get-random-blogs')
+  async getRandomBlogs() {
+    return await this.userService.getRandomBlogs();
+  }
 }

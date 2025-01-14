@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 const homeBlogsStore = ioc.get<HomeBlogsStore>('HomeBlogsStore');
 
-export const Blog = observer(() => {
+export const BlogHome = observer(() => {
   const router = useRouter();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export const Blog = observer(() => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col gap-y-[14px]">
       {homeBlogsStore.blogs.map((blog) => (
         <Fragment key={blog.id}>
           <BlogCard router={router} blog={blog} />

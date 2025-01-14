@@ -44,4 +44,8 @@ export class UserService {
   async getBlog(id: string) {
     return this.httpService.get(`user/get-blog?id=${id}`);
   }
+
+  async getRandomBlogs() {
+    return await this.httpService.get('user/get-random-blogs');
+  }
 }

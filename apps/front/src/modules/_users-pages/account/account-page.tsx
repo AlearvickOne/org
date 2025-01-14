@@ -9,11 +9,14 @@ import { useEffect } from 'react';
 import { PasswordChange } from './components/password-change';
 import { pagesNames } from '../../../pages-names';
 import { BreadCrumbs } from '@org/common-next';
+import { useRouter } from 'next/router';
 
 const userStore = ioc.get<UserStore>('UserStore');
 const accountStore = ioc.get<AccountStore>('AccountStore');
 
 export const AccountPage = observer(() => {
+  const router = useRouter();
+
   useEffect(() => {
     accountStore.init().then();
   }, []);
@@ -32,6 +35,7 @@ export const AccountPage = observer(() => {
   return (
     <LayoutUser>
       <BreadCrumbs
+        router={router}
         crumbs={[
           { name: 'Главная', link: pagesNames.home },
           { name: 'Мой аккаунт', link: pagesNames.account },
