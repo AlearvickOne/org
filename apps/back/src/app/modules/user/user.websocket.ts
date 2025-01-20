@@ -1,15 +1,36 @@
-import {
-  WebSocketGateway,
-  SubscribeMessage,
-  MessageBody,
-} from '@nestjs/websockets';
+import { Server, Socket } from 'socket.io';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 
-@WebSocketGateway(4300, { namespace: 'ws' })
-export class UserWebSocket {
+@Injectable()
+export class UserWebSocket implements OnModuleInit {
   constructor() {}
+  io: Server;
 
-  @SubscribeMessage('comment')
-  async emitComment(@MessageBody() data: string) {
-    return data;
+  comments: { userId: number; comment: string }[] = [];
+
+  async onModuleInit() {
+    this.io = new Server(3900, {
+      cors: {
+        origin: 'http://localhost:4200',
+        credentials: true,
+      },
+    });
+
+    this.io.on('connection', (socket) => {
+      Logger.debug('Socket connected');
+
+      this.events(socket);
+
+      socket.on('disconnect', () => {
+        Logger.debug(`Socket disconnected`);
+      });
+    });
+  }
+
+  events(socket: Socket) {
+    socket.on('comment', (data) => {
+      this.comments.push(data);
+      this.io.emit('commented', this.comments);
+    });
   }
 }

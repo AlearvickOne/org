@@ -1,12 +1,15 @@
 import { observer } from 'mobx-react';
 import { BlogStore } from '../store/blog-store';
 import { Button, TextareaBase } from '@org/common-next';
+import { clsx } from 'clsx';
 
 interface Props {
   blogStore: BlogStore;
 }
 
 export const Blog = observer(({ blogStore }: Props) => {
+  const clientId = blogStore.userStore.user.id;
+
   return (
     <div>
       <div className="bg-white shadow-xl pb-10 px-3 w-[927px]">
@@ -46,9 +49,20 @@ export const Blog = observer(({ blogStore }: Props) => {
         </div>
 
         <div className="border-1 p-2 shadow-inner">
-          {blogStore.comments.map((comment) => (
-            <div>{comment}</div>
-          ))}
+          {blogStore.comments.map((comment) => {
+            console.log(comment.userId === blogStore.userStore.user.id);
+
+            return (
+              <div
+                key={Math.random()}
+                className={clsx(
+                  comment.userId === clientId ? 'text-right' : 'text-left'
+                )}
+              >
+                {comment.comment}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

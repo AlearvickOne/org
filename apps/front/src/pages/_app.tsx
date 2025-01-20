@@ -28,7 +28,8 @@ function CustomApp({ Component, pageProps }: AppProps) {
         if (
           isLocation(pagesNames.home) ||
           isLocation(pagesNames.login) ||
-          isLocation(pagesNames.register)
+          isLocation(pagesNames.register) ||
+          isLocation(pagesNames.blog)
         ) {
           return setIsLoading(false);
         }
