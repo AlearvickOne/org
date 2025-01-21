@@ -1,12 +1,13 @@
 import { Server, Socket } from 'socket.io';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { IUsersComments } from '@org/types';
 
 @Injectable()
 export class UserWebSocket implements OnModuleInit {
   constructor() {}
   io: Server;
 
-  comments: { userId: number; comment: string }[] = [];
+  comments: IUsersComments[] = [];
 
   async onModuleInit() {
     this.io = new Server(3900, {

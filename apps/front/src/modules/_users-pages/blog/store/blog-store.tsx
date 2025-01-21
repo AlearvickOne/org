@@ -2,7 +2,12 @@ import { makeAutoObservable } from 'mobx';
 import { injectable } from 'inversify';
 import { UserService } from '../../../../services/user.service';
 import ioc from '../../../../../ioc/ioc';
-import { BlogsModel, defaultBlogsModel } from '@org/types';
+import {
+  BlogsModel,
+  defaultBlogsModel,
+  IUsersComments,
+  IUsersCommentsNoId,
+} from '@org/types';
 import { io } from 'socket.io-client';
 import { socketUrl } from '../../../../../conf';
 import { UserStore } from '../../../../main-stores/user-store';
@@ -25,7 +30,8 @@ export class BlogStore {
   blog: BlogsModel = defaultBlogsModel;
   randomBlogs: BlogsModel[] = [];
 
-  comments: { userId: number; comment: string }[] = [];
+  comments: IUsersComments[] = [];
+  otherUserComment: IUsersCommentsNoId | null = null;
 
   newComment: string = '';
 
@@ -51,9 +57,14 @@ export class BlogStore {
     this.newComment = v;
   }
 
+  setOtherUserComment(v: IUsersCommentsNoId | null) {
+    this.otherUserComment = v;
+  }
+
   pushComment() {
     this.socket.emit('comment', {
       userId: this.userStore.user.id,
+      nickname: this.userStore.user.nickname,
       comment: this.newComment,
     });
   }
