@@ -56,53 +56,59 @@ export const Blog = observer(({ blogStore }: Props) => {
       </div>
       <div className="bg-white shadow-xl w-[927px] mt-5 px-[14px] pb-10">
         <div className="font-medium text-h6 border-b-1 mb-5 pt-5 pb-1">
-          Комментарии
+          Обсуждение статьи
         </div>
 
         <div className="border-1 p-3 bg-white shadow-inner shadow-stone-300 rounded-[3px] flex flex-col w-full max-h-[800px] overflow-y-auto mb-4">
-          {blogStore.comments.map((comment) => (
-            <div
-              key={Math.random()}
-              className={
-                comment.userId === clientId ? 'text-right' : 'text-left'
-              }
-            >
-              <div className="mb-4 border-1 border-blue-200 p-2 inline-block shadow-md min-w-[150px] max-w-[500px] rounded-md bg-white shadow-blue-200">
-                <div
-                  className={clsx(
-                    'border-b-1 text-left font-medium mb-2 border-blue-200',
-                    comment.userId === clientId ? 'text-blue-500' : ''
-                  )}
-                >
-                  {comment.nickname}
-                </div>
-
-                {comment.otherUserComment
-                  ? otherUsersCommentJsx(
-                      comment.otherUserComment.nickname,
-                      comment.otherUserComment.comment
-                    )
-                  : null}
-
-                <div className="text-left max-w-[400px] mt-1 break-words ">
-                  {comment.comment}
-                </div>
-                {comment.userId !== clientId ? (
+          {blogStore.comments.length !== 0 ? (
+            blogStore.comments?.map((comment) => (
+              <div
+                key={Math.random()}
+                className={
+                  comment.body.userId === clientId ? 'text-right' : 'text-left'
+                }
+              >
+                <div className="mb-4 border-1 border-blue-200 p-2 inline-block shadow-md min-w-[150px] max-w-[500px] rounded-md bg-white shadow-blue-200">
                   <div
-                    className="text-right text-blue-500 cursor-pointer mt-2"
-                    onClick={() =>
-                      blogStore.setOtherUserComment({
-                        nickname: comment.nickname,
-                        comment: comment.comment,
-                      })
-                    }
+                    className={clsx(
+                      'border-b-1 text-left font-medium mb-2 border-blue-200',
+                      comment.body.userId === clientId ? 'text-blue-500' : ''
+                    )}
                   >
-                    Ответить
+                    {comment.body.nickname}
                   </div>
-                ) : null}
+
+                  {comment.body.otherUserComment
+                    ? otherUsersCommentJsx(
+                        comment.body.otherUserComment.nickname,
+                        comment.body.otherUserComment.comment
+                      )
+                    : null}
+
+                  <div className="text-left max-w-[400px] mt-1 break-words ">
+                    {comment.body.comment}
+                  </div>
+                  {comment.body.userId !== clientId ? (
+                    <div
+                      className="text-right text-blue-500 cursor-pointer mt-2"
+                      onClick={() =>
+                        blogStore.setOtherUserComment({
+                          nickname: comment.body.nickname,
+                          comment: comment.body.comment.trim(),
+                        })
+                      }
+                    >
+                      Ответить
+                    </div>
+                  ) : null}
+                </div>
               </div>
+            ))
+          ) : (
+            <div className="text-center text-slate-500 font-medium">
+              Здесь пока пусто 😞, опубликуйте ваше мнение первым!
             </div>
-          ))}
+          )}
         </div>
 
         <TextareaBase
@@ -116,14 +122,19 @@ export const Blog = observer(({ blogStore }: Props) => {
           {blogStore.otherUserComment
             ? otherUsersCommentJsx(
                 blogStore.otherUserComment.nickname,
-                blogStore.otherUserComment.comment,
+                blogStore.otherUserComment.comment.trim(),
                 () => blogStore.setOtherUserComment(null)
               )
             : null}
         </TextareaBase>
         <div className="flex justify-end mt-3">
           <div>
-            <Button onClick={() => blogStore.pushComment()}>Отправить</Button>
+            <Button
+              isDisabled={blogStore.newComment.trim().length === 0}
+              onClick={() => blogStore.pushComment()}
+            >
+              Отправить
+            </Button>
           </div>
         </div>
       </div>
