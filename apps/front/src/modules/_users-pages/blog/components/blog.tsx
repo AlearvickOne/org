@@ -11,6 +11,28 @@ interface Props {
 export const Blog = observer(({ blogStore }: Props) => {
   const clientId = blogStore.userStore.user.id;
 
+  const otherUsersCommentJsx = (
+    nickname: string,
+    comment: string,
+    closeBtn?: () => void
+  ) => {
+    return (
+      <div className="text-left bg-zinc-100 h-[50px] overflow-hidden rounded-[5px]">
+        <div className="px-1 text-zinc-600">
+          <div className="border-b-1 border-blue-100 font-medium flex justify-between text-zinc-800">
+            {nickname}
+            {closeBtn ? (
+              <div onClick={closeBtn} className="text-black">
+                <CloseIcon />
+              </div>
+            ) : null}
+          </div>
+          <div className="truncate">{comment}</div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div>
       <div className="bg-white shadow-xl pb-10 px-3 w-[927px]">
@@ -45,7 +67,7 @@ export const Blog = observer(({ blogStore }: Props) => {
                 comment.userId === clientId ? 'text-right' : 'text-left'
               }
             >
-              <div className="mb-4 border-1 border-blue-200 p-2 inline-block shadow-md min-w-[150px] rounded-md bg-white shadow-blue-200">
+              <div className="mb-4 border-1 border-blue-200 p-2 inline-block shadow-md min-w-[150px] max-w-[500px] rounded-md bg-white shadow-blue-200">
                 <div
                   className={clsx(
                     'border-b-1 text-left font-medium mb-2 border-blue-200',
@@ -54,7 +76,17 @@ export const Blog = observer(({ blogStore }: Props) => {
                 >
                   {comment.nickname}
                 </div>
-                <div className="text-left max-w-[400px]">{comment.comment}</div>
+
+                {comment.otherUserComment
+                  ? otherUsersCommentJsx(
+                      comment.otherUserComment.nickname,
+                      comment.otherUserComment.comment
+                    )
+                  : null}
+
+                <div className="text-left max-w-[400px] mt-1 break-words ">
+                  {comment.comment}
+                </div>
                 {comment.userId !== clientId ? (
                   <div
                     className="text-right text-blue-500 cursor-pointer mt-2"
@@ -81,21 +113,13 @@ export const Blog = observer(({ blogStore }: Props) => {
           value={blogStore.newComment}
           onChange={(v) => blogStore.setNewComment(v)}
         >
-          {blogStore.otherUserComment ? (
-            <div className="bg-slate-100 h-[50px]overflow-hidden rounded-[5px]">
-              <div className="p-1 text-slate-800">
-                <div className="border-b-1 border-blue-100 font-medium flex justify-between">
-                  {blogStore.otherUserComment.nickname}
-                  <div onClick={() => blogStore.setOtherUserComment(null)}>
-                    <CloseIcon />
-                  </div>
-                </div>
-                <div className="truncate">
-                  {blogStore.otherUserComment.comment}
-                </div>
-              </div>
-            </div>
-          ) : null}
+          {blogStore.otherUserComment
+            ? otherUsersCommentJsx(
+                blogStore.otherUserComment.nickname,
+                blogStore.otherUserComment.comment,
+                () => blogStore.setOtherUserComment(null)
+              )
+            : null}
         </TextareaBase>
         <div className="flex justify-end mt-3">
           <div>

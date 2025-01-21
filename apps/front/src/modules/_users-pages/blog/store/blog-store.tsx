@@ -66,6 +66,7 @@ export class BlogStore {
       userId: this.userStore.user.id,
       nickname: this.userStore.user.nickname,
       comment: this.newComment,
+      otherUserComment: this.otherUserComment,
     });
   }
 }
