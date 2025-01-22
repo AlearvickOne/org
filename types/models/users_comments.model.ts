@@ -1,5 +1,3 @@
-import { IUsersComments } from '../interfaces';
-
 export interface UsersCommentsModel {
   id: number;
   blog_id: number;

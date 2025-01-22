@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { IUsersComments, UsersCommentsModel } from '@org/types';
+import { UsersCommentsModel } from '@org/types';
 
 @Entity('users_comments')
 export class UsersCommentsEntity

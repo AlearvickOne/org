@@ -37,7 +37,7 @@ export class UserService {
     return this.httpService.put(path, user);
   }
 
-  getBlogs() {
+  async getBlogs() {
     return this.httpService.get('user/get-blogs');
   }
 

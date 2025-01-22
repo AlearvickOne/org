@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Fragment } from 'react';
-import { NextRouter, useRouter } from 'next/router';
+import { NextRouter } from 'next/router';
 import { clsx } from 'clsx';
 
 interface BreadCrumbsProps {
