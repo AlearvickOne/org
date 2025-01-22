@@ -8,7 +8,11 @@ interface Props {
 
 export const PasswordChange = observer(({ accountStore }: Props) => {
   return (
-    <div className="flex flex-col gap-y-[15px] w-full">
+    <div className="flex flex-col gap-y-[15px] w-full bg-white px-10 py-2 shadow-xl pb-20 pt-5">
+      <div className="text-h5 font-medium border-b-1 border-blue-500 mb-5">
+        Сменить пароль
+      </div>
+
       <InputBase
         label="Новый пароль"
         type="password"

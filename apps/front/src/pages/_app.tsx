@@ -60,7 +60,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Блог</title>
       </Head>
-      <main className="bg-default font-sans">
+      <main className="bg-stone-200 font-sans">
         {isLoading ? (
           <div className="h-screen flex justify-center items-center text-white text-[26px]">
             Загрузка...

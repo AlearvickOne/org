@@ -3,6 +3,7 @@ import { UserStore } from '../../../../main-stores/user-store';
 import { AccountStore } from '../store/account-store';
 import { clsx } from 'clsx';
 import { pagesNames } from '../../../../pages-names';
+import Link from 'next/link';
 
 interface Props {
   userStore: UserStore;
@@ -11,7 +12,7 @@ interface Props {
 
 export const MenuAccount = observer(({ userStore, accountStore }: Props) => {
   return (
-    <div className="w-full h-full max-w-[300px] border-1 border-blue-500 rounded-[20px] px-5 py-8">
+    <div className="w-full bg-white h-full max-w-[300px] shadow-xl px-5 py-8">
       <div className="flex items-center justify-center gap-x-10">
         <div className="">Фото</div>
         <div className="">
@@ -20,26 +21,26 @@ export const MenuAccount = observer(({ userStore, accountStore }: Props) => {
         </div>
       </div>
 
-      <div className="border-b-1 my-5"></div>
+      <div className="border-b-1 my-5" />
 
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col">
         <ul>
-          <li
-            className="cursor-pointer"
-            onClick={() => window.location.replace(pagesNames.adminDashboard)}
-          >
-            Админка
+          <li>
+            <a className="cursor-pointer" href={pagesNames.adminDashboard}>
+              Админка
+            </a>
           </li>
           {accountStore.tabs.map((tab) => (
             <li
-              className={clsx(
-                `cursor-pointer`,
-                tab.isActive ? 'text-blue-500' : ''
-              )}
+              className={clsx(tab.isActive ? 'text-blue-500' : '')}
               key={tab.id}
-              onClick={() => accountStore.setActiveTab(tab.id)}
             >
-              {tab.title}
+              <div
+                onClick={() => accountStore.setActiveTab(tab.id)}
+                className="cursor-pointer inline"
+              >
+                {tab.title}
+              </div>
             </li>
           ))}
         </ul>

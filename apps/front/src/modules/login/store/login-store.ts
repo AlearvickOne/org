@@ -37,7 +37,7 @@ export class LoginStore {
         email: this.email,
         password: this.password,
       });
-      window.location.replace(`http://localhost:4200/${pagesNames.dashboard}`);
+      window.location.replace(`http://localhost:4200/${pagesNames.home}`);
     } catch (error: any) {
       this.setErrors(error);
     }

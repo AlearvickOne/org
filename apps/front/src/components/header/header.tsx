@@ -4,6 +4,7 @@ import { LoginStore } from '../../modules/login/store/login-store';
 import { UserStore } from '../../main-stores/user-store';
 import { useRouter } from 'next/router';
 import { pagesNames } from '../../pages-names';
+import { LogoImage } from '@org/common-next';
 
 const loginStore = ioc.get<LoginStore>('LoginStore');
 const userStore = ioc.get<UserStore>('UserStore');
@@ -12,12 +13,14 @@ export const Header = observer(() => {
   const router = useRouter();
 
   return (
-    <div className="bg-white h-[50px] flex justify-between items-center border-b-1 shadow-xl">
+    <div className="bg-white h-[60px] flex justify-between items-center border-b-1 shadow-xl">
       <div
         className="ml-12 cursor-pointer"
         onClick={() => router.push(pagesNames.home)}
       >
-        Лого
+        <div className="w-full h-[50px] text-black">
+          <LogoImage />
+        </div>
       </div>
 
       {userStore.user ? (
