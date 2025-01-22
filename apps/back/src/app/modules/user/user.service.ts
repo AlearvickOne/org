@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UsersModel } from '@org/types';
 import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
 import { UsersEntity } from '../../database/entities';
+import { BlogsEntity } from '../../database/entities/blogs.entity';
 
 @Injectable()
 export class UserService {
@@ -31,5 +32,23 @@ export class UserService {
     }
 
     return await foundUser.save();
+  }
+
+  async getBlogs() {
+    return await BlogsEntity.find();
+  }
+
+  async getBlog(id: number) {
+    return await BlogsEntity.createQueryBuilder('blogs')
+      .where('blogs.id = :Id', { Id: id })
+      .leftJoinAndSelect('blogs.user', 'user')
+      .getOne();
+  }
+
+  async getRandomBlogs() {
+    return await BlogsEntity.createQueryBuilder('blogs')
+      .orderBy('RAND()')
+      .limit(10)
+      .getMany();
   }
 }

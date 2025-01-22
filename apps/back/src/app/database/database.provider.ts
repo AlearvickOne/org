@@ -3,8 +3,9 @@ import { dataSource } from '../../../../../data-source';
 import { Logger } from '@nestjs/common';
 import { RolesEntity, UsersEntity } from './entities';
 import { BlogsEntity } from './entities/blogs.entity';
+import { UsersCommentsEntity } from './entities/users_comments.entity';
 
-const entities = [UsersEntity, RolesEntity, BlogsEntity];
+const entities = [UsersEntity, RolesEntity, BlogsEntity, UsersCommentsEntity];
 
 export const databaseProviders = [
   {

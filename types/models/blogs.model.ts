@@ -1,3 +1,5 @@
+import { UsersModel } from './users.model';
+
 export interface BlogsModel {
   id: number;
   user_id: number;
@@ -6,6 +8,7 @@ export interface BlogsModel {
   photo: string;
   content: string;
   created_at?: string;
+  user?: UsersModel;
 }
 
 export const defaultBlogsModel: BlogsModel = {

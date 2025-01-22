@@ -32,9 +32,9 @@ export class AdminBlogEditStore {
     try {
       const blogId = await this.adminService.saveContentBlog({
         id: this.blog.id,
-        title: this.blog.title,
-        description: this.blog.description,
-        content: this.blog.content,
+        title: this.blog.title.trim(),
+        description: this.blog.description.trim(),
+        content: this.blog.content.trim(),
       });
 
       window.location.replace(`${pagesNames.adminBlogs}/blog?id=${blogId}`);

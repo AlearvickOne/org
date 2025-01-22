@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react';
 import dynamic from 'next/dynamic';
-import 'react-quill/dist/quill.snow.css';
 import { CheckboxBase } from '@org/common-next';
 import { useState } from 'react';
 
@@ -23,7 +22,6 @@ export const EditorBlogContent = observer(
         [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
         [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
         [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
-        [{ header: [1, 2, 3, 4, 5, 6, false] }],
         [{ color: [] }, { background: [] }], // dropdown with defaults from theme
         [{ font: [] }],
         [{ align: [] }],

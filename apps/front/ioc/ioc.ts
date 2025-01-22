@@ -11,6 +11,8 @@ import { AdminUsersStore } from '../src/modules/_admin-pages/admin-users/store/a
 import { AdminService } from '../src/services/admin.service';
 import { AdminBlogEditStore } from '../src/modules/_admin-pages/admin-blogs/blog/store/admin-blog-edit-store';
 import { AdminBlogsStore } from '../src/modules/_admin-pages/admin-blogs/store/admin-blogs-store';
+import { HomeBlogsStore } from '../src/modules/_users-pages/home/stores/home-blogs-store';
+import { BlogStore } from '../src/modules/_users-pages/blog/store/blog-store';
 
 const container = new Container();
 
@@ -38,6 +40,11 @@ container
   .bind<AdminBlogsStore>('AdminBlogsStore')
   .to(AdminBlogsStore)
   .inSingletonScope();
+container
+  .bind<HomeBlogsStore>('HomeBlogsStore')
+  .to(HomeBlogsStore)
+  .inSingletonScope();
+container.bind<BlogStore>('BlogStore').to(BlogStore).inSingletonScope();
 
 // Сервисы
 container.bind<HttpService>('HttpService').to(HttpService).inSingletonScope();

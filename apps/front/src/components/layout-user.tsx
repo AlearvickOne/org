@@ -10,7 +10,7 @@ interface LayoutProps {
 export const LayoutUser = observer(({ children }: LayoutProps) => {
   return (
     <div className="flex justify-center min-h-screen">
-      <div className="max-w-[1366px] w-full flex flex-col bg-white">
+      <div className="max-w-[1366px] w-full flex flex-col bg-stone-200">
         <Header />
 
         <div className="flex-grow mx-[50px]">

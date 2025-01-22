@@ -1,0 +1,23 @@
+import { observer } from 'mobx-react';
+import { BlogCard } from './blog-card';
+import ioc from '../../../../../ioc/ioc';
+import { HomeBlogsStore } from '../stores/home-blogs-store';
+import { Fragment, useEffect } from 'react';
+
+const homeBlogsStore = ioc.get<HomeBlogsStore>('HomeBlogsStore');
+
+export const BlogHome = observer(() => {
+  useEffect(() => {
+    homeBlogsStore.loadBlogs().then();
+  }, []);
+
+  return (
+    <div className="flex flex-col gap-y-[14px]">
+      {homeBlogsStore.blogs.map((blog) => (
+        <Fragment key={blog.id}>
+          <BlogCard blog={blog} />
+        </Fragment>
+      ))}
+    </div>
+  );
+});

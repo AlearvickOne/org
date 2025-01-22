@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { HttpService } from './http.service';
-import { UsersModel } from '../../../../types/models/users.model';
+import { UsersModel } from '@org/types';
 
 @injectable()
 export class UserService {
@@ -35,5 +35,17 @@ export class UserService {
     }
 
     return this.httpService.put(path, user);
+  }
+
+  async getBlogs() {
+    return this.httpService.get('user/get-blogs');
+  }
+
+  async getBlog(id: string) {
+    return this.httpService.get(`user/get-blog?id=${id}`);
+  }
+
+  async getRandomBlogs() {
+    return await this.httpService.get('user/get-random-blogs');
   }
 }

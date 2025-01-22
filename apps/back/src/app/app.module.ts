@@ -10,6 +10,8 @@ import { AuthService } from './modules/auth/auth.service';
 import { ConfigService } from '../services/config.service';
 import { AdminController } from './modules/admin/admin.controller';
 import { AdminService } from './modules/admin/admin.service';
+import { UserWebSocket } from './modules/websockets/user.websocket';
+import { UserWebSocketService } from './modules/websockets/user.websocket.service';
 
 @Module({
   imports: [DatabaseModule],
@@ -20,6 +22,8 @@ import { AdminService } from './modules/admin/admin.service';
     AuthService,
     ConfigService,
     AdminService,
+    UserWebSocket,
+    UserWebSocketService,
   ],
 })
 export class AppModule implements NestModule {
