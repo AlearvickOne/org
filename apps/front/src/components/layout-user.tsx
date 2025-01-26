@@ -14,7 +14,7 @@ export const LayoutUser = observer(({ children }: LayoutProps) => {
         <Header />
       </div>
 
-      <div className="flex-grow max-w-[1366px] w-full mx-auto flex flex-col px-[50px]">
+      <div className="flex-grow max-w-[1366px] w-full mx-auto flex flex-col px-[10px] md:px-[50px]">
         <div className="w-full">{children}</div>
       </div>
 

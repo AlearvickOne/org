@@ -10,7 +10,7 @@ interface Props {
 
 export const OtherBlogsList = observer(({ blogStore }: Props) => {
   return (
-    <div className="bg-white px-5 py-4 flex flex-col gap-y-3 h-full max-w-[350px] shadow-xl">
+    <div className="bg-white px-5 py-4 flex flex-col gap-y-3 h-full md:max-w-[350px] mt-3 md:mt-0 shadow-xl">
       <div className="font-medium border-b-1 text-[18px] mb-2 pb-1">
         ТАКЖЕ БУДЕТ ИНТЕРЕСНО
       </div>

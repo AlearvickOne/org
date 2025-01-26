@@ -35,13 +35,13 @@ export const Blog = observer(({ blogStore }: Props) => {
 
   return (
     <div>
-      <div className="bg-white shadow-xl pb-10 px-3 w-[927px]">
-        <div className="font-medium text-h4 px-[14px] pb-1 pt-5 border-b-1">
+      <div className="bg-white shadow-xl pb-10 px-3 md:w-[927px] w-full">
+        <div className="font-medium text-h4 px-[14px] pb-1 pt-5 border-b-1 w-full">
           {blogStore.blog.title}
         </div>
         <div>
           <div
-            className="whitespace-pre-wrap ql-editor"
+            className="whitespace-pre-wrap ql-editor w-full"
             dangerouslySetInnerHTML={{
               __html: blogStore.blog.content,
             }}
@@ -54,12 +54,12 @@ export const Blog = observer(({ blogStore }: Props) => {
           </em>
         </div>
       </div>
-      <div className="bg-white shadow-xl w-[927px] mt-5 px-[14px] pb-10">
+      <div className="bg-white shadow-xl w-full md:w-[927px] mt-5 px-[14px] pb-10">
         <div className="font-medium text-h6 border-b-1 mb-5 pt-5 pb-1">
           Обсуждение статьи
         </div>
 
-        <div className="border-1 p-3 bg-white shadow-inner shadow-stone-300 rounded-[3px] flex flex-col w-full max-h-[800px] overflow-y-auto mb-4">
+        <div className="border-1 p-3 bg-white shadow-inner shadow-stone-300 rounded-[3px] flex flex-col w-full max-h-[500px] md:max-h-[800px] overflow-y-auto mb-4">
           {blogStore.comments.length !== 0 ? (
             blogStore.comments?.map((comment) => (
               <div
@@ -68,7 +68,7 @@ export const Blog = observer(({ blogStore }: Props) => {
                   comment.body.userId === clientId ? 'text-right' : 'text-left'
                 }
               >
-                <div className="mb-4 border-1 border-blue-200 p-2 inline-block shadow-md min-w-[150px] max-w-[500px] rounded-md bg-white shadow-blue-200">
+                <div className="mb-4 border-1 border-blue-200 p-2 inline-block shadow-md min-w-[100px] md:min-w-[150px] max-w-[200px] md:max-w-[500px] rounded-md bg-white shadow-blue-200">
                   <div
                     className={clsx(
                       'border-b-1 text-left font-medium mb-2 border-blue-200',

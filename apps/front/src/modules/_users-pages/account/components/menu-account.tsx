@@ -12,7 +12,7 @@ interface Props {
 
 export const MenuAccount = observer(({ userStore, accountStore }: Props) => {
   return (
-    <div className="w-full bg-white h-full max-w-[300px] shadow-xl px-5 py-8">
+    <div className="w-full bg-white h-full md:max-w-[300px] shadow-xl px-5 py-8">
       <div className="flex items-center justify-center gap-x-10">
         <div className="">Фото</div>
         <div className="">
@@ -21,29 +21,29 @@ export const MenuAccount = observer(({ userStore, accountStore }: Props) => {
         </div>
       </div>
 
-      <div className="border-b-1 my-5" />
+      <div className="border-b-1 my-2" />
 
-      <div className="flex flex-col">
-        <ul>
-          <li>
-            <a className="cursor-pointer" href={pagesNames.adminDashboard}>
-              Админка
-            </a>
-          </li>
-          {accountStore.tabs.map((tab) => (
-            <li
-              className={clsx(tab.isActive ? 'text-blue-500' : '')}
-              key={tab.id}
+      <div className="flex flex-col md:text-left text-center">
+        <div>
+          <a className="cursor-pointer" href={pagesNames.adminDashboard}>
+            Админка
+          </a>
+          <div className="border-b-1 my-2" />
+        </div>
+
+        {accountStore.tabs.map((tab) => (
+          <div
+            className={clsx(tab.isActive ? 'text-blue-500' : '')}
+            key={tab.id}
+          >
+            <div
+              onClick={() => accountStore.setActiveTab(tab.id)}
+              className="cursor-pointer inline"
             >
-              <div
-                onClick={() => accountStore.setActiveTab(tab.id)}
-                className="cursor-pointer inline"
-              >
-                {tab.title}
-              </div>
-            </li>
-          ))}
-        </ul>
+              {tab.title}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -20,9 +20,9 @@ export const LayoutAdmin = observer(
   ({ children, titleHead, tabs, tabIndex, setTabIndex }: LayoutAdminProps) => {
     return (
       <div className="flex justify-center min-h-screen">
-        <div className="max-w-[1366px] w-full flex flex-col bg-white">
+        <div className="max-w-[1366px] w-full flex flex-col">
           <AdminHeader />
-          <div className="flex px-[20px] gap-x-4 mt-5">
+          <div className="flex px-[20px] gap-x-4 mt-5 bg-white py-10 h-full shadow-xl">
             <AdminPaths adminStore={adminStore} />
             <div className="w-full bg-blue-200 rounded-md">
               <div className="px-[40px] py-[50px]">
