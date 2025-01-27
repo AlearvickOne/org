@@ -35,7 +35,7 @@ export const ComboboxBase = ({
   return (
     <div className="flex flex-col gap-y-1 w-full relative">
       <label>{label}</label>
-      <div className="relative w-full">
+      <div className="relative w-full" ref={optionsRef}>
         <input
           className="py-2 outline-none border-b-[1px] border-stone-200 bg-transparent focus:border-blue-500 transition-colors duration-200 w-full"
           type={'text'}
@@ -53,10 +53,7 @@ export const ComboboxBase = ({
         </div>
 
         {isOpen ? (
-          <div
-            className="absolute w-full flex flex-col bg-white rounded-md p-2 border-1 border-blue-500 mt-2 cursor-pointer"
-            ref={optionsRef}
-          >
+          <div className="absolute w-full flex flex-col bg-white rounded-md p-2 border-1 border-blue-500 mt-2 cursor-pointer">
             {options.map((option, index) => (
               <div
                 className="cursor-pointer py-1 border-b-1"

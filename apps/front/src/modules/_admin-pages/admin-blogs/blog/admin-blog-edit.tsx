@@ -11,6 +11,7 @@ const adminBlogEditStore = ioc.get<AdminBlogEditStore>('AdminBlogEditStore');
 
 export const AdminBlogEdit = observer(() => {
   const router = useRouter();
+  const blogId = adminBlogEditStore.blog.id;
 
   useEffect(() => {
     adminBlogEditStore.getContentBlog(router.query.id as string).then();
@@ -18,11 +19,16 @@ export const AdminBlogEdit = observer(() => {
 
   return (
     <LayoutAdmin
-      titleHead={`Редактирование блога под Id - ${adminBlogEditStore.blog.id}`}
+      titleHead={
+        blogId !== -1
+          ? `Редактирование блога № ${adminBlogEditStore.blog.id}`
+          : 'Создание нового блога'
+      }
     >
       <div className="mb-4">
         <InputBase
-          label="Заголовок"
+          labelFontSize="medium"
+          label="Заголовок:"
           type={'text'}
           value={adminBlogEditStore.blog.title}
           onChange={(v) => adminBlogEditStore.setTitle(v)}
@@ -31,7 +37,8 @@ export const AdminBlogEdit = observer(() => {
 
       <div className="mb-4">
         <TextareaBase
-          label="Описание"
+          labelFontSize="medium"
+          label="Описание:"
           value={adminBlogEditStore.blog.description}
           onChange={(v) => adminBlogEditStore.setDescription(v)}
         />
@@ -39,18 +46,16 @@ export const AdminBlogEdit = observer(() => {
 
       <div className="mb-4">
         <EditorBlogContent
-          label="Контент"
+          label="Добавление контента:"
           value={adminBlogEditStore.blog.content}
           setValue={(v) => adminBlogEditStore.setContent(v)}
         />
       </div>
 
-      <div className="flex">
-        <div>
-          <Button onClick={() => adminBlogEditStore.saveContentBlog()}>
-            Сохранить
-          </Button>
-        </div>
+      <div className="flex md:max-w-[200px]">
+        <Button onClick={() => adminBlogEditStore.saveContentBlog()}>
+          Сохранить
+        </Button>
       </div>
     </LayoutAdmin>
   );

@@ -72,7 +72,7 @@ export const Header = observer(() => {
       </div>
 
       {isOpenMobileMenu ? (
-        <div className="md:hidden block h-screen w-full fixed bg-white"></div>
+        <div className="md:hidden block h-screen w-full fixed bg-white z-50"></div>
       ) : null}
     </div>
   );

@@ -11,7 +11,7 @@ export const AdminPaths = observer(({ adminStore }: AdminPathsProps) => {
   const router = useRouter();
 
   return (
-    <div className="px-2 py-5 rounded-[15px] w-full max-w-[200px] flex flex-col gap-y-[10px] sticky">
+    <div className="px-2 py-5 rounded-[15px] w-full md:max-w-[200px] flex flex-col gap-y-[10px]">
       {adminStore.adminPaths.map((path) => {
         const isCurrentPath = router.pathname.includes(path.pathname);
 

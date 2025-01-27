@@ -37,7 +37,10 @@ export const AdminUserEdit = observer(() => {
   const surname = adminUsersStore.user.surname;
   const nickname = adminUsersStore.user.nickname;
 
-  const userFio = `${name} ${surname} ${nickname && `- ( ${nickname} )`}`;
+  const userFio =
+    adminUsersStore.user.id !== -1
+      ? `${name} ${surname} ${nickname && `- ( ${nickname} )`}`
+      : 'Создание пользователя';
 
   return (
     <LayoutAdmin

@@ -14,8 +14,8 @@ interface Props {
 
 export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
   return (
-    <div className="px-3">
-      <div className="grid grid-rows-3 grid-cols-2 gap-x-8 gap-y-5">
+    <div className="md:px-3">
+      <div className="md:grid md:grid-rows-3 md:grid-cols-2 gap-x-8 gap-y-5 flex flex-col">
         <InputBase
           label={'Имя'}
           type={'text'}
