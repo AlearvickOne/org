@@ -14,7 +14,7 @@ export const PersonalData = observer(({ accountStore }: Props) => {
       </div>
 
       <InputBase
-        label="Имя"
+        label="Имя:"
         type="text"
         value={accountStore.user.name}
         onChange={(v) => accountStore.setName(v)}
@@ -22,7 +22,7 @@ export const PersonalData = observer(({ accountStore }: Props) => {
       />
 
       <InputBase
-        label="Фамилия"
+        label="Фамилия:"
         type="text"
         value={accountStore.user.surname}
         onChange={(v) => {
@@ -32,7 +32,7 @@ export const PersonalData = observer(({ accountStore }: Props) => {
       />
 
       <InputBase
-        label="Ваш ник"
+        label="Ваш ник:"
         type="text"
         value={accountStore.user.nickname}
         onChange={(v) => {
@@ -42,7 +42,7 @@ export const PersonalData = observer(({ accountStore }: Props) => {
       />
 
       <InputBase
-        label="Email"
+        label="Email:"
         type="text"
         value={accountStore.user.email}
         onChange={(v) => {
@@ -51,14 +51,13 @@ export const PersonalData = observer(({ accountStore }: Props) => {
         placeholder="Введите ваш email"
       />
 
-      <div className="md:w-[150px]">
-        <Button
-          isDisabled={accountStore.isPasswordCheckError}
-          onClick={() => accountStore.saveUser()}
-        >
-          Сохранить
-        </Button>
-      </div>
+      <Button
+        maxWidth={'200px'}
+        isDisabled={accountStore.isPasswordCheckError}
+        onClick={() => accountStore.saveUser()}
+      >
+        Сохранить
+      </Button>
     </div>
   );
 });

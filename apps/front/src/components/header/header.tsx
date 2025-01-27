@@ -6,6 +6,9 @@ import { useRouter } from 'next/router';
 import { pagesNames } from '../../pages-names';
 import { IconMenuMobile, LogoImage, useScrollDisabled } from '@org/common-next';
 import { useState } from 'react';
+import Link from 'next/link';
+import { RolesEnum } from '@org/types';
+import { MobileHeaderMenu } from './mobile-header-menu';
 
 const loginStore = ioc.get<LoginStore>('LoginStore');
 const userStore = ioc.get<UserStore>('UserStore');
@@ -47,12 +50,9 @@ export const Header = observer(() => {
             </ul>
 
             <div className="hidden md:flex gap-x-12">
-              <div
-                className="cursor-pointer"
-                onClick={() => router.push(pagesNames.account)}
-              >
+              <Link href={pagesNames.account}>
                 {`${userStore.user.name} ${userStore.user.surname}`}
-              </div>
+              </Link>
               <div
                 className="mr-12 cursor-pointer"
                 onClick={() => loginStore.logout()}
@@ -62,18 +62,17 @@ export const Header = observer(() => {
             </div>
           </>
         ) : (
-          <div
-            className="hidden md:flex mr-12 cursor-pointer"
-            onClick={() => router.push(pagesNames.login)}
-          >
+          <Link className="mr-12 cursor-pointer" href={pagesNames.login}>
             Войти
-          </div>
+          </Link>
         )}
       </div>
 
-      {isOpenMobileMenu ? (
-        <div className="md:hidden block h-screen w-full fixed bg-white z-50"></div>
-      ) : null}
+      <MobileHeaderMenu
+        isOpenMobileMenu={isOpenMobileMenu}
+        userStore={userStore}
+        loginStore={loginStore}
+      />
     </div>
   );
 });

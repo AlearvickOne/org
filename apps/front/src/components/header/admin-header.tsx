@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { pagesNames } from '../../pages-names';
 import { IconMenuMobile, LogoImage, useScrollDisabled } from '@org/common-next';
 import { useState } from 'react';
+import { MobileHeaderMenu } from './mobile-header-menu';
 
 const loginStore = ioc.get<LoginStore>('LoginStore');
 const userStore = ioc.get<UserStore>('UserStore');
@@ -51,9 +52,11 @@ export const AdminHeader = observer(() => {
         </div>
       </div>
 
-      {isOpenMobileMenu ? (
-        <div className="md:hidden block h-screen w-full fixed bg-white z-50"></div>
-      ) : null}
+      <MobileHeaderMenu
+        isOpenMobileMenu={isOpenMobileMenu}
+        userStore={userStore}
+        loginStore={loginStore}
+      />
     </div>
   );
 });

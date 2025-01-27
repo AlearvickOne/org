@@ -15,7 +15,7 @@ export const InputBase = ({
   type,
   value,
   placeholder,
-  labelFontSize = 'base',
+  labelFontSize = 'medium',
   onChange,
   error,
 }: InputBaseProps) => {

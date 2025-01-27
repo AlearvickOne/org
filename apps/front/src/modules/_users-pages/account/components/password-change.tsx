@@ -14,7 +14,7 @@ export const PasswordChange = observer(({ accountStore }: Props) => {
       </div>
 
       <InputBase
-        label="Новый пароль"
+        label="Новый пароль:"
         type="password"
         value={accountStore.password}
         onChange={(v) => {
@@ -24,7 +24,7 @@ export const PasswordChange = observer(({ accountStore }: Props) => {
       />
 
       <InputBase
-        label="Повторите пароль"
+        label="Повторите пароль:"
         type="password"
         value={accountStore.passwordCheck}
         onChange={(v) => {
@@ -35,14 +35,14 @@ export const PasswordChange = observer(({ accountStore }: Props) => {
           accountStore.isPasswordCheckError ? 'Пароли не совпадают' : undefined
         }
       />
-      <div className="md:w-[150px]">
-        <Button
-          isDisabled={accountStore.isPasswordCheckError}
-          onClick={() => accountStore.saveUser()}
-        >
-          Сохранить
-        </Button>
-      </div>
+
+      <Button
+        maxWidth={'200px'}
+        isDisabled={accountStore.isPasswordCheckError}
+        onClick={() => accountStore.saveUser()}
+      >
+        Сохранить
+      </Button>
     </div>
   );
 });
