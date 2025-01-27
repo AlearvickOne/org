@@ -7,7 +7,6 @@ import { pagesNames } from '../../pages-names';
 import { IconMenuMobile, LogoImage, useScrollDisabled } from '@org/common-next';
 import { useState } from 'react';
 import Link from 'next/link';
-import { RolesEnum } from '@org/types';
 import { MobileHeaderMenu } from './mobile-header-menu';
 
 const loginStore = ioc.get<LoginStore>('LoginStore');

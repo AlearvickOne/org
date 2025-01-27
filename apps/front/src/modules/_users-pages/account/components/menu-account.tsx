@@ -4,6 +4,7 @@ import { AccountStore } from '../store/account-store';
 import { clsx } from 'clsx';
 import { pagesNames } from '../../../../pages-names';
 import Link from 'next/link';
+import { RolesEnum } from '@org/types';
 
 interface Props {
   userStore: UserStore;
@@ -24,12 +25,14 @@ export const MenuAccount = observer(({ userStore, accountStore }: Props) => {
       <div className="border-b-1 my-2" />
 
       <div className="flex flex-col md:text-left text-center">
-        <div>
-          <a className="cursor-pointer" href={pagesNames.adminDashboard}>
-            Админка
-          </a>
-          <div className="border-b-1 my-2" />
-        </div>
+        {accountStore.user.role !== RolesEnum.user ? (
+          <div>
+            <a className="cursor-pointer" href={pagesNames.adminDashboard}>
+              Админка
+            </a>
+            <div className="border-b-1 my-2" />
+          </div>
+        ) : null}
 
         {accountStore.tabs.map((tab) => (
           <div

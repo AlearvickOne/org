@@ -21,10 +21,10 @@ export const LayoutAdmin = observer(
   ({ children, titleHead, tabs, tabIndex, setTabIndex }: LayoutAdminProps) => {
     return (
       <div className="flex justify-center min-h-screen">
-        <div className="max-w-[1366px] w-full flex flex-col">
+        <div className=" w-full flex flex-col">
           <AdminHeader />
 
-          <div className="flex md:flex-row flex-col md:px-[20px] gap-x-4 md:mt-5 md:bg-white md:py-10 py-5 h-full shadow-xl">
+          <div className="max-w-[1366px] m-auto w-full flex md:flex-row flex-col md:px-[20px] gap-x-4 md:mt-5 md:bg-white md:py-10 py-5 h-full shadow-xl">
             {/* Список путей для мобильной версии */}
             <div className="md:hidden bg-white px-2 py-2 shadow-xl block mb-5">
               <SelectorBase>
