@@ -3,7 +3,6 @@ import { UserStore } from '../../../../main-stores/user-store';
 import { AccountStore } from '../store/account-store';
 import { clsx } from 'clsx';
 import { pagesNames } from '../../../../pages-names';
-import Link from 'next/link';
 import { RolesEnum } from '@org/types';
 
 interface Props {
