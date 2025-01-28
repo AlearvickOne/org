@@ -32,8 +32,8 @@ export const EditorBlogContent = observer(
     return (
       <div className="w-full">
         <div className="flex flex-col gap-y-1">
-          <div className="flex justify-between">
-            <label>{label}</label>
+          <div className="flex justify-between md:flex-row flex-col gap-y-2">
+            <label className="font-medium">{label}</label>
             <CheckboxBase
               label="Предварительный просмотр"
               value={isReadonly}

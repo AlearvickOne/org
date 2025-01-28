@@ -4,35 +4,59 @@ import { LoginStore } from '../../modules/login/store/login-store';
 import { UserStore } from '../../main-stores/user-store';
 import { useRouter } from 'next/router';
 import { pagesNames } from '../../pages-names';
+import { IconMenuMobile, LogoImage, useScrollDisabled } from '@org/common-next';
+import { useState } from 'react';
+import { MobileHeaderMenu } from './mobile-header-menu';
 
 const loginStore = ioc.get<LoginStore>('LoginStore');
 const userStore = ioc.get<UserStore>('UserStore');
 
 export const AdminHeader = observer(() => {
   const router = useRouter();
+  const [isOpenMobileMenu, setIsOpenMobileMenu] = useState<boolean>(false);
+
+  useScrollDisabled(isOpenMobileMenu);
 
   return (
-    <div className="bg-white h-[50px] flex justify-between items-center border-b-1">
-      <div
-        className="ml-12 cursor-pointer"
-        onClick={() => router.push(pagesNames.home)}
-      >
-        Лого
-      </div>
-      <div className="flex gap-x-12">
+    <div>
+      <div className="bg-white h-[60px] flex md:justify-between justify-center items-center border-b-1 shadow-xl relative">
         <div
-          className="cursor-pointer"
-          onClick={() => router.push(pagesNames.account)}
+          className="md:ml-12 cursor-pointer"
+          onClick={() => router.push(pagesNames.home)}
         >
-          {`${userStore.user.name} ${userStore.user.surname}`}
+          <div className="w-full h-[50px] text-black">
+            <LogoImage />
+          </div>
         </div>
+
         <div
-          className="mr-12 cursor-pointer"
-          onClick={() => loginStore.logout()}
+          className="block md:hidden absolute right-[20px]"
+          onClick={() => setIsOpenMobileMenu(!isOpenMobileMenu)}
         >
-          Выход
+          <IconMenuMobile />
+        </div>
+
+        <div className="hidden md:flex gap-x-12">
+          <div
+            className="cursor-pointer"
+            onClick={() => router.push(pagesNames.account)}
+          >
+            {`${userStore.user.name} ${userStore.user.surname}`}
+          </div>
+          <div
+            className="mr-12 cursor-pointer"
+            onClick={() => loginStore.logout()}
+          >
+            Выход
+          </div>
         </div>
       </div>
+
+      <MobileHeaderMenu
+        isOpenMobileMenu={isOpenMobileMenu}
+        userStore={userStore}
+        loginStore={loginStore}
+      />
     </div>
   );
 });

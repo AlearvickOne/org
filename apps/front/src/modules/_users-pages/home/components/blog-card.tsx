@@ -10,7 +10,7 @@ interface Props {
 export const BlogCard = observer(({ blog }: Props) => {
   return (
     <div className="p-5 bg-white shadow-xl">
-      <div className="flex gap-x-10 items-center">
+      <div className="flex md:flex-row flex-col gap-x-10 items-center">
         <div className="">Фотка</div>
         <div>
           <div className="font-medium text-h6">{blog.title}</div>

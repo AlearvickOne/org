@@ -8,17 +8,17 @@ interface Props {
 
 export const AdminUserEditPassword = observer(({ adminUsersStore }: Props) => {
   return (
-    <div className="px-3">
-      <div className="grid grid-rows-2 grid-cols-2 gap-x-8 gap-y-5">
+    <div className="md:px-3">
+      <div className="md:grid md:grid-rows-2 md:grid-cols-2 gap-x-8 gap-y-5 flex flex-col">
         <InputBase
-          label={'Пароль'}
+          label={'Пароль:'}
           type={'password'}
           value={adminUsersStore.password}
           placeholder={'Введите пароль'}
           onChange={(v) => adminUsersStore.setPassword(v)}
         />
         <InputBase
-          label={'Подтверждение пароля'}
+          label={'Подтверждение пароля:'}
           type={'password'}
           value={adminUsersStore.passwordCheck}
           placeholder={'Повторите пароль'}
@@ -30,17 +30,17 @@ export const AdminUserEditPassword = observer(({ adminUsersStore }: Props) => {
           }
         />
       </div>
-      <div className="flex mt-5">
-        <div className="">
-          <Button
-            isDisabled={
-              adminUsersStore.isButtonSaveDisabled || !adminUsersStore.password
-            }
-            onClick={() => adminUsersStore.saveEditUser()}
-          >
-            Сохранить
-          </Button>
-        </div>
+
+      <div className="mt-5">
+        <Button
+          maxWidth={'200px'}
+          isDisabled={
+            adminUsersStore.isButtonSaveDisabled || !adminUsersStore.password
+          }
+          onClick={() => adminUsersStore.saveEditUser()}
+        >
+          Сохранить
+        </Button>
       </div>
     </div>
   );

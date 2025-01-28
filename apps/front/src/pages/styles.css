@@ -2,7 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-.bg-default {
-  background: url("../../public/background/0.jpg") no-repeat;
-  background-size: cover;
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6495ED;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1E90FF;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #6495ED transparent; /* цвет бегунка и трека */
 }

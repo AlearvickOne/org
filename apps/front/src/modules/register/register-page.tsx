@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 import container from '../../../ioc/ioc';
-import { Button, InputBase } from '@org/common-next';
+import { Button, InputBase, LogoImage } from '@org/common-next';
 import { RegisterStore } from './store/register-store';
 import { useRouter } from 'next/router';
 import { pagesNames } from '../../pages-names';
@@ -11,8 +11,12 @@ export const RegisterPage = observer(() => {
   const router = useRouter();
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="flex flex-col justify-center items-center gap-y-2 bg-white md:px-8 px-5 py-5 rounded-[20px] md:w-[450px] w-[90%]">
+    <div className="flex justify-center items-center h-screen z-20 relative">
+      <div className="absolute w-screen -z-10 top-0 left-0 h-1/3 right-0">
+        <LogoImage />
+      </div>
+
+      <div className="flex flex-col justify-center items-center gap-y-2 bg-white md:px-8 px-5 py-5 shadow-xl md:w-[450px] w-[90%]">
         <div className="w-full">
           <div className="text-[18px] mb-2 text-center">Регистрация</div>
           <div className="border-b-[1px] border-stone-200" />

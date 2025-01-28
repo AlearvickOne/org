@@ -41,12 +41,10 @@ export const AccountPage = observer(() => {
           { name: 'Мой аккаунт', link: pagesNames.account },
         ]}
       />
-      <div className="flex gap-x-[150px]">
+      <div className="flex flex-col md:flex-row gap-y-3 md:gap-y-0 md:gap-x-[50px]">
         <MenuAccount userStore={userStore} accountStore={accountStore} />
 
-        <div className="w-full mr-[50px]">
-          {activeTab(accountStore.activeTab)}
-        </div>
+        <div className="w-full">{activeTab(accountStore.activeTab)}</div>
       </div>
     </LayoutUser>
   );

@@ -5,8 +5,8 @@ interface AdminTableProps {
 
 export const AdminTable = ({ heads, bodys }: AdminTableProps) => {
   return (
-    <div className="rounded-md overflow-hidden">
-      <table className="w-full">
+    <div className="rounded-md overflow-hidden overflow-x-auto">
+      <table className="w-full ">
         <thead className="bg-violet-50 font-medium">
           <tr className="text-[15px] text-center">
             {heads.map((head, index) => (

@@ -14,10 +14,10 @@ interface Props {
 
 export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
   return (
-    <div className="px-3">
-      <div className="grid grid-rows-3 grid-cols-2 gap-x-8 gap-y-5">
+    <div className="md:px-3">
+      <div className="md:grid md:grid-rows-3 md:grid-cols-2 gap-x-8 gap-y-5 flex flex-col">
         <InputBase
-          label={'Имя'}
+          label={'Имя:'}
           type={'text'}
           value={adminUsersStore.user.name}
           placeholder={'Введите имя пользователя'}
@@ -26,7 +26,7 @@ export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
         />
 
         <InputBase
-          label={'Фамилия'}
+          label={'Фамилия:'}
           type={'text'}
           value={adminUsersStore.user.surname}
           placeholder={'Введите фамилию пользователя'}
@@ -37,7 +37,7 @@ export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
         />
 
         <InputBase
-          label={'Ник'}
+          label={'Ник:'}
           type={'text'}
           value={adminUsersStore.user.nickname}
           placeholder={'Введите ник пользователя'}
@@ -45,7 +45,7 @@ export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
           error={adminUsersStore.errors['nickname']}
         />
         <InputBase
-          label={'Email'}
+          label={'Email:'}
           type={'text'}
           value={adminUsersStore.user.email}
           placeholder={'Введите email пользователя'}
@@ -54,7 +54,7 @@ export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
         />
 
         <ComboboxBase
-          label={'Роль'}
+          label={'Роль:'}
           value={adminUsersStore.role}
           options={adminUsersStore.roles}
           placeholder={'Выберите роль из списка'}
@@ -63,21 +63,24 @@ export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
         />
       </div>
 
-      <div className="flex justify-between items-end mt-5">
-        <div className="">
-          <Button onClick={() => adminUsersStore.saveEditUser()}>
+      <div className="flex justify-between flex-col md:flex-row md:items-end items-center mt-5">
+        <div className="mb-2 w-full">
+          <Button
+            maxWidth="200px"
+            onClick={() => adminUsersStore.saveEditUser()}
+          >
             Сохранить
           </Button>
         </div>
 
         {adminUsersStore.user.id !== -1 ? (
-          <div className="">
+          <div>
             <ButtonText
               onClick={() =>
                 adminUsersStore.deleteUser(adminUsersStore.user.id)
               }
             >
-              <div className="flex gap-x-2 items-center">
+              <div className="flex md:min-w-[200px] gap-x-2 items-center">
                 <IconClose />
                 <div>Удалить пользователя</div>
               </div>

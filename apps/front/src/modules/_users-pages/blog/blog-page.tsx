@@ -35,7 +35,7 @@ export const BlogPage = observer(() => {
         ]}
       />
 
-      <div className="flex gap-x-4">
+      <div className="flex md:flex-row flex-col gap-x-4">
         <Blog blogStore={blogStore} />
         <OtherBlogsList blogStore={blogStore} />
       </div>
