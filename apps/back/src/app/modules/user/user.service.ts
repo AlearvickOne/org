@@ -34,6 +34,14 @@ export class UserService {
     return await foundUser.save();
   }
 
+  async saveUserPathAvatar(userId: number, pathToAvatar: string) {
+    let foundUser = await UsersEntity.findOneBy({ id: userId });
+
+    foundUser.avatar = pathToAvatar;
+
+    return await foundUser.save();
+  }
+
   async getBlogs() {
     return await BlogsEntity.find();
   }

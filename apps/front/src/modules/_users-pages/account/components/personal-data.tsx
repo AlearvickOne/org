@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react';
-import { Button, InputBase } from '@org/common-next';
+import { Button, InputBase, InputFile } from '@org/common-next';
 import { AccountStore } from '../store/account-store';
+import Image from 'next/image';
+import { publicUrl } from '../../../../../conf';
 
 interface Props {
   accountStore: AccountStore;
@@ -12,6 +14,20 @@ export const PersonalData = observer(({ accountStore }: Props) => {
       <div className="text-h5 font-medium border-b-1 text-center md:text-left border-blue-500 mb-5">
         Личные данные
       </div>
+
+      <Image
+        src={publicUrl + accountStore.user.avatar}
+        alt={''}
+        width={250}
+        height={250}
+      />
+
+      <InputFile
+        label="Аватар:"
+        value={accountStore.avatar}
+        onChange={(v) => accountStore.setAvatar(v)}
+        placeholder="Введите ваше имя"
+      />
 
       <InputBase
         label="Имя:"

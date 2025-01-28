@@ -26,15 +26,22 @@ export class UserService {
     return this.httpService.get('user/get-my-user-and-email');
   }
 
-  async saveUser(user: UsersModel, password: string) {
+  async saveUser(user: UsersModel, password: string, avatar: File | null) {
     const path = 'user/save-user';
+
+    if (avatar) {
+      const formData = new FormData();
+      formData.append('avatar', avatar);
+
+      await this.httpService.postFormData('user/save-avatar-user', formData);
+    }
 
     if (password.length > 0) {
       const u = { ...user, password: password };
-      return this.httpService.put(path, u);
+      return await this.httpService.put(path, u);
     }
 
-    return this.httpService.put(path, user);
+    return await this.httpService.put(path, user);
   }
 
   async getBlogs() {

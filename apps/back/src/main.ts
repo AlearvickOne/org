@@ -12,7 +12,10 @@ import {
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import process from 'process';
-var cookieParser = require('cookie-parser');
+import fileUpload from 'express-fileupload';
+import express from 'express';
+import fs from 'node:fs';
+import cookieParser from 'cookie-parser';
 
 const validationPipeOptions = {
   transform: true,
@@ -39,6 +42,13 @@ async function bootstrap() {
   });
 
   app.use(cookieParser());
+  app.use(fileUpload());
+
+  const publicFolder = await fs.promises.realpath(
+    __dirname + '/../../../public'
+  );
+  app.use('/public', express.static(publicFolder));
+
   app.useGlobalPipes(new ValidationPipe(validationPipeOptions));
 
   await app.listen(port);
@@ -47,4 +57,4 @@ async function bootstrap() {
   );
 }
 
-bootstrap();
+bootstrap().then();

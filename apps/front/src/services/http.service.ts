@@ -24,4 +24,15 @@ export class HttpService {
   async delete(url: string) {
     return (await axios.delete(backUrl + `/api/${url}`, this.config())).data;
   }
+
+  async postFormData(url: string, formData: FormData) {
+    return (
+      await axios.post(backUrl + `/api/${url}`, formData, {
+        ...this.config(),
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+    ).data;
+  }
 }
