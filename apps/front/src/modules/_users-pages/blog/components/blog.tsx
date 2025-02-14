@@ -3,6 +3,8 @@ import { BlogStore } from '../store/blog-store';
 import { Button, TextareaBase } from '@org/common-next';
 import { clsx } from 'clsx';
 import { CloseIcon } from 'next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon';
+import Image from 'next/image';
+import { publicUrl } from '../../../../../conf';
 
 interface Props {
   blogStore: BlogStore;
@@ -39,6 +41,17 @@ export const Blog = observer(({ blogStore }: Props) => {
         <div className="font-medium text-h4 px-[14px] pb-1 pt-5 border-b-1 w-full">
           {blogStore.blog.title}
         </div>
+        {blogStore.blog.photo ? (
+          <div className="flex justify-center text-h4 px-[14px] pb-1 pt-5">
+            <Image
+              className="rounded-md"
+              src={publicUrl + blogStore.blog.photo}
+              alt={'Фото блога'}
+              width={512}
+              height={512}
+            />
+          </div>
+        ) : null}
         <div>
           <div
             className="whitespace-pre-wrap ql-editor w-full"

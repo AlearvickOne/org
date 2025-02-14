@@ -15,6 +15,7 @@ export class AdminBlogEditStore {
   }
 
   blog: BlogsModel = defaultBlogsModel;
+  fileImage: File | null = null;
 
   setTitle(v: string) {
     this.blog.title = v;
@@ -28,14 +29,28 @@ export class AdminBlogEditStore {
     this.blog.content = v;
   }
 
+  setFileImage(v: FileList | null) {
+    this.fileImage = v ? v[0] : null;
+  }
+
   async saveContentBlog() {
     try {
-      const blogId = await this.adminService.saveContentBlog({
-        id: this.blog.id,
-        title: this.blog.title.trim(),
-        description: this.blog.description.trim(),
-        content: this.blog.content.trim(),
-      });
+      const formData = new FormData();
+      formData.append(
+        'data',
+        JSON.stringify({
+          id: this.blog.id,
+          title: this.blog.title.trim(),
+          description: this.blog.description.trim(),
+          content: this.blog.content.trim(),
+        })
+      );
+
+      if (this.fileImage) {
+        formData.append('fileImage', this.fileImage);
+      }
+
+      const blogId = await this.adminService.saveContentBlog(formData);
 
       window.location.replace(`${pagesNames.adminBlogs}/blog?id=${blogId}`);
     } catch (error: any) {
@@ -50,11 +65,6 @@ export class AdminBlogEditStore {
       return;
     }
 
-    const blog = await this.adminService.getContentBlog(id);
-
-    this.blog.id = blog.id;
-    this.blog.title = blog.title;
-    this.blog.description = blog.description;
-    this.blog.content = blog.content;
+    this.blog = await this.adminService.getContentBlog(id);
   }
 }

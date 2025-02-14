@@ -3,9 +3,11 @@ import { LayoutAdmin } from '../../../../components/layout-admin';
 import { EditorBlogContent } from './components/editor-blog-content';
 import ioc from '../../../../../ioc/ioc';
 import { AdminBlogEditStore } from './store/admin-blog-edit-store';
-import { Button, InputBase, TextareaBase } from '@org/common-next';
+import { Button, InputBase, InputFile, TextareaBase } from '@org/common-next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import Image from 'next/image';
+import { publicUrl } from '../../../../../conf';
 
 const adminBlogEditStore = ioc.get<AdminBlogEditStore>('AdminBlogEditStore');
 
@@ -25,6 +27,24 @@ export const AdminBlogEdit = observer(() => {
           : 'Создание нового блога'
       }
     >
+      <div className="mb-4 flex gap-x-12 justify-between items-start">
+        {adminBlogEditStore.blog.photo ? (
+          <Image
+            src={publicUrl + adminBlogEditStore.blog.photo}
+            alt={`Фото блога ${adminBlogEditStore.blog.id}`}
+            width={300}
+            height={300}
+          />
+        ) : null}
+
+        <InputFile
+          labelFontSize="medium"
+          label="Новое изображение:"
+          value={adminBlogEditStore.fileImage}
+          onChange={(v) => adminBlogEditStore.setFileImage(v)}
+        />
+      </div>
+
       <div className="mb-4">
         <InputBase
           labelFontSize="medium"

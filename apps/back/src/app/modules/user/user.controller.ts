@@ -3,7 +3,6 @@ import { UserService } from './user.service';
 import { Request } from 'express';
 import { httpError } from '../../common/errors';
 import { FilesService } from '../../../services/files.service';
-import { isArray } from 'class-validator';
 import { UploadedFile } from 'express-fileupload';
 
 @Controller('user')

@@ -4,6 +4,8 @@ import { AccountStore } from '../store/account-store';
 import { clsx } from 'clsx';
 import { pagesNames } from '../../../../pages-names';
 import { RolesEnum } from '@org/types';
+import Image from 'next/image';
+import { publicUrl } from '../../../../../conf';
 
 interface Props {
   userStore: UserStore;
@@ -13,11 +15,18 @@ interface Props {
 export const MenuAccount = observer(({ userStore, accountStore }: Props) => {
   return (
     <div className="w-full bg-white h-full md:max-w-[300px] shadow-xl px-5 py-8">
-      <div className="flex items-center justify-center gap-x-10">
-        <div className="">Фото</div>
+      <div className="flex items-center justify-start gap-x-4">
+        <Image
+          className="max-h-[100px] max-w-[100px] rounded-md"
+          src={publicUrl + userStore.user.avatar}
+          alt={'Фото'}
+          width={200}
+          height={200}
+        />
+
         <div className="">
           <div>{`${userStore.user.name} ${userStore.user.surname}`}</div>
-          <div className="font-medium">{`Ваш ник: ${userStore.user.nickname}`}</div>
+          <div className="font-medium">{`@${userStore.user.nickname}`}</div>
         </div>
       </div>
 

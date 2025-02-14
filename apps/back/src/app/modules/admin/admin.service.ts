@@ -3,6 +3,8 @@ import { RolesEnum, UsersModel } from '@org/types';
 import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
 import { RolesEntity, UsersEntity } from '../../database/entities';
 import { BlogsEntity } from '../../database/entities/blogs.entity';
+import { FilesService } from '../../../services/files.service';
+import { UploadedFile } from 'express-fileupload';
 
 @Injectable()
 export class AdminService {
@@ -79,7 +81,11 @@ export class AdminService {
     return await UsersEntity.delete({ id: userId });
   }
 
-  async saveContentBlog(userId: number, data: any) {
+  async saveContentBlog(
+    userId: number,
+    data: any,
+    fileImage: UploadedFile | null
+  ) {
     const newBlog =
       (await BlogsEntity.findOneBy({ id: data.id })) ?? new BlogsEntity();
 
@@ -87,6 +93,12 @@ export class AdminService {
     newBlog.title = data.title;
     newBlog.description = data.description;
     newBlog.content = data.content;
+
+    if (fileImage) {
+      const blogUid = data.id + '_uid-' + Math.random().toFixed(5);
+      const ext = fileImage.name.split('.').pop();
+      newBlog.photo = await FilesService.mvBlogImgSave(fileImage, blogUid, ext);
+    }
 
     await newBlog.save();
     return newBlog.id;
