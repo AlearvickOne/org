@@ -5,12 +5,16 @@ import { clsx } from 'clsx';
 import { CloseIcon } from 'next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon';
 import Image from 'next/image';
 import { publicUrl } from '../../../../../conf';
+import { UserStore } from '../../../../main-stores/user-store';
+import { pagesNames } from '../../../../pages-names';
+import Link from 'next/link';
 
 interface Props {
   blogStore: BlogStore;
+  userStore: UserStore;
 }
 
-export const Blog = observer(({ blogStore }: Props) => {
+export const Blog = observer(({ blogStore, userStore }: Props) => {
   const clientId = blogStore.userStore.user.id;
 
   const otherUsersCommentJsx = (
@@ -140,16 +144,28 @@ export const Blog = observer(({ blogStore }: Props) => {
               )
             : null}
         </TextareaBase>
-        <div className="flex justify-end mt-3">
-          <div>
-            <Button
-              isDisabled={blogStore.newComment.trim().length === 0}
-              onClick={() => blogStore.pushComment()}
-            >
-              Отправить
-            </Button>
+
+        {userStore.user.id ? (
+          <div className="flex justify-end mt-3">
+            <div>
+              <Button
+                isDisabled={blogStore.newComment.trim().length === 0}
+                onClick={() => blogStore.pushComment()}
+              >
+                Отправить
+              </Button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="text-right mt-5">
+            <em>
+              Для отправки коментария необходимо войти в аккаунт!{' '}
+              <Link className="text-blue-500" href={pagesNames.login}>
+                Авторизироваться!
+              </Link>
+            </em>
+          </div>
+        )}
       </div>
     </div>
   );

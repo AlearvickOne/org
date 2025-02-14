@@ -15,19 +15,28 @@ export const PersonalData = observer(({ accountStore }: Props) => {
         Личные данные
       </div>
 
-      <Image
-        src={publicUrl + accountStore.user.avatar}
-        alt={''}
-        width={250}
-        height={250}
-      />
+      <div className="flex md:flex-row flex-col gap-5 items-center">
+        {accountStore.user.avatar ? (
+          <Image
+            className="rounded-md max-w-[250px] max-h-[250px]"
+            src={publicUrl + accountStore.user.avatar}
+            alt={''}
+            width={250}
+            height={250}
+          />
+        ) : (
+          <div className="rounded-md bg-slate-400 py-10 px-12 text-h1 text-white">
+            {accountStore.user.name[0]}
+          </div>
+        )}
 
-      <InputFile
-        label="Аватар:"
-        value={accountStore.avatar}
-        onChange={(v) => accountStore.setAvatar(v)}
-        placeholder="Введите ваше имя"
-      />
+        <InputFile
+          label="Аватар:"
+          value={accountStore.avatar}
+          onChange={(v) => accountStore.setAvatar(v)}
+          placeholder="Введите ваше имя"
+        />
+      </div>
 
       <InputBase
         label="Имя:"

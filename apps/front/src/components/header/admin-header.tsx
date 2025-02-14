@@ -7,6 +7,9 @@ import { pagesNames } from '../../pages-names';
 import { IconMenuMobile, LogoImage, useScrollDisabled } from '@org/common-next';
 import { useState } from 'react';
 import { MobileHeaderMenu } from './mobile-header-menu';
+import Link from 'next/link';
+import Image from 'next/image';
+import { publicUrl } from '../../../conf';
 
 const loginStore = ioc.get<LoginStore>('LoginStore');
 const userStore = ioc.get<UserStore>('UserStore');
@@ -36,13 +39,26 @@ export const AdminHeader = observer(() => {
           <IconMenuMobile />
         </div>
 
-        <div className="hidden md:flex gap-x-12">
-          <div
-            className="cursor-pointer"
-            onClick={() => router.push(pagesNames.account)}
-          >
-            {`${userStore.user.name} ${userStore.user.surname}`}
-          </div>
+        <div className="hidden md:flex gap-x-12 items-center">
+          <Link href={pagesNames.account} className="flex gap-x-2 items-center">
+            {userStore.user.avatar ? (
+              <Image
+                className="max-h-[80px] max-w-[80px] rounded-md"
+                src={publicUrl + userStore.user.avatar}
+                alt={'Фото'}
+                width={150}
+                height={150}
+              />
+            ) : (
+              <div className="rounded-md bg-slate-400 py-1 px-8 text-h4 text-white">
+                {userStore.user.name[0]}
+              </div>
+            )}
+            <div className="text-center">
+              {`${userStore.user.name} ${userStore.user.surname}`} <br />
+              Мой аккаунт
+            </div>
+          </Link>
           <div
             className="mr-12 cursor-pointer"
             onClick={() => loginStore.logout()}

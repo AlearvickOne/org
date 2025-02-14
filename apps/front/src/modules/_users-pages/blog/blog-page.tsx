@@ -8,8 +8,10 @@ import { Blog } from './components/blog';
 import { BreadCrumbs } from '@org/common-next';
 import { pagesNames } from '../../../pages-names';
 import { OtherBlogsList } from './components/other-blogs-list';
+import { UserStore } from '../../../main-stores/user-store';
 
 const blogStore = ioc.get<BlogStore>('BlogStore');
+const userStore = ioc.get<UserStore>('UserStore');
 
 export const BlogPage = observer(() => {
   const router = useRouter();
@@ -36,7 +38,7 @@ export const BlogPage = observer(() => {
       />
 
       <div className="flex md:flex-row flex-col gap-x-4">
-        <Blog blogStore={blogStore} />
+        <Blog blogStore={blogStore} userStore={userStore} />
         <OtherBlogsList blogStore={blogStore} />
       </div>
     </LayoutUser>

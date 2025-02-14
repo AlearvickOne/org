@@ -19,15 +19,16 @@ export class UserController {
     return await this.userService.getMyUserAndEmail(req.user.id);
   }
 
-  @Put('save-user')
+  @Post('save-user')
   async saveUser(@Req() req: Request) {
-    const user = req.body;
+    const avatar = req.files?.avatar as UploadedFile;
+    const user = req.body?.data;
 
     if (!user) {
       throw httpError('Пользователь для сохранения не получен');
     }
 
-    return await this.userService.saveUser(user);
+    return await this.userService.saveUser(JSON.parse(user), avatar);
   }
 
   @Get('get-blogs')
@@ -49,20 +50,5 @@ export class UserController {
   @Get('get-random-blogs')
   async getRandomBlogs() {
     return await this.userService.getRandomBlogs();
-  }
-
-  @Post('save-avatar-user')
-  async saveAvatarUser(@Req() req: Request) {
-    const file = req.files?.avatar as UploadedFile;
-    const userId = Number(req.user.id.toString());
-
-    if (!file) {
-      throw httpError('Аватар не получен');
-    }
-
-    const ext = file.name.split('.').pop();
-    const uid = userId + '_uid-' + Math.random().toFixed(5);
-    const pathToAvatar = await FilesService.mvAvatarUser(file, uid, ext);
-    return await this.userService.saveUserPathAvatar(userId, pathToAvatar);
   }
 }

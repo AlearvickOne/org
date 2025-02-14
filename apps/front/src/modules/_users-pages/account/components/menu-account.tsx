@@ -16,13 +16,19 @@ export const MenuAccount = observer(({ userStore, accountStore }: Props) => {
   return (
     <div className="w-full bg-white h-full md:max-w-[300px] shadow-xl px-5 py-8">
       <div className="flex items-center justify-start gap-x-4">
-        <Image
-          className="max-h-[100px] max-w-[100px] rounded-md"
-          src={publicUrl + userStore.user.avatar}
-          alt={'Фото'}
-          width={200}
-          height={200}
-        />
+        {userStore.user.avatar ? (
+          <Image
+            className="max-h-[100px] max-w-[100px] rounded-md"
+            src={publicUrl + userStore.user.avatar}
+            alt={'Фото'}
+            width={200}
+            height={200}
+          />
+        ) : (
+          <div className="rounded-md bg-slate-400 py-1 px-8 text-h4 text-white">
+            {accountStore.user.name[0]}
+          </div>
+        )}
 
         <div className="">
           <div>{`${userStore.user.name} ${userStore.user.surname}`}</div>

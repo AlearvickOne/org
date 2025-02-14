@@ -7,6 +7,7 @@ import { UserStore } from '../main-stores/user-store';
 import { useEffect, useState } from 'react';
 import { pagesNames } from '../pages-names';
 import 'react-quill/dist/quill.snow.css';
+import { RolesEnum } from '@org/types';
 
 const userStore = ioc.get<UserStore>('UserStore');
 
@@ -38,6 +39,14 @@ function CustomApp({ Component, pageProps }: AppProps) {
           await router.replace(pagesNames.home);
           return setIsLoading(false);
         }
+
+        if (
+          window.location.pathname.startsWith('/admin') &&
+          [RolesEnum.user].includes(userStore.user.role as RolesEnum)
+        ) {
+          await router.replace('/404');
+        }
+
         return setIsLoading(false);
       } catch (e) {
         setIsError(true);
