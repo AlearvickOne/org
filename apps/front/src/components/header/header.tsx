@@ -4,7 +4,12 @@ import { LoginStore } from '../../modules/login/store/login-store';
 import { UserStore } from '../../main-stores/user-store';
 import { useRouter } from 'next/router';
 import { pagesNames } from '../../pages-names';
-import { IconMenuMobile, LogoImage, useScrollDisabled } from '@org/common-next';
+import {
+  IconMenuMobile,
+  InputBase,
+  LogoImage,
+  useScrollDisabled,
+} from '@org/common-next';
 import { useState } from 'react';
 import Link from 'next/link';
 import { MobileHeaderMenu } from './mobile-header-menu';
@@ -41,15 +46,6 @@ export const Header = observer(() => {
 
         {userStore.user ? (
           <>
-            <ul className="hidden md:flex items-center">
-              <li
-                className="cursor-pointer"
-                onClick={() => router.push(pagesNames.dashboard)}
-              >
-                Dashboard
-              </li>
-            </ul>
-
             <div className="hidden md:flex gap-x-12 items-center">
               <Link
                 href={pagesNames.account}

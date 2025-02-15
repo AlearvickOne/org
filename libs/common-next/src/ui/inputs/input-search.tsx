@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 import { isArray } from 'class-validator';
+import { IconSearch } from '../icons';
 
 interface InputBaseProps {
   label?: string;
@@ -9,10 +10,11 @@ interface InputBaseProps {
   value: string;
   placeholder?: string;
   onChange: (value: string) => void;
+  onClickSearch: () => void;
   error?: string | undefined;
 }
 
-export const InputBase = ({
+export const InputSearch = ({
   label,
   type,
   value,
@@ -20,6 +22,7 @@ export const InputBase = ({
   maxLength,
   labelFontSize = 'medium',
   onChange,
+  onClickSearch,
   error,
 }: InputBaseProps) => {
   return (
@@ -34,7 +37,7 @@ export const InputBase = ({
         ) : null}
         <div className="relative w-full">
           <input
-            className="py-2 outline-none border-b-[1px] border-stone-200 bg-transparent focus:border-blue-500 transition-colors duration-200 w-full pr-20"
+            className="py-2 outline-none border-b-[1px] border-stone-200 bg-transparent focus:border-blue-500 transition-colors duration-200 w-full pr-[130px]"
             type={type}
             onChange={(e) => onChange(e.target.value)}
             value={value}
@@ -44,13 +47,19 @@ export const InputBase = ({
           {maxLength ? (
             <div
               className={clsx(
-                'absolute top-2 right-0 bottom-0',
+                'absolute top-2 right-14',
                 value.length === maxLength ? 'text-red-500' : 'text-slate-500'
               )}
             >
               {value.length}/{maxLength}
             </div>
           ) : null}
+          <div
+            className="absolute top-2 right-3 bottom-2 cursor-pointer"
+            onClick={onClickSearch}
+          >
+            <IconSearch />
+          </div>
         </div>
       </div>
       <div className="text-red-500 text-[14px] mt-1">
