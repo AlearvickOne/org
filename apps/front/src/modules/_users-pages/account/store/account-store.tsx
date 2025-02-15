@@ -10,7 +10,6 @@ export class AccountStore {
 
   constructor() {
     makeAutoObservable(this);
-
     this.userService = ioc.get<UserService>('UserService');
   }
 
@@ -20,6 +19,7 @@ export class AccountStore {
   passwordCheck = '';
   isPasswordCheckError: boolean = false;
   avatar: File | null = null;
+  validateErrors: any = {};
 
   activeTab = 0;
 
@@ -56,9 +56,17 @@ export class AccountStore {
     this.user.surname = v;
   }
 
+  setNickname(v: string) {
+    this.user.nickname = v;
+  }
+
   setPassword(v: string) {
     this.password = v;
     this.localCheckedPassword();
+  }
+
+  setEmail(v: string) {
+    this.user.email = v;
   }
 
   setPasswordCheck(v: string) {
@@ -87,8 +95,8 @@ export class AccountStore {
     try {
       await this.userService.saveUser(this.user, this.password, this.avatar);
       window.location.reload();
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      this.validateErrors = error.response?.data ?? {};
     }
   }
 }

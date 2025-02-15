@@ -26,6 +26,8 @@ export class UserService {
 
     foundUser.name = user.name;
     foundUser.surname = user.surname;
+    foundUser.nickname = user.nickname;
+    foundUser.email = user.email;
 
     if (avatar) {
       const ext = avatar.name.split('.').pop();

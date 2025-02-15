@@ -27,7 +27,7 @@ export const AdminBlogEdit = observer(() => {
           : 'Создание нового блога'
       }
     >
-      <div className="mb-4 flex gap-x-12 justify-between items-start">
+      <div className="mb-4 flex md:flex-row flex-col gap-y-5 gap-x-12 justify-between items-start">
         {adminBlogEditStore.blog.photo ? (
           <Image
             src={publicUrl + adminBlogEditStore.blog.photo}
@@ -39,8 +39,7 @@ export const AdminBlogEdit = observer(() => {
 
         <InputFile
           labelFontSize="medium"
-          label="Новое изображение:"
-          value={adminBlogEditStore.fileImage}
+          label="Новое главное изображение:"
           onChange={(v) => adminBlogEditStore.setFileImage(v)}
         />
       </div>
@@ -50,6 +49,7 @@ export const AdminBlogEdit = observer(() => {
           labelFontSize="medium"
           label="Заголовок:"
           type={'text'}
+          maxLength={100}
           value={adminBlogEditStore.blog.title}
           onChange={(v) => adminBlogEditStore.setTitle(v)}
         />
@@ -60,6 +60,7 @@ export const AdminBlogEdit = observer(() => {
           labelFontSize="medium"
           label="Описание:"
           value={adminBlogEditStore.blog.description}
+          maxLength={250}
           onChange={(v) => adminBlogEditStore.setDescription(v)}
         />
       </div>

@@ -1,8 +1,18 @@
-import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator';
-import { IsEmailExist } from '../../../common/decorators/validate';
-import { IsNicknameExist } from '../../../common/decorators/validate/is.nickname.exist';
+import { UsersModel } from '@org/types';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
-export class RegistrationDto {
+export class EditAccountUserDto implements UsersModel {
+  @IsOptional()
+  id: number;
+  @IsOptional()
+  role: string;
+
   @IsNotEmpty({ message: 'Заполните поле' })
   name: string;
 
@@ -11,14 +21,22 @@ export class RegistrationDto {
 
   @IsNotEmpty({ message: 'Заполните поле' })
   @MaxLength(10, { message: 'Максимум 10 символов' })
-  @IsNicknameExist({ message: 'Никнейм уже занят' })
   nickname: string;
 
+  @IsOptional()
+  avatar: string;
+
   @IsEmail({}, { message: 'Поле не содержит Email' })
-  @IsEmailExist({ message: 'Email уже занят' })
   email: string;
 
+  @IsOptional()
   @MinLength(6, { message: 'Не менее 6 символов' })
   @MaxLength(16, { message: 'Не более 16 символов' })
-  password: string;
+  password?: string;
+
+  @IsOptional()
+  is_archived?: boolean;
+
+  @IsOptional()
+  created_at?: string;
 }

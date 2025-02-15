@@ -30,8 +30,11 @@ export const MenuAccount = observer(({ userStore, accountStore }: Props) => {
           </div>
         )}
 
-        <div className="">
-          <div>{`${userStore.user.name} ${userStore.user.surname}`}</div>
+        <div className="truncate">
+          <div>
+            <div className="truncate">{userStore.user.name}</div>
+            <div className="truncate">{userStore.user.surname}</div>
+          </div>
           <div className="font-medium">{`@${userStore.user.nickname}`}</div>
         </div>
       </div>

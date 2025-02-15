@@ -68,8 +68,11 @@ export const Header = observer(() => {
                     {userStore.user.name[0]}
                   </div>
                 )}
-                <div className="text-center">
-                  {`${userStore.user.name} ${userStore.user.surname}`} <br />
+                <div className="text-left">
+                  <div className="flex gap-x-2 max-w-[200px] truncate">
+                    <div className="truncate">{userStore.user.name} </div>
+                    <div className="truncate">{userStore.user.surname}</div>
+                  </div>
                   Мой аккаунт
                 </div>
               </Link>

@@ -21,6 +21,7 @@ export const PasswordChange = observer(({ accountStore }: Props) => {
           accountStore.setPassword(v);
         }}
         placeholder="Введите новый пароль"
+        error={accountStore.validateErrors['password']}
       />
 
       <InputBase

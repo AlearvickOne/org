@@ -3,7 +3,6 @@ import { clsx } from 'clsx';
 interface InputBaseProps {
   label: string;
   labelFontSize?: 'medium' | 'base';
-  value: any;
   placeholder?: string;
   onChange: (value: FileList | null) => void;
   error?: string | undefined;
@@ -11,7 +10,6 @@ interface InputBaseProps {
 
 export const InputFile = ({
   label,
-  value,
   placeholder,
   labelFontSize = 'medium',
   onChange,

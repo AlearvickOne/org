@@ -32,9 +32,8 @@ export const PersonalData = observer(({ accountStore }: Props) => {
 
         <InputFile
           label="Аватар:"
-          value={accountStore.avatar}
           onChange={(v) => accountStore.setAvatar(v)}
-          placeholder="Введите ваше имя"
+          placeholder="Выберите аватар"
         />
       </div>
 
@@ -44,6 +43,7 @@ export const PersonalData = observer(({ accountStore }: Props) => {
         value={accountStore.user.name}
         onChange={(v) => accountStore.setName(v)}
         placeholder="Введите ваше имя"
+        error={accountStore.validateErrors['name']}
       />
 
       <InputBase
@@ -54,6 +54,7 @@ export const PersonalData = observer(({ accountStore }: Props) => {
           accountStore.setSurname(v);
         }}
         placeholder="Введите вашу фамилию"
+        error={accountStore.validateErrors['surname']}
       />
 
       <InputBase
@@ -61,9 +62,10 @@ export const PersonalData = observer(({ accountStore }: Props) => {
         type="text"
         value={accountStore.user.nickname}
         onChange={(v) => {
-          accountStore.setSurname(v);
+          accountStore.setNickname(v);
         }}
         placeholder="Введите вашу фамилию"
+        error={accountStore.validateErrors['nickname']}
       />
 
       <InputBase
@@ -71,9 +73,10 @@ export const PersonalData = observer(({ accountStore }: Props) => {
         type="text"
         value={accountStore.user.email}
         onChange={(v) => {
-          accountStore.setSurname(v);
+          accountStore.setEmail(v);
         }}
         placeholder="Введите ваш email"
+        error={accountStore.validateErrors['email']}
       />
 
       <Button
