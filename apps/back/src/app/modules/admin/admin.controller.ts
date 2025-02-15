@@ -3,6 +3,7 @@ import { Request } from 'express';
 import { AdminService } from './admin.service';
 import { RegistrationFromAdminDto } from '../../common/dto/registration-from-admin.dto';
 import { httpError } from '../../common/errors';
+import { UploadedFile } from 'express-fileupload';
 
 @Controller('admin')
 export class AdminController {
@@ -66,13 +67,18 @@ export class AdminController {
   @Post('save-content-blog')
   async saveContentBlog(@Req() req: Request) {
     const userId = Number(req.user.id.toString());
-    const data = req.body;
+    const data = req.body?.data;
+    const fileImage = req.files?.fileImage as UploadedFile;
 
     if (!userId || !data) {
       throw httpError('userId или content не найдены');
     }
 
-    return await this.adminService.saveContentBlog(userId, data);
+    return await this.adminService.saveContentBlog(
+      userId,
+      JSON.parse(data),
+      fileImage
+    );
   }
 
   @Get('get-blogs')

@@ -33,7 +33,7 @@ export class AdminService {
   }
 
   async saveContentBlog(data: any) {
-    return await this.httpService.post('admin/save-content-blog', data);
+    return await this.httpService.postFormData('admin/save-content-blog', data);
   }
 
   async getBlogs() {

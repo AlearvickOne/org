@@ -3,12 +3,18 @@ import { BlogStore } from '../store/blog-store';
 import { Button, TextareaBase } from '@org/common-next';
 import { clsx } from 'clsx';
 import { CloseIcon } from 'next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon';
+import Image from 'next/image';
+import { publicUrl } from '../../../../../conf';
+import { UserStore } from '../../../../main-stores/user-store';
+import { pagesNames } from '../../../../pages-names';
+import Link from 'next/link';
 
 interface Props {
   blogStore: BlogStore;
+  userStore: UserStore;
 }
 
-export const Blog = observer(({ blogStore }: Props) => {
+export const Blog = observer(({ blogStore, userStore }: Props) => {
   const clientId = blogStore.userStore.user.id;
 
   const otherUsersCommentJsx = (
@@ -39,6 +45,17 @@ export const Blog = observer(({ blogStore }: Props) => {
         <div className="font-medium text-h4 px-[14px] pb-1 pt-5 border-b-1 w-full">
           {blogStore.blog.title}
         </div>
+        {blogStore.blog.photo ? (
+          <div className="flex justify-center text-h4 px-[14px] pb-1 pt-5">
+            <Image
+              className="rounded-md"
+              src={publicUrl + blogStore.blog.photo}
+              alt={'Фото блога'}
+              width={512}
+              height={512}
+            />
+          </div>
+        ) : null}
         <div>
           <div
             className="whitespace-pre-wrap ql-editor w-full"
@@ -127,16 +144,28 @@ export const Blog = observer(({ blogStore }: Props) => {
               )
             : null}
         </TextareaBase>
-        <div className="flex justify-end mt-3">
-          <div>
-            <Button
-              isDisabled={blogStore.newComment.trim().length === 0}
-              onClick={() => blogStore.pushComment()}
-            >
-              Отправить
-            </Button>
+
+        {userStore.user.id ? (
+          <div className="flex justify-end mt-3">
+            <div>
+              <Button
+                isDisabled={blogStore.newComment.trim().length === 0}
+                onClick={() => blogStore.pushComment()}
+              >
+                Отправить
+              </Button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="text-right mt-5">
+            <em>
+              Для отправки коментария необходимо войти в аккаунт!{' '}
+              <Link className="text-blue-500" href={pagesNames.login}>
+                Авторизироваться!
+              </Link>
+            </em>
+          </div>
+        )}
       </div>
     </div>
   );

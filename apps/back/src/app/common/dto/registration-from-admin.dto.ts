@@ -21,6 +21,7 @@ export class RegistrationFromAdminDto extends RegistrationDto {
   surname: string;
 
   @IsNotEmpty({ message: 'Заполните поле' })
+  @MaxLength(10, { message: 'Максимум 10 символов' })
   nickname: string;
 
   @IsEmail({}, { message: 'Поле не содержит Email' })

@@ -9,6 +9,7 @@ export class CreateTableUsers1733670537627 implements MigrationInterface {
         name VARCHAR(50),
         surname VARCHAR(50),
         nickname VARCHAR(50),
+        avatar VARCHAR(100),
         email VARCHAR(50),
         password VARCHAR(255),
         token VARCHAR(255),

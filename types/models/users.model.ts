@@ -4,6 +4,7 @@ export interface UsersModel {
   name: string;
   surname: string;
   nickname: string;
+  avatar: string;
   email: string;
   token?: string;
   password?: string;
@@ -17,5 +18,6 @@ export const defaultUser: UsersModel = {
   name: '',
   surname: '',
   nickname: '',
+  avatar: '',
   email: '',
 };

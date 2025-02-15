@@ -7,6 +7,7 @@ interface TextareaBaseProps {
   rows?: number;
   value: string;
   placeholder?: string;
+  maxLength?: number;
   onChange: (value: string) => void;
   error?: string | undefined;
   children?: ReactNode;
@@ -19,6 +20,7 @@ export const TextareaBase = ({
   rows = 5,
   placeholder,
   onChange,
+  maxLength,
   error,
   children,
 }: TextareaBaseProps) => {
@@ -33,13 +35,27 @@ export const TextareaBase = ({
           </label>
         </div>
         {children}
-        <textarea
-          className="p-2 outline-none border-1 rounded-md border-stone-200 bg-transparent focus:border-blue-500 transition-colors duration-200 shadow-inner"
-          onChange={(e) => onChange(e.target.value)}
-          value={value}
-          placeholder={placeholder}
-          rows={rows}
-        />
+        <div className="relative w-full">
+          <textarea
+            className="p-2 outline-none border-1 rounded-md border-stone-200 bg-transparent focus:border-blue-500 transition-colors duration-200 shadow-inner w-full"
+            onChange={(e) => onChange(e.target.value)}
+            value={value}
+            placeholder={placeholder}
+            maxLength={maxLength}
+            rows={rows}
+          />
+
+          {maxLength ? (
+            <div
+              className={clsx(
+                'absolute right-5 bottom-2',
+                value.length === maxLength ? 'text-red-500' : 'text-slate-500'
+              )}
+            >
+              {value.length}/{maxLength}
+            </div>
+          ) : null}
+        </div>
       </div>
       <div className="text-red-500 text-[14px] mt-1">
         {error ? <div>{error}</div> : null}

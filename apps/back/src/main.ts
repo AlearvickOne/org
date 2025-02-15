@@ -12,21 +12,11 @@ import {
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import process from 'process';
-var cookieParser = require('cookie-parser');
-
-const validationPipeOptions = {
-  transform: true,
-  whitelist: true,
-  forbidNonWhitelisted: true,
-  exceptionFactory: (validationErrors: ValidationError[]) => {
-    // Формируем объект ошибок с именами полей
-    const errors = validationErrors.reduce((acc, error) => {
-      acc[error.property] = Object.values(error.constraints || {});
-      return acc;
-    }, {});
-    return new BadRequestException(errors);
-  },
-};
+import fileUpload from 'express-fileupload';
+import express from 'express';
+import fs from 'node:fs';
+import cookieParser from 'cookie-parser';
+import { ParseAndValidatePipe } from './common/custom';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -39,7 +29,14 @@ async function bootstrap() {
   });
 
   app.use(cookieParser());
-  app.useGlobalPipes(new ValidationPipe(validationPipeOptions));
+  app.use(fileUpload());
+
+  const publicFolder = await fs.promises.realpath(
+    __dirname + '/../../../public'
+  );
+  app.use('/public', express.static(publicFolder));
+
+  app.useGlobalPipes(new ParseAndValidatePipe());
 
   await app.listen(port);
   Logger.log(
@@ -47,4 +44,4 @@ async function bootstrap() {
   );
 }
 
-bootstrap();
+bootstrap().then();

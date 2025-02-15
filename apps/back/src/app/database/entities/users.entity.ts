@@ -18,6 +18,9 @@ export class UsersEntity extends BaseEntity implements UsersModel {
   @Column()
   nickname: string;
 
+  @Column()
+  avatar: string;
+
   @Column({ select: false })
   email: string;
 

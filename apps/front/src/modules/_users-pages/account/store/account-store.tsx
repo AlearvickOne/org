@@ -1,10 +1,7 @@
 import { injectable } from 'inversify';
 import { makeAutoObservable } from 'mobx';
 import ioc from '../../../../../ioc/ioc';
-import {
-  defaultUser,
-  UsersModel,
-} from '../../../../../../../types/models/users.model';
+import { defaultUser, UsersModel } from '@org/types';
 import { UserService } from '../../../../services/user.service';
 
 @injectable()
@@ -13,7 +10,6 @@ export class AccountStore {
 
   constructor() {
     makeAutoObservable(this);
-
     this.userService = ioc.get<UserService>('UserService');
   }
 
@@ -22,6 +18,8 @@ export class AccountStore {
   password = '';
   passwordCheck = '';
   isPasswordCheckError: boolean = false;
+  avatar: File | null = null;
+  validateErrors: any = {};
 
   activeTab = 0;
 
@@ -58,14 +56,31 @@ export class AccountStore {
     this.user.surname = v;
   }
 
+  setNickname(v: string) {
+    this.user.nickname = v;
+  }
+
   setPassword(v: string) {
     this.password = v;
     this.localCheckedPassword();
   }
 
+  setEmail(v: string) {
+    this.user.email = v;
+  }
+
   setPasswordCheck(v: string) {
     this.passwordCheck = v;
     this.localCheckedPassword();
+  }
+
+  setAvatar(v: FileList | null) {
+    if (!v) {
+      this.avatar = null;
+      return;
+    }
+
+    this.avatar = v[0];
   }
 
   private localCheckedPassword() {
@@ -78,10 +93,10 @@ export class AccountStore {
 
   async saveUser() {
     try {
-      await this.userService.saveUser(this.user, this.password);
+      await this.userService.saveUser(this.user, this.password, this.avatar);
       window.location.reload();
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      this.validateErrors = error.response?.data ?? {};
     }
   }
 }

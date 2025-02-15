@@ -12,6 +12,8 @@ import { AdminBlogsStore } from './store/admin-blogs-store';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { pagesNames } from '../../../pages-names';
+import Image from 'next/image';
+import { publicUrl } from '../../../../conf';
 
 const adminBlogsStore = ioc.get<AdminBlogsStore>('AdminBlogsStore');
 
@@ -48,7 +50,15 @@ export const AdminBlogsPage = observer(() => {
           return {
             id: blog.id,
             userId: blog.user_id,
-            photo: blog.photo,
+            photo: blog.photo ? (
+              <Image
+                loading="lazy"
+                src={publicUrl + blog.photo}
+                alt={'фото'}
+                width={500}
+                height={500}
+              />
+            ) : null,
             title: blog.title,
             desc: blog.description,
             date: DateTimeLib.mySqlDatetimeToString(blog.created_at),

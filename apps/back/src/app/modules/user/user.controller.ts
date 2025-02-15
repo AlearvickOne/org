@@ -1,7 +1,10 @@
-import { Controller, Get, Put, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Request } from 'express';
 import { httpError } from '../../common/errors';
+import { UploadedFile } from 'express-fileupload';
+import { UsersModel } from '@org/types';
+import { EditAccountUserDto } from '../../common/dto/edit-account-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -17,15 +20,16 @@ export class UserController {
     return await this.userService.getMyUserAndEmail(req.user.id);
   }
 
-  @Put('save-user')
-  async saveUser(@Req() req: Request) {
-    const user = req.body;
+  @Post('save-user')
+  async saveUser(@Body() body: EditAccountUserDto, @Req() req: Request) {
+    const avatar = req.files?.avatar as UploadedFile;
+    const user = body;
 
     if (!user) {
       throw httpError('Пользователь для сохранения не получен');
     }
 
-    return await this.userService.saveUser(user);
+    return await this.userService.saveUser(user as UsersModel, avatar);
   }
 
   @Get('get-blogs')
