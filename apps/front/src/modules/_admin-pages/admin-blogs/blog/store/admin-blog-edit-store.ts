@@ -65,6 +65,13 @@ export class AdminBlogEditStore {
       return;
     }
 
-    this.blog = await this.adminService.getContentBlog(id);
+    const content = await this.adminService.getContentBlog(id);
+
+    if (!content) {
+      window.location.replace(pagesNames.adminBlogs);
+      return;
+    }
+
+    this.blog = content;
   }
 }

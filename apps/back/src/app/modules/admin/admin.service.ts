@@ -5,6 +5,7 @@ import { RolesEntity, UsersEntity } from '../../database/entities';
 import { BlogsEntity } from '../../database/entities/blogs.entity';
 import { FilesService } from '../../../services/files.service';
 import { UploadedFile } from 'express-fileupload';
+import { Like } from 'typeorm';
 
 @Injectable()
 export class AdminService {
@@ -104,12 +105,39 @@ export class AdminService {
     return newBlog.id;
   }
 
-  async getContentBlog(id: number) {
+  async getContentBlog(user: UsersModel, id: number) {
+    if (user.role !== RolesEnum.admin) {
+      return await BlogsEntity.findOneBy({ id: id, user_id: user.id });
+    }
+
     return await BlogsEntity.findOneBy({ id: id });
   }
 
-  async getBlogs() {
-    return await BlogsEntity.find();
+  async getBlogs(
+    user: UsersModel,
+    page: number,
+    take: number,
+    searchBlogById: string,
+    searchBlogByTitle: string
+  ) {
+    const sql = BlogsEntity.createQueryBuilder('blogs');
+
+    if (user.role !== RolesEnum.admin) {
+      sql.andWhere({ user_id: user.id });
+    }
+
+    if (searchBlogById) {
+      sql.andWhere({ id: searchBlogById });
+    }
+
+    if (searchBlogByTitle) {
+      sql.andWhere({ title: Like(`%${searchBlogByTitle}%`) });
+    }
+
+    sql.skip((page - 1) * take);
+    sql.take(take);
+
+    return await sql.getManyAndCount();
   }
 
   async deleteBlog(id: number) {

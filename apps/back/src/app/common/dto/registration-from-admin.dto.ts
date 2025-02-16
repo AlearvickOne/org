@@ -6,8 +6,12 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { UsersModel } from '@org/types';
 
-export class RegistrationFromAdminDto extends RegistrationDto {
+export class RegistrationFromAdminDto
+  extends RegistrationDto
+  implements UsersModel
+{
   @IsOptional()
   id: number;
 
@@ -23,6 +27,9 @@ export class RegistrationFromAdminDto extends RegistrationDto {
   @IsNotEmpty({ message: 'Заполните поле' })
   @MaxLength(10, { message: 'Максимум 10 символов' })
   nickname: string;
+
+  @IsOptional()
+  avatar: string;
 
   @IsEmail({}, { message: 'Поле не содержит Email' })
   email: string;

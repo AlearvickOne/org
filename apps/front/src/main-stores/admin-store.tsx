@@ -2,13 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import { injectable } from 'inversify';
 import { pagesNames } from '../pages-names';
 import { IconClipboard, IconMonitor, IconUsers } from '@org/common-next';
-
-interface IAdminPaths {
-  id: number;
-  name: string;
-  pathname: string;
-  icon: JSX.Element;
-}
+import { IAdminPaths } from '@org/types';
 
 @injectable()
 export class AdminStore {

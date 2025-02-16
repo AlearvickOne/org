@@ -36,8 +36,17 @@ export class AdminService {
     return await this.httpService.postFormData('admin/save-content-blog', data);
   }
 
-  async getBlogs() {
-    return await this.httpService.get('admin/get-blogs');
+  async getBlogs(
+    page: number,
+    take: number,
+    searchBlogById: string,
+    searchBlogByTitle: string
+  ) {
+    return await this.httpService.get(
+      `admin/get-blogs?page=${page}&take=${take}&search_blog_by_id=${
+        searchBlogById ?? ''
+      }&search_blog_by_title=${searchBlogByTitle ?? ''}`
+    );
   }
 
   async getContentBlog(id: string) {
