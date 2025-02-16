@@ -6,6 +6,8 @@ import {
   IconAddBlog,
   IconDelete,
   IconEditor,
+  InputSearch,
+  PaginatorBase,
 } from '@org/common-next';
 import ioc from '../../../../ioc/ioc';
 import { AdminBlogsStore } from './store/admin-blogs-store';
@@ -35,6 +37,29 @@ export const AdminBlogsPage = observer(() => {
         </div>
       </div>
 
+      <div className="mb-5 flex w-full gap-5 justify-center md:flex-row flex-col">
+        <div className="md:w-[350px]">
+          <InputSearch
+            type={'text'}
+            value={adminBlogsStore.searchBlogById}
+            onChange={(v) => adminBlogsStore.setSearchBlogById(v)}
+            onClickSearch={() => adminBlogsStore.getBlogs()}
+            maxLength={5}
+            placeholder="Поиск по номеру блога"
+          />
+        </div>
+        <div className="md:w-[350px]">
+          <InputSearch
+            type={'text'}
+            value={adminBlogsStore.searchBlogByTitle}
+            onChange={(v) => adminBlogsStore.setSearchBlogByTitle(v)}
+            onClickSearch={() => adminBlogsStore.getBlogs()}
+            maxLength={100}
+            placeholder="Поиск по заголовку блога"
+          />
+        </div>
+      </div>
+
       <AdminTable
         heads={[
           'Id',
@@ -52,11 +77,12 @@ export const AdminBlogsPage = observer(() => {
             userId: blog.user_id,
             photo: blog.photo ? (
               <Image
+                className="max-w-[150px]"
                 loading="lazy"
                 src={publicUrl + blog.photo}
                 alt={'фото'}
-                width={500}
-                height={500}
+                width={150}
+                height={150}
               />
             ) : null,
             title: blog.title,
@@ -83,6 +109,14 @@ export const AdminBlogsPage = observer(() => {
           };
         })}
       />
+
+      <div className="flex justify-center mt-3 text-[18px]">
+        <PaginatorBase
+          page={adminBlogsStore.page}
+          quantityPages={adminBlogsStore.quantityPages}
+          setPage={(v) => adminBlogsStore.setPage(v)}
+        />
+      </div>
     </LayoutAdmin>
   );
 });

@@ -82,19 +82,32 @@ export class AdminController {
   }
 
   @Get('get-blogs')
-  async getBlogs() {
-    return await this.adminService.getBlogs();
+  async getBlogs(@Req() req: Request) {
+    const user = req.user;
+    const page = Number(req.query.page) || 1;
+    const take = Number(req.query.take) || 100;
+    const searchBlogById = req.query.search_blog_by_id?.toString();
+    const searchBlogByTitle = req.query.search_blog_by_title?.toString();
+
+    return await this.adminService.getBlogs(
+      user,
+      page,
+      take,
+      searchBlogById,
+      searchBlogByTitle
+    );
   }
 
   @Get('get-content-blog')
   async getContentBlog(@Req() req: Request) {
+    const user = req.user;
     const id = Number(req.query.id);
 
     if (!id) {
       throw httpError('id блога не получено');
     }
 
-    return await this.adminService.getContentBlog(id);
+    return await this.adminService.getContentBlog(user, id);
   }
 
   @Delete('delete-blog')

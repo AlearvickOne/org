@@ -44,7 +44,14 @@ export const MenuAccount = observer(({ userStore, accountStore }: Props) => {
       <div className="flex flex-col md:text-left text-center">
         {accountStore.user.role !== RolesEnum.user ? (
           <div>
-            <a className="cursor-pointer" href={pagesNames.adminDashboard}>
+            <a
+              className="cursor-pointer"
+              href={
+                userStore.user.role === RolesEnum.creator
+                  ? pagesNames.adminBlogs
+                  : pagesNames.adminDashboard
+              }
+            >
               Админка
             </a>
             <div className="border-b-1 my-2" />

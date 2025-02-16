@@ -17,15 +17,26 @@ export const AdminTable = ({ heads, bodys }: AdminTableProps) => {
           </tr>
         </thead>
         <tbody>
-          {bodys.map((b, index) => (
-            <tr className="border-b-1 text-[14px] text-center" key={index}>
-              {Object.values(b).map((value, vIndex) => (
-                <td className="py-3 px-5" key={vIndex}>
-                  {value}
-                </td>
-              ))}
+          {bodys.length > 0 ? (
+            bodys.map((b, index) => (
+              <tr className="border-b-1 text-[14px] text-center" key={index}>
+                {Object.values(b).map((value, vIndex) => (
+                  <td className="py-3 px-5" key={vIndex}>
+                    {value}
+                  </td>
+                ))}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                className="text-center p-3 text-slate-700 font-medium border-b"
+                colSpan={heads.length}
+              >
+                <em>Данные отсутствуют</em>
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

@@ -6,6 +6,7 @@ import ioc from '../../ioc/ioc';
 import { AdminStore } from '../main-stores/admin-store';
 import { clsx } from 'clsx';
 import { SelectorBase } from '../../../../libs/common-next/src/ui/selectors';
+import { UserStore } from '../main-stores/user-store';
 
 interface LayoutAdminProps {
   children: ReactNode;
@@ -16,6 +17,7 @@ interface LayoutAdminProps {
 }
 
 const adminStore = ioc.get<AdminStore>('AdminStore');
+const userStore = ioc.get<UserStore>('UserStore');
 
 export const LayoutAdmin = observer(
   ({ children, titleHead, tabs, tabIndex, setTabIndex }: LayoutAdminProps) => {
@@ -28,13 +30,13 @@ export const LayoutAdmin = observer(
             {/* Список путей для мобильной версии */}
             <div className="md:hidden bg-white px-2 py-2 shadow-xl block mb-5">
               <SelectorBase>
-                <AdminPaths adminStore={adminStore} />
+                <AdminPaths adminStore={adminStore} userStore={userStore} />
               </SelectorBase>
             </div>
 
             {/* Список путей для десктоп версии */}
             <div className="md:block hidden">
-              <AdminPaths adminStore={adminStore} />
+              <AdminPaths adminStore={adminStore} userStore={userStore} />
             </div>
 
             <div className="w-full md:bg-blue-200 md:rounded-md bg-white">

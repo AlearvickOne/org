@@ -20,7 +20,7 @@ export const BlogHome = observer(() => {
           onChange={(v) => homeBlogsStore.setSearchBlogs(v)}
           type={'text'}
           placeholder="Введите название блога для поиска"
-          maxLength={200}
+          maxLength={100}
           onClickSearch={(v) => homeBlogsStore.loadBlogs()}
         />
 
