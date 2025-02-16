@@ -1,7 +1,6 @@
 import { clsx } from 'clsx';
 import { isArray } from 'class-validator';
 import { IconSearch } from '../icons';
-import { useState } from 'react';
 
 interface InputBaseProps {
   label?: string;
