@@ -27,7 +27,7 @@ export const BlogCard = observer(({ blog }: Props) => {
         ) : null}
         <div>
           <div className="font-medium text-h6">{blog.title}</div>
-          <div className="">{blog.description}</div>
+          <div>{blog.description}</div>
         </div>
       </div>
 

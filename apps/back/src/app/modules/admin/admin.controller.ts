@@ -4,17 +4,21 @@ import { AdminService } from './admin.service';
 import { RegistrationFromAdminDto } from '../../common/dto/registration-from-admin.dto';
 import { httpError } from '../../common/errors';
 import { UploadedFile } from 'express-fileupload';
+import { Roles } from '../../../common/decorators/roles';
+import { RolesEnum } from '@org/types';
 
 @Controller('admin')
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
   @Get('get-all-users')
+  @Roles(RolesEnum.admin)
   async getAllUsers() {
     return await this.adminService.getAllUsers();
   }
 
   @Get('get-user')
+  @Roles(RolesEnum.admin)
   async getUser(@Req() req: Request) {
     const userId = Number(req.query.id.toString());
 
@@ -26,6 +30,7 @@ export class AdminController {
   }
 
   @Post('save-user')
+  @Roles(RolesEnum.admin)
   async saveUser(@Body() body: RegistrationFromAdminDto) {
     const user = body as any;
 
@@ -37,11 +42,13 @@ export class AdminController {
   }
 
   @Get('get-roles')
+  @Roles(RolesEnum.admin)
   async getRoles() {
     return await this.adminService.getRoles();
   }
 
   @Post('user-archived')
+  @Roles(RolesEnum.admin)
   async userArchived(@Req() req: Request) {
     const userId = Number(req.query.id.toString());
     const isArchived = Boolean(req.body.isArchived);
@@ -54,6 +61,7 @@ export class AdminController {
   }
 
   @Delete('user-delete')
+  @Roles(RolesEnum.admin)
   async deleteUser(@Req() req: Request) {
     const userId = Number(req.query.id.toString());
 
@@ -65,6 +73,7 @@ export class AdminController {
   }
 
   @Post('save-content-blog')
+  @Roles(RolesEnum.admin, RolesEnum.creator)
   async saveContentBlog(@Req() req: Request) {
     const userId = Number(req.user.id.toString());
     const data = req.body?.data;
@@ -82,6 +91,7 @@ export class AdminController {
   }
 
   @Get('get-blogs')
+  @Roles(RolesEnum.admin, RolesEnum.creator)
   async getBlogs(@Req() req: Request) {
     const user = req.user;
     const page = Number(req.query.page) || 1;
@@ -98,6 +108,7 @@ export class AdminController {
     );
   }
 
+  @Roles(RolesEnum.admin, RolesEnum.creator)
   @Get('get-content-blog')
   async getContentBlog(@Req() req: Request) {
     const user = req.user;
@@ -110,6 +121,7 @@ export class AdminController {
     return await this.adminService.getContentBlog(user, id);
   }
 
+  @Roles(RolesEnum.admin, RolesEnum.creator)
   @Delete('delete-blog')
   async deleteBlog(@Req() req: Request) {
     const id = Number(req.query.id);

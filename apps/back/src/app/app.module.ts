@@ -12,6 +12,15 @@ import { AdminController } from './modules/admin/admin.controller';
 import { AdminService } from './modules/admin/admin.service';
 import { UserWebSocket } from './modules/websockets/user.websocket';
 import { UserWebSocketService } from './modules/websockets/user.websocket.service';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from '../guards';
+
+const guards = [
+  {
+    provide: APP_GUARD,
+    useClass: RolesGuard,
+  },
+];
 
 @Module({
   imports: [DatabaseModule],
@@ -24,6 +33,7 @@ import { UserWebSocketService } from './modules/websockets/user.websocket.servic
     AdminService,
     UserWebSocket,
     UserWebSocketService,
+    ...guards,
   ],
 })
 export class AppModule implements NestModule {
