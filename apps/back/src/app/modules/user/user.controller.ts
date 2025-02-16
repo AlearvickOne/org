@@ -33,8 +33,12 @@ export class UserController {
   }
 
   @Get('get-blogs')
-  async getBlogs() {
-    return await this.userService.getBlogs();
+  async getBlogs(@Req() req: Request) {
+    const page = Number(req.query.page) || 1;
+    const take = Number(req.query.take) || 1;
+    const search = req.query.search?.toString();
+
+    return await this.userService.getBlogs(search, page, take);
   }
 
   @Get('get-blog')

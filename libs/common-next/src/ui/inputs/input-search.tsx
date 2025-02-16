@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import { isArray } from 'class-validator';
 import { IconSearch } from '../icons';
+import { useState } from 'react';
 
 interface InputBaseProps {
   label?: string;
@@ -8,20 +9,20 @@ interface InputBaseProps {
   labelFontSize?: 'medium' | 'base';
   maxLength?: number;
   value: string;
-  placeholder?: string;
   onChange: (value: string) => void;
-  onClickSearch: () => void;
+  placeholder?: string;
+  onClickSearch: (value: string) => void;
   error?: string | undefined;
 }
 
 export const InputSearch = ({
   label,
   type,
-  value,
   placeholder,
   maxLength,
-  labelFontSize = 'medium',
+  value,
   onChange,
+  labelFontSize = 'medium',
   onClickSearch,
   error,
 }: InputBaseProps) => {
@@ -43,6 +44,9 @@ export const InputSearch = ({
             value={value}
             maxLength={maxLength}
             placeholder={placeholder}
+            onKeyDown={(e) => {
+              e.key === 'Enter' && onClickSearch(value);
+            }}
           />
           {maxLength ? (
             <div
@@ -56,7 +60,7 @@ export const InputSearch = ({
           ) : null}
           <div
             className="absolute top-2 right-3 bottom-2 cursor-pointer"
-            onClick={onClickSearch}
+            onClick={() => onClickSearch(value)}
           >
             <IconSearch />
           </div>
@@ -66,7 +70,11 @@ export const InputSearch = ({
         {error ? (
           <div>
             {isArray(error)
-              ? error.map((e) => <span className="mr-2">{e}</span>)
+              ? error.map((e, index) => (
+                  <span key={index} className="mr-2">
+                    {e}
+                  </span>
+                ))
               : error}
           </div>
         ) : null}
