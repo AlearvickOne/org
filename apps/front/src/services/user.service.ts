@@ -43,8 +43,10 @@ export class UserService {
     return await this.httpService.postFormData(path, formData);
   }
 
-  async getBlogs() {
-    return this.httpService.get('user/get-blogs');
+  async getBlogs(page: number, take: number, search?: string) {
+    return this.httpService.get(
+      `user/get-blogs?search=${search ?? ''}&page=${page}&take=${take}`
+    );
   }
 
   async getBlog(id: string) {

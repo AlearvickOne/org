@@ -41,15 +41,6 @@ export const Header = observer(() => {
 
         {userStore.user ? (
           <>
-            <ul className="hidden md:flex items-center">
-              <li
-                className="cursor-pointer"
-                onClick={() => router.push(pagesNames.dashboard)}
-              >
-                Dashboard
-              </li>
-            </ul>
-
             <div className="hidden md:flex gap-x-12 items-center">
               <Link
                 href={pagesNames.account}

@@ -5,6 +5,7 @@ import { UsersEntity } from '../../database/entities';
 import { BlogsEntity } from '../../database/entities/blogs.entity';
 import { UploadedFile } from 'express-fileupload';
 import { FilesService } from '../../../services/files.service';
+import { Like } from 'typeorm';
 
 @Injectable()
 export class UserService {
@@ -44,8 +45,18 @@ export class UserService {
     return await foundUser.save();
   }
 
-  async getBlogs() {
-    return await BlogsEntity.find();
+  async getBlogs(search: string, page: number, take: number) {
+    const sql = BlogsEntity.createQueryBuilder('blogs');
+
+    if (search) {
+      sql.andWhere({ title: Like(`%${search}%`) });
+    }
+
+    sql.skip((page - 1) * take);
+    sql.take(take);
+    sql.orderBy('blogs.created_at', 'DESC');
+
+    return await sql.getManyAndCount();
   }
 
   async getBlog(id: number) {

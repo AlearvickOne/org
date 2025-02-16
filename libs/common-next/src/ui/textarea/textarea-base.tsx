@@ -37,7 +37,7 @@ export const TextareaBase = ({
         {children}
         <div className="relative w-full">
           <textarea
-            className="p-2 outline-none border-1 rounded-md border-stone-200 bg-transparent focus:border-blue-500 transition-colors duration-200 shadow-inner w-full"
+            className="p-2 outline-none border-1 rounded-md border-stone-200 bg-transparent focus:border-blue-500 transition-colors duration-200 shadow-inner w-full pb-10"
             onChange={(e) => onChange(e.target.value)}
             value={value}
             placeholder={placeholder}
