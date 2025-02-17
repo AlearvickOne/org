@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Custom404() {
   return (
-    <div className="h-screen w-full flex justify-center items-center bg-default">
+    <div className="h-screen w-full flex justify-center items-center">
       <div className="text-white font-medium text-[26px] p-5 bg-red-500 rounded-[15px]  drop-shadow-xl shadow-color-red flex flex-col justify-center items-center">
         <p>Ошибка загрузки!</p>
         <p>Данная страница отсутствует на нашем сайте!</p>

@@ -128,42 +128,50 @@ export const Blog = observer(({ blogStore, userStore }: Props) => {
           )}
         </div>
 
-        <TextareaBase
-          label="Новый комментарий:"
-          labelFontSize="medium"
-          placeholder="Введите ваш комментарий в это поле"
-          rows={2}
-          value={blogStore.newComment}
-          onChange={(v) => blogStore.setNewComment(v)}
-        >
-          {blogStore.otherUserComment
-            ? otherUsersCommentJsx(
-                blogStore.otherUserComment.nickname,
-                blogStore.otherUserComment.comment.trim(),
-                () => blogStore.setOtherUserComment(null)
-              )
-            : null}
-        </TextareaBase>
+        {!userStore.user.is_archived ? (
+          <>
+            <TextareaBase
+              label="Новый комментарий:"
+              labelFontSize="medium"
+              placeholder="Введите ваш комментарий в это поле"
+              rows={2}
+              value={blogStore.newComment}
+              onChange={(v) => blogStore.setNewComment(v)}
+            >
+              {blogStore.otherUserComment
+                ? otherUsersCommentJsx(
+                    blogStore.otherUserComment.nickname,
+                    blogStore.otherUserComment.comment.trim(),
+                    () => blogStore.setOtherUserComment(null)
+                  )
+                : null}
+            </TextareaBase>
 
-        {userStore.user.id ? (
-          <div className="flex justify-end mt-3">
-            <div>
-              <Button
-                isDisabled={blogStore.newComment.trim().length === 0}
-                onClick={() => blogStore.pushComment()}
-              >
-                Отправить
-              </Button>
-            </div>
-          </div>
+            {userStore.user.id ? (
+              <div className="flex justify-end mt-3">
+                <div>
+                  <Button
+                    isDisabled={blogStore.newComment.trim().length === 0}
+                    onClick={() => blogStore.pushComment()}
+                  >
+                    Отправить
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="text-right mt-5">
+                <em>
+                  Для отправки коментария необходимо войти в аккаунт!{' '}
+                  <Link className="text-blue-500" href={pagesNames.login}>
+                    Авторизироваться!
+                  </Link>
+                </em>
+              </div>
+            )}
+          </>
         ) : (
           <div className="text-right mt-5">
-            <em>
-              Для отправки коментария необходимо войти в аккаунт!{' '}
-              <Link className="text-blue-500" href={pagesNames.login}>
-                Авторизироваться!
-              </Link>
-            </em>
+            <em>Вам было запрещено отправлять комментарии.</em>
           </div>
         )}
       </div>
