@@ -98,9 +98,7 @@ export const AdminUsersPage = observer(() => {
               <div
                 className="cursor-pointer flex justify-center"
                 onClick={() =>
-                  adminUsersStore
-                    .userArchived(user.id, !user.is_archived)
-                    .then((w) => (user.is_archived = w))
+                  adminUsersStore.userArchived(user.id, !user.is_archived)
                 }
               >
                 {user.is_archived ? <IconMinusSquare /> : <IconPlusSquare />}

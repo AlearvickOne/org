@@ -47,36 +47,48 @@ export class AdminUsersStore {
   }
 
   async loadUsers() {
-    const [users, count] = await this.adminService.getAllUsers(
-      this.searchUserById,
-      this.searchUserByEmail,
-      this.searchUserByNickname,
-      this.page,
-      this.take
-    );
+    try {
+      const [users, count] = await this.adminService.getAllUsers(
+        this.searchUserById,
+        this.searchUserByEmail,
+        this.searchUserByNickname,
+        this.page,
+        this.take
+      );
 
-    this.users = users;
-    this.quantityPages = Math.ceil(count / this.take);
+      this.users = users;
+      this.quantityPages = Math.ceil(count / this.take);
+    } catch (error: any) {
+      alert('Ошибка при загрузке списка пользователей - ' + error.message);
+    }
   }
 
   async loadUser(id?: string) {
-    this.user = defaultUser;
-    this.role = defaultComboBox;
+    try {
+      this.user = defaultUser;
+      this.role = defaultComboBox;
 
-    if (!id) {
-      return;
+      if (!id) {
+        return;
+      }
+
+      this.user = await this.adminService.getUser(id);
+      this.role = this.roles.find((role) => role.value == this.user.role)!;
+    } catch (error: any) {
+      alert(`Ошибка при загрузке пользователя №${id} - ` + error.message);
     }
-
-    this.user = await this.adminService.getUser(id);
-    this.role = this.roles.find((role) => role.value == this.user.role)!;
   }
 
   async loadRoles() {
-    const roles: RolesModel[] = await this.adminService.getRoles();
+    try {
+      const roles: RolesModel[] = await this.adminService.getRoles();
 
-    this.roles = roles.map((role) => {
-      return { value: role.role, label: role.name };
-    });
+      this.roles = roles.map((role) => {
+        return { value: role.role, label: role.name };
+      });
+    } catch (error: any) {
+      alert(`Ошибка при загрузке ролей - ` + error.message);
+    }
   }
 
   setName(v: string) {
@@ -147,9 +159,9 @@ export class AdminUsersStore {
   async userArchived(userId: number, isArchived: boolean) {
     try {
       await this.adminService.userArchived(userId, isArchived);
-      return isArchived;
-    } catch (error) {
-      console.log(error);
+      await this.loadUsers().then();
+    } catch (error: any) {
+      alert(`Ошибка при бане пользователя №${userId}` + error.message);
     }
   }
 
@@ -162,7 +174,7 @@ export class AdminUsersStore {
       await this.adminService.deleteUser(userId);
       window.location.replace(`${pagesNames.adminUsers}`);
     } catch (error: any) {
-      console.log(error);
+      alert(`Ошибка при удалении пользователя №${userId}` + error.message);
     }
   }
 }

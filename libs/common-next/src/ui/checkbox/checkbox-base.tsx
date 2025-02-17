@@ -11,7 +11,7 @@ export const CheckboxBase = ({ label, value, onChange }: CheckboxBaseProps) => {
         className="py-2 outline-none border-b-[1px] border-stone-200 bg-transparent focus:border-blue-500 transition-colors duration-200"
         type={'checkbox'}
         checked={value}
-        onClick={() => onChange(!value)}
+        onChange={() => onChange(!value)}
       />
       <label>{label}</label>
     </div>

@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react';
 import container from '../../../ioc/ioc';
 import { LoginStore } from './store/login-store';
-import { useEffect } from 'react';
 import { Button, InputBase, LogoImage } from '@org/common-next';
 import { pagesNames } from '../../pages-names';
 import Link from 'next/link';
@@ -9,10 +8,6 @@ import Link from 'next/link';
 const loginStore = container.get<LoginStore>('LoginStore');
 
 export const LoginPage = observer(() => {
-  useEffect(() => {
-    loginStore.init().then();
-  }, []);
-
   return (
     <div className="flex justify-center items-center h-screen relative z-20">
       <div className="absolute w-screen -z-10 top-0 left-0 h-1/3 right-0">

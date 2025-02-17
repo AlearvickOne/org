@@ -38,13 +38,17 @@ export class BlogStore {
   newComment: string = '';
 
   async loadBlog(id: string) {
-    if (!id) {
-      return;
+    try {
+      if (!id) {
+        return;
+      }
+
+      this.blog = await this.userService.getBlog(id);
+
+      this.loadComments();
+    } catch (error: any) {
+      console.error(`Ошибка при загрузке блога №${id} ` + error.message);
     }
-
-    this.blog = await this.userService.getBlog(id);
-
-    this.loadComments();
   }
 
   async events() {
@@ -54,10 +58,18 @@ export class BlogStore {
         this.comments = data;
       }
     );
+
+    this.socket.on('error', (err: Error) => {
+      console.error(`Ошибка при работе соккета ` + err.message);
+    });
   }
 
   async loadRandomBlogs() {
-    this.randomBlogs = await this.userService.getRandomBlogs();
+    try {
+      this.randomBlogs = await this.userService.getRandomBlogs();
+    } catch (error: any) {
+      console.error(`Ошибка при загрузке случайных блогов ` + error.message);
+    }
   }
 
   setNewComment(v: string) {

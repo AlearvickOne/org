@@ -83,8 +83,8 @@ export const AdminBlogsPage = observer(() => {
                 height={150}
               />
             ) : null,
-            title: blog.title,
-            desc: blog.description,
+            title: <div className="text-left">{blog.title}</div>,
+            desc: <div className="text-left">{blog.description}</div>,
             date: DateTimeLib.mySqlDatetimeToString(blog.created_at),
             editBtn: (
               <Link

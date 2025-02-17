@@ -21,13 +21,17 @@ export class HomeBlogsStore {
   quantityPages: number = 0;
 
   async loadBlogs() {
-    const [blogs, count] = await this.userService.getBlogs(
-      this.page,
-      this.take,
-      this.searchBlogs
-    );
-    this.blogs = blogs;
-    this.quantityPages = Math.ceil(count / this.take);
+    try {
+      const [blogs, count] = await this.userService.getBlogs(
+        this.page,
+        this.take,
+        this.searchBlogs
+      );
+      this.blogs = blogs;
+      this.quantityPages = Math.ceil(count / this.take);
+    } catch (error: any) {
+      console.error('Ошибка при загрузке блогов ' + error.message);
+    }
   }
 
   setPage(page: number) {

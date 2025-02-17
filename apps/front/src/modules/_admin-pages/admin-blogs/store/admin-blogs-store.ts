@@ -23,14 +23,18 @@ export class AdminBlogsStore {
   blogs: BlogsModel[] = [];
 
   async getBlogs() {
-    const [blogs, count] = await this.adminService.getBlogs(
-      this.page,
-      this.take,
-      this.searchBlogById,
-      this.searchBlogByTitle
-    );
-    this.blogs = blogs;
-    this.quantityPages = Math.ceil(count / this.take);
+    try {
+      const [blogs, count] = await this.adminService.getBlogs(
+        this.page,
+        this.take,
+        this.searchBlogById,
+        this.searchBlogByTitle
+      );
+      this.blogs = blogs;
+      this.quantityPages = Math.ceil(count / this.take);
+    } catch (error: any) {
+      alert('Ошибка при загрузке списка блогов - ' + error.message);
+    }
   }
 
   async deleteBlog(id: number) {
@@ -41,8 +45,8 @@ export class AdminBlogsStore {
 
       await this.adminService.deleteBlog(id);
       await this.getBlogs();
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      alert(`Ошибка при удалении блога №${id} - ` + error.message);
     }
   }
 

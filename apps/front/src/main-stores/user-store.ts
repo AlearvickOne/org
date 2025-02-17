@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { injectable } from 'inversify';
-import { defaultUser, UsersModel } from '../../../../types/models/users.model';
+import { defaultUser, UsersModel } from '@org/types';
 import { UserService } from '../services/user.service';
 import container from '../../ioc/ioc';
 

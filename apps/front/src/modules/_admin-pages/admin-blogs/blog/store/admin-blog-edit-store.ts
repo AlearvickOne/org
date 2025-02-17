@@ -54,24 +54,28 @@ export class AdminBlogEditStore {
 
       window.location.replace(`${pagesNames.adminBlogs}/blog?id=${blogId}`);
     } catch (error: any) {
-      alert(error.message);
+      alert('Ошибка сохранения блога - ' + error.message);
     }
   }
 
   async getContentBlog(id: string) {
-    this.blog = defaultBlogsModel;
+    try {
+      this.blog = defaultBlogsModel;
 
-    if (!id) {
-      return;
+      if (!id) {
+        return;
+      }
+
+      const content = await this.adminService.getContentBlog(id);
+
+      if (!content) {
+        window.location.replace(pagesNames.adminBlogs);
+        return;
+      }
+
+      this.blog = content;
+    } catch (error: any) {
+      alert('Контент блога не получен - ' + error.message);
     }
-
-    const content = await this.adminService.getContentBlog(id);
-
-    if (!content) {
-      window.location.replace(pagesNames.adminBlogs);
-      return;
-    }
-
-    this.blog = content;
   }
 }
