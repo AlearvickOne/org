@@ -37,7 +37,7 @@ export const InputSearch = ({
         ) : null}
         <div className="relative w-full">
           <input
-            className="py-2 outline-none border-b-[1px] border-stone-200 bg-transparent focus:border-blue-500 transition-colors duration-200 w-full pr-[130px]"
+            className="py-2 outline-none border-b-[1px] border-stone-200 bg-transparent focus:border-blue-500 transition-colors duration-200 w-full pr-[120px]"
             type={type}
             onChange={(e) => onChange(e.target.value)}
             value={value}

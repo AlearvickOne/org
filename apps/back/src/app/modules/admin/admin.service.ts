@@ -12,10 +12,35 @@ import { httpError } from '../../common/errors';
 export class AdminService {
   constructor() {}
 
-  async getAllUsers() {
-    return await UsersEntity.createQueryBuilder('users')
-      .addSelect(['users.email'])
-      .getMany();
+  async getAllUsers(
+    searchUserById: string,
+    searchUserByEmail: string,
+    searchUserByNickname: string,
+    page: number,
+    take: number
+  ) {
+    const sql = UsersEntity.createQueryBuilder('users');
+    sql.addSelect(['users.email']);
+
+    if (searchUserById) {
+      sql.andWhere({ id: searchUserById });
+      page = 1;
+    }
+
+    if (searchUserByEmail) {
+      sql.andWhere({ email: Like(`%${searchUserByEmail}%`) });
+      page = 1;
+    }
+
+    if (searchUserByNickname) {
+      sql.andWhere({ nickname: Like(`%${searchUserByNickname}%`) });
+      page = 1;
+    }
+
+    sql.skip((page - 1) * take);
+    sql.take(take);
+
+    return await sql.getManyAndCount();
   }
 
   async getUser(id: number) {
@@ -25,7 +50,6 @@ export class AdminService {
       .getOne();
   }
 
-  // TODO ЗАМЕНИТЬ РОЛИ
   async saveUser(user: UsersModel) {
     const u = await UsersEntity.findOneBy({ id: user.id });
 
@@ -133,10 +157,12 @@ export class AdminService {
 
     if (searchBlogById) {
       sql.andWhere({ id: searchBlogById });
+      page = 1;
     }
 
     if (searchBlogByTitle) {
       sql.andWhere({ title: Like(`%${searchBlogByTitle}%`) });
+      page = 1;
     }
 
     sql.skip((page - 1) * take);

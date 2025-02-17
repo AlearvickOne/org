@@ -6,8 +6,16 @@ import { UsersModel } from '@org/types';
 export class AdminService {
   constructor(@inject('HttpService') private httpService: HttpService) {}
 
-  async getAllUsers() {
-    return await this.httpService.get('admin/get-all-users');
+  async getAllUsers(
+    searchUserById: string,
+    searchUserByEmail: string,
+    searchUserByNickname: string,
+    page: number,
+    take: number
+  ) {
+    return await this.httpService.get(
+      `admin/get-all-users?page=${page}&take=${take}&search_user_by_id=${searchUserById}&search_user_by_email=${searchUserByEmail}&search_user_by_nickname=${searchUserByNickname}`
+    );
   }
 
   async getUser(id: string) {
@@ -43,9 +51,7 @@ export class AdminService {
     searchBlogByTitle: string
   ) {
     return await this.httpService.get(
-      `admin/get-blogs?page=${page}&take=${take}&search_blog_by_id=${
-        searchBlogById ?? ''
-      }&search_blog_by_title=${searchBlogByTitle ?? ''}`
+      `admin/get-blogs?page=${page}&take=${take}&search_blog_by_id=${searchBlogById}&search_blog_by_title=${searchBlogByTitle}`
     );
   }
 

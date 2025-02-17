@@ -7,6 +7,8 @@ import {
   IconMinusSquare,
   IconNewUser,
   IconPlusSquare,
+  InputSearch,
+  PaginatorBase,
 } from '@org/common-next';
 import ioc from '../../../../ioc/ioc';
 import { AdminUsersStore } from './store/admin-users-store';
@@ -30,6 +32,39 @@ export const AdminUsersPage = observer(() => {
         >
           <IconNewUser />
         </Link>
+      </div>
+
+      <div className="mb-5 flex w-full gap-5 justify-center md:flex-row flex-col">
+        <div className="md:w-[300px]">
+          <InputSearch
+            type={'text'}
+            value={adminUsersStore.searchUserById}
+            onChange={(v) => adminUsersStore.setSearchUserById(v)}
+            onClickSearch={() => adminUsersStore.loadUsers()}
+            maxLength={5}
+            placeholder="Поиск по id пользователя"
+          />
+        </div>
+        <div className="md:w-[300px]">
+          <InputSearch
+            type={'text'}
+            value={adminUsersStore.searchUserByEmail}
+            onChange={(v) => adminUsersStore.setSearchUserByEmail(v)}
+            onClickSearch={() => adminUsersStore.loadUsers()}
+            maxLength={20}
+            placeholder="Поиск по email"
+          />
+        </div>
+        <div className="md:w-[300px]">
+          <InputSearch
+            type={'text'}
+            value={adminUsersStore.searchUserByNickname}
+            onChange={(v) => adminUsersStore.setSearchUserByNickname(v)}
+            onClickSearch={() => adminUsersStore.loadUsers()}
+            maxLength={10}
+            placeholder="Поиск по нику"
+          />
+        </div>
       </div>
 
       <AdminTable
@@ -74,6 +109,14 @@ export const AdminUsersPage = observer(() => {
           };
         })}
       />
+
+      <div className="flex justify-center mt-3 text-[18px]">
+        <PaginatorBase
+          page={adminUsersStore.page}
+          quantityPages={adminUsersStore.quantityPages}
+          setPage={(v) => adminUsersStore.setPage(v)}
+        />
+      </div>
     </LayoutAdmin>
   );
 });

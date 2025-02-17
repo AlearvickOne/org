@@ -13,8 +13,20 @@ export class AdminController {
 
   @Get('get-all-users')
   @Roles(RolesEnum.admin)
-  async getAllUsers() {
-    return await this.adminService.getAllUsers();
+  async getAllUsers(@Req() req: Request) {
+    const searchUserById = req.query.search_user_by_id?.toString();
+    const searchUserByEmail = req.query.search_user_by_email?.toString();
+    const searchUserByNickname = req.query.search_user_by_nickname?.toString();
+    const page = Number(req.query.page) || 1;
+    const take = Number(req.query.take) || 100;
+
+    return await this.adminService.getAllUsers(
+      searchUserById,
+      searchUserByEmail,
+      searchUserByNickname,
+      page,
+      take
+    );
   }
 
   @Get('get-user')
