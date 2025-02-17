@@ -76,7 +76,7 @@ export const AdminUsersPage = observer(() => {
           'Ник',
           'Дата создания',
           '',
-          'Архив',
+          'Бан-архив',
         ]}
         bodys={adminUsersStore.users.map((user) => {
           return {
