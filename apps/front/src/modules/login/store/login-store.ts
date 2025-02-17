@@ -21,8 +21,6 @@ export class LoginStore {
     this.userService = container.get<UserService>('UserService');
   }
 
-  async init() {}
-
   setEmail(v: string) {
     this.email = v;
   }

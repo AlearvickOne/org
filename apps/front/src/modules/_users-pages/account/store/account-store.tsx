@@ -34,7 +34,11 @@ export class AccountStore {
   }
 
   async loadUser() {
-    this.user = await this.userService.getMyUserAndEmail();
+    try {
+      this.user = await this.userService.getMyUserAndEmail();
+    } catch (error: any) {
+      console.error('Ошибка при загрузке пользователя ' + error.message);
+    }
   }
 
   setActiveTab(v: number) {
