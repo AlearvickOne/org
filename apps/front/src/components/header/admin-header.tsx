@@ -2,7 +2,6 @@ import { observer } from 'mobx-react';
 import ioc from '../../../ioc/ioc';
 import { LoginStore } from '../../modules/login/store/login-store';
 import { UserStore } from '../../main-stores/user-store';
-import { useRouter } from 'next/router';
 import { pagesNames } from '../../pages-names';
 import { IconMenuMobile, LogoImage, useScrollDisabled } from '@org/common-next';
 import { useState } from 'react';
@@ -15,7 +14,6 @@ const loginStore = ioc.get<LoginStore>('LoginStore');
 const userStore = ioc.get<UserStore>('UserStore');
 
 export const AdminHeader = observer(() => {
-  const router = useRouter();
   const [isOpenMobileMenu, setIsOpenMobileMenu] = useState<boolean>(false);
 
   useScrollDisabled(isOpenMobileMenu);
@@ -23,14 +21,11 @@ export const AdminHeader = observer(() => {
   return (
     <div>
       <div className="bg-white h-[60px] flex md:justify-between justify-center items-center border-b-1 shadow-xl relative">
-        <div
-          className="md:ml-12 cursor-pointer"
-          onClick={() => router.push(pagesNames.home)}
-        >
+        <Link className="md:ml-12 cursor-pointer" href={pagesNames.home}>
           <div className="w-full h-[50px] text-black">
             <LogoImage />
           </div>
-        </div>
+        </Link>
 
         <div
           className="block md:hidden absolute right-[20px]"
@@ -43,7 +38,7 @@ export const AdminHeader = observer(() => {
           <Link href={pagesNames.account} className="flex gap-x-2 items-center">
             {userStore.user.avatar ? (
               <Image
-                className="max-h-[80px] max-w-[80px] rounded-md"
+                className="max-h-[40px] max-w-[40px] rounded-md"
                 src={publicUrl + userStore.user.avatar}
                 alt={'Фото'}
                 width={150}

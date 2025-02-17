@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { RolesEnum, UsersModel } from '@org/types';
+import { RolesEnum, UsersModel, ALLOWED_TYPES_IMAGE_FILES } from '@org/types';
 import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
 import { RolesEntity, UsersEntity } from '../../database/entities';
 import { BlogsEntity } from '../../database/entities/blogs.entity';
 import { FilesService } from '../../../services/files.service';
 import { UploadedFile } from 'express-fileupload';
 import { Like } from 'typeorm';
+import { httpError } from '../../common/errors';
 
 @Injectable()
 export class AdminService {
@@ -90,16 +91,20 @@ export class AdminService {
     const newBlog =
       (await BlogsEntity.findOneBy({ id: data.id })) ?? new BlogsEntity();
 
-    newBlog.user_id = userId;
-    newBlog.title = data.title;
-    newBlog.description = data.description;
-    newBlog.content = data.content;
-
     if (fileImage) {
+      if (!ALLOWED_TYPES_IMAGE_FILES.includes(fileImage.mimetype)) {
+        throw httpError('Неподдерживаемый формат файла');
+      }
+
       const blogUid = data.id + '_uid-' + Math.random().toFixed(5);
       const ext = fileImage.name.split('.').pop();
       newBlog.photo = await FilesService.mvBlogImgSave(fileImage, blogUid, ext);
     }
+
+    newBlog.user_id = userId;
+    newBlog.title = data.title;
+    newBlog.description = data.description;
+    newBlog.content = data.content;
 
     await newBlog.save();
     return newBlog.id;

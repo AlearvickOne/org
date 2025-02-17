@@ -47,9 +47,9 @@ export const MenuAccount = observer(({ userStore, accountStore }: Props) => {
             <a
               className="cursor-pointer"
               href={
-                userStore.user.role === RolesEnum.creator
-                  ? pagesNames.adminBlogs
-                  : pagesNames.adminDashboard
+                userStore.user.role === RolesEnum.admin
+                  ? pagesNames.adminUsers
+                  : pagesNames.adminBlogs
               }
             >
               Админка

@@ -51,10 +51,10 @@ export const InputSearch = ({
             <div
               className={clsx(
                 'absolute top-2 right-14',
-                value.length === maxLength ? 'text-red-500' : 'text-slate-500'
+                value?.length === maxLength ? 'text-red-500' : 'text-slate-500'
               )}
             >
-              {value.length}/{maxLength}
+              {value?.length}/{maxLength}
             </div>
           ) : null}
           <div

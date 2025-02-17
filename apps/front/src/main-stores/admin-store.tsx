@@ -9,18 +9,12 @@ export class AdminStore {
   adminPaths: IAdminPaths[] = [
     {
       id: 0,
-      name: 'Dashboard',
-      pathname: pagesNames.adminDashboard,
-      icon: <IconMonitor />,
-    },
-    {
-      id: 1,
       name: 'Пользователи',
       pathname: pagesNames.adminUsers,
       icon: <IconUsers />,
     },
     {
-      id: 2,
+      id: 1,
       name: 'Блоги',
       pathname: pagesNames.adminBlogs,
       icon: <IconClipboard />,

@@ -11,14 +11,12 @@ import {
 import ioc from '../../../../ioc/ioc';
 import { AdminUsersStore } from './store/admin-users-store';
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { pagesNames } from '../../../pages-names';
+import Link from 'next/link';
 
 const adminUsersStore = ioc.get<AdminUsersStore>('AdminUsersStore');
 
 export const AdminUsersPage = observer(() => {
-  const router = useRouter();
-
   useEffect(() => {
     adminUsersStore.init().then();
   }, []);
@@ -26,12 +24,12 @@ export const AdminUsersPage = observer(() => {
   return (
     <LayoutAdmin>
       <div className="flex">
-        <div
+        <Link
           className="mb-5 cursor-pointer p-1 rounded-md bg-violet-100"
-          onClick={() => router.push(`${pagesNames.adminUsers}/user`)}
+          href={pagesNames.adminUsers + `/user`}
         >
           <IconNewUser />
-        </div>
+        </Link>
       </div>
 
       <AdminTable
@@ -54,14 +52,12 @@ export const AdminUsersPage = observer(() => {
             nickname: user.nickname,
             createdAt: DateTimeLib.mySqlDatetimeToString(user.created_at),
             btnEditor: (
-              <div
+              <Link
                 className="cursor-pointer flex justify-center"
-                onClick={() =>
-                  router.push(`${pagesNames.adminUsers}/user?id=${user.id}`)
-                }
+                href={pagesNames.adminUsers + `/user?id=${user.id}`}
               >
                 <IconEditor />
-              </div>
+              </Link>
             ),
             btnToArchived: (
               <div

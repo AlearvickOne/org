@@ -12,16 +12,14 @@ import {
 import ioc from '../../../../ioc/ioc';
 import { AdminBlogsStore } from './store/admin-blogs-store';
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { pagesNames } from '../../../pages-names';
 import Image from 'next/image';
 import { publicUrl } from '../../../../conf';
+import Link from 'next/link';
 
 const adminBlogsStore = ioc.get<AdminBlogsStore>('AdminBlogsStore');
 
 export const AdminBlogsPage = observer(() => {
-  const router = useRouter();
-
   useEffect(() => {
     adminBlogsStore.getBlogs().then();
   }, []);
@@ -29,12 +27,12 @@ export const AdminBlogsPage = observer(() => {
   return (
     <LayoutAdmin>
       <div className="mb-5 flex">
-        <div
-          onClick={() => router.push(`${pagesNames.adminBlogs}/blog`)}
+        <Link
+          href={pagesNames.adminBlogs + `/blog`}
           className="cursor-pointer p-1 rounded-md bg-violet-100"
         >
           <IconAddBlog />
-        </div>
+        </Link>
       </div>
 
       <div className="mb-5 flex w-full gap-5 justify-center md:flex-row flex-col">
@@ -89,14 +87,12 @@ export const AdminBlogsPage = observer(() => {
             desc: blog.description,
             date: DateTimeLib.mySqlDatetimeToString(blog.created_at),
             editBtn: (
-              <div
+              <Link
                 className="cursor-pointer"
-                onClick={() =>
-                  router.push(`${pagesNames.adminBlogs}/blog?id=${blog.id}`)
-                }
+                href={pagesNames.adminBlogs + `/blog?id=${blog.id}`}
               >
                 <IconEditor />
-              </div>
+              </Link>
             ),
             deleteBlog: (
               <div
