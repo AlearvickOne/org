@@ -3,14 +3,12 @@ import container from '../../../ioc/ioc';
 import { LoginStore } from './store/login-store';
 import { useEffect } from 'react';
 import { Button, InputBase, LogoImage } from '@org/common-next';
-import { useRouter } from 'next/router';
 import { pagesNames } from '../../pages-names';
+import Link from 'next/link';
 
 const loginStore = container.get<LoginStore>('LoginStore');
 
 export const LoginPage = observer(() => {
-  const router = useRouter();
-
   useEffect(() => {
     loginStore.init().then();
   }, []);
@@ -52,12 +50,12 @@ export const LoginPage = observer(() => {
 
           <div className="text-[14px] text-center">
             Нет аккаунта?{' '}
-            <span
+            <Link
               className="text-blue-500 underline cursor-pointer"
-              onClick={() => router.push(pagesNames.register)}
+              href={pagesNames.register}
             >
               Регистрация!
-            </span>
+            </Link>
           </div>
         </form>
       </div>

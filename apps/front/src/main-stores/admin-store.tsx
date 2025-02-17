@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { injectable } from 'inversify';
 import { pagesNames } from '../pages-names';
-import { IconClipboard, IconMonitor, IconUsers } from '@org/common-next';
+import { IconClipboard, IconUsers } from '@org/common-next';
 import { IAdminPaths } from '@org/types';
 
 @injectable()
@@ -9,18 +9,12 @@ export class AdminStore {
   adminPaths: IAdminPaths[] = [
     {
       id: 0,
-      name: 'Dashboard',
-      pathname: pagesNames.adminDashboard,
-      icon: <IconMonitor />,
-    },
-    {
-      id: 1,
       name: 'Пользователи',
       pathname: pagesNames.adminUsers,
       icon: <IconUsers />,
     },
     {
-      id: 2,
+      id: 1,
       name: 'Блоги',
       pathname: pagesNames.adminBlogs,
       icon: <IconClipboard />,

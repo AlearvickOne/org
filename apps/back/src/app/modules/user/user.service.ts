@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { UsersModel } from '@org/types';
+import { ALLOWED_TYPES_IMAGE_FILES, UsersModel } from '@org/types';
 import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
 import { UsersEntity } from '../../database/entities';
 import { BlogsEntity } from '../../database/entities/blogs.entity';
 import { UploadedFile } from 'express-fileupload';
 import { FilesService } from '../../../services/files.service';
 import { Like } from 'typeorm';
+import { httpError } from '../../common/errors';
 
 @Injectable()
 export class UserService {
@@ -31,6 +32,10 @@ export class UserService {
     foundUser.email = user.email;
 
     if (avatar) {
+      if (!ALLOWED_TYPES_IMAGE_FILES.includes(avatar.mimetype)) {
+        throw httpError('Неподдерживаемый формат файла');
+      }
+
       const ext = avatar.name.split('.').pop();
       const uid = user.id + '_uid-' + Math.random().toFixed(5);
       foundUser.avatar = await FilesService.mvAvatarUser(avatar, uid, ext);

@@ -39,7 +39,7 @@ export const ComboboxBase = ({
         <input
           className="py-2 outline-none border-b-[1px] border-stone-200 bg-transparent focus:border-blue-500 transition-colors duration-200 w-full"
           type={'text'}
-          value={value.label}
+          value={value?.label ?? ''}
           onChange={() => null}
           placeholder={placeholder}
         />
@@ -59,10 +59,13 @@ export const ComboboxBase = ({
                 className="cursor-pointer py-1 border-b-1"
                 key={index}
                 onClick={() =>
-                  handleOnChange({ value: option.value, label: option.label })
+                  handleOnChange({
+                    value: option?.value ?? '',
+                    label: option?.label ?? '',
+                  })
                 }
               >
-                {option.label}
+                {option?.label ?? ''}
               </div>
             ))}
           </div>

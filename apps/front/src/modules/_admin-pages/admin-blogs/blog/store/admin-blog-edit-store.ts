@@ -54,7 +54,7 @@ export class AdminBlogEditStore {
 
       window.location.replace(`${pagesNames.adminBlogs}/blog?id=${blogId}`);
     } catch (error: any) {
-      console.error(error.message);
+      alert(error.message);
     }
   }
 

@@ -3,6 +3,7 @@ import { Button, InputBase, InputFile } from '@org/common-next';
 import { AccountStore } from '../store/account-store';
 import Image from 'next/image';
 import { publicUrl } from '../../../../../conf';
+import { ALLOWED_TYPES_IMAGE_FILES } from '@org/types';
 
 interface Props {
   accountStore: AccountStore;
@@ -33,7 +34,10 @@ export const PersonalData = observer(({ accountStore }: Props) => {
         <InputFile
           label="Аватар:"
           onChange={(v) => accountStore.setAvatar(v)}
-          placeholder="Выберите аватар"
+          accept={ALLOWED_TYPES_IMAGE_FILES}
+          placeholder={`Поддерживаемые форматы файлов: ${ALLOWED_TYPES_IMAGE_FILES.map(
+            (t) => t.split('/')[1]
+          )}`}
         />
       </div>
 

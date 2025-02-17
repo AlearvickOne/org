@@ -1,20 +1,46 @@
 import { Injectable } from '@nestjs/common';
-import { RolesEnum, UsersModel } from '@org/types';
+import { RolesEnum, UsersModel, ALLOWED_TYPES_IMAGE_FILES } from '@org/types';
 import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
 import { RolesEntity, UsersEntity } from '../../database/entities';
 import { BlogsEntity } from '../../database/entities/blogs.entity';
 import { FilesService } from '../../../services/files.service';
 import { UploadedFile } from 'express-fileupload';
 import { Like } from 'typeorm';
+import { httpError } from '../../common/errors';
 
 @Injectable()
 export class AdminService {
   constructor() {}
 
-  async getAllUsers() {
-    return await UsersEntity.createQueryBuilder('users')
-      .addSelect(['users.email'])
-      .getMany();
+  async getAllUsers(
+    searchUserById: string,
+    searchUserByEmail: string,
+    searchUserByNickname: string,
+    page: number,
+    take: number
+  ) {
+    const sql = UsersEntity.createQueryBuilder('users');
+    sql.addSelect(['users.email']);
+
+    if (searchUserById) {
+      sql.andWhere({ id: searchUserById });
+      page = 1;
+    }
+
+    if (searchUserByEmail) {
+      sql.andWhere({ email: Like(`%${searchUserByEmail}%`) });
+      page = 1;
+    }
+
+    if (searchUserByNickname) {
+      sql.andWhere({ nickname: Like(`%${searchUserByNickname}%`) });
+      page = 1;
+    }
+
+    sql.skip((page - 1) * take);
+    sql.take(take);
+
+    return await sql.getManyAndCount();
   }
 
   async getUser(id: number) {
@@ -24,7 +50,6 @@ export class AdminService {
       .getOne();
   }
 
-  // TODO ЗАМЕНИТЬ РОЛИ
   async saveUser(user: UsersModel) {
     const u = await UsersEntity.findOneBy({ id: user.id });
 
@@ -90,16 +115,20 @@ export class AdminService {
     const newBlog =
       (await BlogsEntity.findOneBy({ id: data.id })) ?? new BlogsEntity();
 
-    newBlog.user_id = userId;
-    newBlog.title = data.title;
-    newBlog.description = data.description;
-    newBlog.content = data.content;
-
     if (fileImage) {
+      if (!ALLOWED_TYPES_IMAGE_FILES.includes(fileImage.mimetype)) {
+        throw httpError('Неподдерживаемый формат файла');
+      }
+
       const blogUid = data.id + '_uid-' + Math.random().toFixed(5);
       const ext = fileImage.name.split('.').pop();
       newBlog.photo = await FilesService.mvBlogImgSave(fileImage, blogUid, ext);
     }
+
+    newBlog.user_id = userId;
+    newBlog.title = data.title;
+    newBlog.description = data.description;
+    newBlog.content = data.content;
 
     await newBlog.save();
     return newBlog.id;
@@ -128,10 +157,12 @@ export class AdminService {
 
     if (searchBlogById) {
       sql.andWhere({ id: searchBlogById });
+      page = 1;
     }
 
     if (searchBlogByTitle) {
       sql.andWhere({ title: Like(`%${searchBlogByTitle}%`) });
+      page = 1;
     }
 
     sql.skip((page - 1) * take);

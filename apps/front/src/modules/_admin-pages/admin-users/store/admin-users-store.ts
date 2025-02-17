@@ -29,6 +29,14 @@ export class AdminUsersStore {
 
   errors: any = {};
 
+  searchUserById: string = '';
+  searchUserByEmail: string = '';
+  searchUserByNickname: string = '';
+
+  page: number = 1;
+  take: number = 20;
+  quantityPages = 0;
+
   constructor() {
     makeAutoObservable(this);
     this.adminService = ioc.get<AdminService>('AdminService');
@@ -39,7 +47,16 @@ export class AdminUsersStore {
   }
 
   async loadUsers() {
-    this.users = await this.adminService.getAllUsers();
+    const [users, count] = await this.adminService.getAllUsers(
+      this.searchUserById,
+      this.searchUserByEmail,
+      this.searchUserByNickname,
+      this.page,
+      this.take
+    );
+
+    this.users = users;
+    this.quantityPages = Math.ceil(count / this.take);
   }
 
   async loadUser(id?: string) {
@@ -95,6 +112,23 @@ export class AdminUsersStore {
 
   checkerPassword() {
     this.isButtonSaveDisabled = this.passwordCheck !== this.password;
+  }
+
+  setSearchUserById(v: string) {
+    this.searchUserById = v;
+  }
+
+  setSearchUserByEmail(v: string) {
+    this.searchUserByEmail = v;
+  }
+
+  setSearchUserByNickname(v: string) {
+    this.searchUserByNickname = v;
+  }
+
+  setPage(v: number) {
+    this.page = v;
+    this.loadUsers().then();
   }
 
   async saveEditUser() {

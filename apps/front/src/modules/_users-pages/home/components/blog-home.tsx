@@ -40,7 +40,7 @@ export const BlogHome = observer(() => {
               <BlogCard blog={blog} />
             </Fragment>
           ))}
-          <div className="bg-white flex justify-end py-2 px-5 text-[18px]">
+          <div className="bg-white flex justify-end py-2 px-5 text-[18px] shadow-xl">
             <PaginatorBase
               setPage={(page) => homeBlogsStore.setPage(page)}
               page={homeBlogsStore.page}

@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Image from 'next/image';
 import { publicUrl } from '../../../../../conf';
+import { ALLOWED_TYPES_IMAGE_FILES } from '@org/types';
 
 const adminBlogEditStore = ioc.get<AdminBlogEditStore>('AdminBlogEditStore');
 
@@ -41,6 +42,10 @@ export const AdminBlogEdit = observer(() => {
           labelFontSize="medium"
           label="Новое главное изображение:"
           onChange={(v) => adminBlogEditStore.setFileImage(v)}
+          accept={ALLOWED_TYPES_IMAGE_FILES}
+          placeholder={`Поддерживаемые форматы файлов: ${ALLOWED_TYPES_IMAGE_FILES.map(
+            (t) => t.split('/')[1]
+          )}`}
         />
       </div>
 

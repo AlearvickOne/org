@@ -2,14 +2,12 @@ import { observer } from 'mobx-react';
 import container from '../../../ioc/ioc';
 import { Button, InputBase, LogoImage } from '@org/common-next';
 import { RegisterStore } from './store/register-store';
-import { useRouter } from 'next/router';
 import { pagesNames } from '../../pages-names';
+import Link from 'next/link';
 
 const registerStore = container.get<RegisterStore>('RegisterStore');
 
 export const RegisterPage = observer(() => {
-  const router = useRouter();
-
   return (
     <div className="flex justify-center items-center h-screen z-20 relative">
       <div className="absolute w-screen -z-10 top-0 left-0 h-1/3 right-0">
@@ -98,12 +96,12 @@ export const RegisterPage = observer(() => {
 
             <div className="text-[14px] text-center">
               Уже есть аккаунт?{' '}
-              <span
+              <Link
                 className="text-blue-500 underline cursor-pointer"
-                onClick={() => router.push(pagesNames.login)}
+                href={pagesNames.login}
               >
                 Войти!
-              </span>
+              </Link>
             </div>
           </form>
         </div>
