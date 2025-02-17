@@ -1,5 +1,4 @@
 import { clsx } from 'clsx';
-import placeholder from 'cypress/types/lodash/fp/placeholder';
 
 interface InputBaseProps {
   label: string;

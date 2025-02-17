@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { injectable } from 'inversify';
 import { pagesNames } from '../pages-names';
-import { IconClipboard, IconMonitor, IconUsers } from '@org/common-next';
+import { IconClipboard, IconUsers } from '@org/common-next';
 import { IAdminPaths } from '@org/types';
 
 @injectable()
