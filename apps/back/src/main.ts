@@ -3,12 +3,7 @@
  * This is only a minimal backend to get started.
  */
 
-import {
-  BadRequestException,
-  Logger,
-  ValidationError,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import process from 'process';
@@ -24,7 +19,10 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.BACK_PORT || 3000;
   app.enableCors({
-    origin: 'http://localhost:4200',
+    origin: [
+      `https://${process.env.DOMAIN}:${process.env.FRONT_PORT}`,
+      `http://localhost:${process.env.FRONT_PORT}`,
+    ],
     credentials: true,
   });
 

@@ -65,10 +65,7 @@ export const AdminUserEditCommon = observer(({ adminUsersStore }: Props) => {
 
       <div className="flex justify-between flex-col md:flex-row md:items-end items-center mt-5">
         <div className="mb-2 w-full">
-          <Button
-            maxWidth="200px"
-            onClick={() => adminUsersStore.saveEditUser()}
-          >
+          <Button maxWidth={200} onClick={() => adminUsersStore.saveEditUser()}>
             Сохранить
           </Button>
         </div>

@@ -7,16 +7,22 @@ import {
   RoomsWebsocketEnum,
 } from '@org/types';
 import { UserWebSocketService } from './user.websocket.service';
+import process from 'process';
 
 @Injectable()
 export class UserWebSocket implements OnModuleInit {
   constructor(private readonly UserWebsocketService: UserWebSocketService) {}
   serverSocket: Server;
 
+  private FRONT_PORT = process.env.FRONT_PORT;
+
   async onModuleInit() {
-    this.serverSocket = new Server(3900, {
+    this.serverSocket = new Server(Number(process.env.WEBSOCKET_PORT), {
       cors: {
-        origin: 'http://localhost:4200',
+        origin: [
+          `https://${process.env.DOMAIN}:${this.FRONT_PORT}`,
+          `http://localhost:${this.FRONT_PORT}`,
+        ],
         credentials: true,
       },
     });

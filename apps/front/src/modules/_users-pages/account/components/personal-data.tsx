@@ -84,7 +84,7 @@ export const PersonalData = observer(({ accountStore }: Props) => {
       />
 
       <Button
-        maxWidth={'200px'}
+        maxWidth={200}
         isDisabled={accountStore.isPasswordCheckError}
         onClick={() => accountStore.saveUser()}
       >

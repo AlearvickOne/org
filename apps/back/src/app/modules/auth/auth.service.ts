@@ -7,6 +7,7 @@ import { ConfigService } from '../../../services/config.service';
 import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
 import { UsersEntity } from '../../database/entities';
 import { RolesEnum } from '@org/types';
+import process from 'process';
 
 @Injectable()
 export class AuthService {
@@ -75,20 +76,20 @@ export class AuthService {
   async saveTokenInCookie(res: Response, token: string) {
     return res.cookie(this.TOKEN_NAME, token, {
       httpOnly: true,
-      domain: 'localhost',
+      domain: process.env.DOMAIN,
       maxAge: 100_000 * 100_000,
       secure: true,
-      sameSite: 'none',
+      sameSite: 'lax',
     });
   }
 
   async removeTokenFromCookie(res: Response) {
     return res.cookie(this.TOKEN_NAME, '', {
       httpOnly: true,
-      domain: 'localhost',
+      domain: process.env.DOMAIN,
       expires: new Date(0),
       secure: true,
-      sameSite: 'none',
+      sameSite: 'lax',
     });
   }
 }

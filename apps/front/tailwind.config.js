@@ -6,7 +6,8 @@ module.exports = {
   content: [
     join(
       __dirname,
-      '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}'
+      '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}',
+      '../libs/common-next/**/*.{js,ts,jsx,tsx,mdx}'
     ),
     ...createGlobPatternsForDependencies(__dirname),
   ],
@@ -21,7 +22,7 @@ module.exports = {
         h3: '32px',
         h4: '28px',
         h5: '24px',
-        "h5-2": ['22px', '20px'],
+        'h5-2': ['22px', '20px'],
         h6: '20px',
       },
     },

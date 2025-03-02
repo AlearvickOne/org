@@ -33,7 +33,7 @@ export const AdminUserEditPassword = observer(({ adminUsersStore }: Props) => {
 
       <div className="mt-5">
         <Button
-          maxWidth={'200px'}
+          maxWidth={200}
           isDisabled={
             adminUsersStore.isButtonSaveDisabled || !adminUsersStore.password
           }

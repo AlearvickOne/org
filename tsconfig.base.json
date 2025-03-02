@@ -16,8 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@org/common-next": ["libs/common-next/src/index.ts"],
-      "test": ["./declares-types/test"],
-      "@org/types": ["types"]
+      "@org/types": ["types"],
+      "test": ["./declares-types/test"]
     }
   },
   "exclude": ["node_modules", "tmp"]

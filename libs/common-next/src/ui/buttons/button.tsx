@@ -5,7 +5,7 @@ interface ButtonProps {
   children: ReactNode;
   isDisabled?: boolean;
   onClick: () => void;
-  maxWidth?: '200px';
+  maxWidth?: 200;
 }
 
 export const Button = ({
@@ -25,7 +25,7 @@ export const Button = ({
       onClick={handleClick}
       className={clsx(
         `text-white py-2 px-8 rounded-[5px] w-full shadow-md`,
-        maxWidth === '200px' ? 'md:max-w-[200px]' : '',
+        maxWidth === 200 ? 'md:max-w-[200px]' : '',
         isDisabled
           ? `bg-blue-300 shadow-blue-200`
           : `bg-blue-500 shadow-blue-300`

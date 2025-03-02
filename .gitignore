@@ -47,3 +47,5 @@ out
 
 # ENV
 .env
+
+storybook-static

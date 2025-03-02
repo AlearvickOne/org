@@ -1,6 +1,6 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import './styles.css';
+import '../styles/styles.css';
 import { useRouter } from 'next/router';
 import ioc from '../../ioc/ioc';
 import { UserStore } from '../main-stores/user-store';
