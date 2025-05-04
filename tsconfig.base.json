@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@org/common-next": ["libs/common-next/src/index.ts"],
+      "@org/common-node": ["libs/common-node/src/index.ts"],
       "@org/types": ["types"],
       "test": ["./declares-types/test"]
     }

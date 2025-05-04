@@ -6,14 +6,22 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "nx:run-commands",
+      "executor": "@nx/webpack:webpack",
       "options": {
-        "command": "webpack-cli build",
-        "args": ["node-env=production"]
+        "webpackConfig": "apps/back/webpack.config.js",
+        "outputPath": "dist/apps/back",
+        "main": "apps/back/src/main.ts",
+        "tsConfig": "apps/back/tsconfig.app.json",
+        "assets": ["apps/back/src/assets"]
       },
       "configurations": {
+        "production": {
+          "optimization": true,
+          "sourceMap": false
+        },
         "development": {
-          "args": ["node-env=development"]
+          "optimization": false,
+          "sourceMap": true
         }
       }
     },

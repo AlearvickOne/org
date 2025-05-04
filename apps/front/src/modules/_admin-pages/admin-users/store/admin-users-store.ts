@@ -48,7 +48,7 @@ export class AdminUsersStore {
 
   async loadUsers() {
     try {
-      const [users, count] = await this.adminService.getAllUsers(
+      const [users, count, page] = await this.adminService.getAllUsers(
         this.searchUserById,
         this.searchUserByEmail,
         this.searchUserByNickname,
@@ -58,6 +58,7 @@ export class AdminUsersStore {
 
       this.users = users;
       this.quantityPages = Math.ceil(count / this.take);
+      this.page = page;
     } catch (error: any) {
       alert('Ошибка при загрузке списка пользователей - ' + error.message);
     }

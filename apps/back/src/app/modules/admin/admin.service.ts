@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { RolesEnum, UsersModel, ALLOWED_TYPES_IMAGE_FILES } from '@org/types';
-import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
+import { StringSharesNodeLib } from '@org/common-node';
 import { RolesEntity, UsersEntity } from '../../database/entities';
 import { BlogsEntity } from '../../database/entities/blogs.entity';
 import { FilesService } from '../../../services/files.service';
@@ -12,6 +12,9 @@ import { httpError } from '../../common/errors';
 export class AdminService {
   constructor() {}
 
+  private lastSearchUserById: string = '';
+  private lastSearchUserByEmail: string = '';
+  private lastSearchUserByNickname: string = '';
   async getAllUsers(
     searchUserById: string,
     searchUserByEmail: string,
@@ -22,25 +25,35 @@ export class AdminService {
     const sql = UsersEntity.createQueryBuilder('users');
     sql.addSelect(['users.email']);
 
+    if (
+      searchUserById !== this.lastSearchUserById ||
+      searchUserByEmail !== this.lastSearchUserByEmail ||
+      searchUserByNickname !== this.lastSearchUserByNickname
+    ) {
+      page = 1;
+      this.lastSearchUserById = searchUserById;
+      this.lastSearchUserByEmail = searchUserByEmail;
+      this.lastSearchUserByNickname = searchUserByNickname;
+    }
+
     if (searchUserById) {
       sql.andWhere({ id: searchUserById });
-      page = 1;
     }
 
     if (searchUserByEmail) {
       sql.andWhere({ email: Like(`%${searchUserByEmail}%`) });
-      page = 1;
     }
 
     if (searchUserByNickname) {
       sql.andWhere({ nickname: Like(`%${searchUserByNickname}%`) });
-      page = 1;
     }
 
     sql.skip((page - 1) * take);
     sql.take(take);
 
-    return await sql.getManyAndCount();
+    const manyAndCount = await sql.getManyAndCount();
+
+    return [...manyAndCount, page];
   }
 
   async getUser(id: number) {
@@ -142,6 +155,8 @@ export class AdminService {
     return await BlogsEntity.findOneBy({ id: id });
   }
 
+  private lastSearchBlogById = '';
+  private lastSearchBlogByTitle = '';
   async getBlogs(
     user: UsersModel,
     page: number,
@@ -151,24 +166,33 @@ export class AdminService {
   ) {
     const sql = BlogsEntity.createQueryBuilder('blogs');
 
+    if (
+      this.lastSearchBlogById !== searchBlogById ||
+      this.lastSearchBlogByTitle !== searchBlogByTitle
+    ) {
+      page = 1;
+      this.lastSearchBlogById = searchBlogById;
+      this.lastSearchBlogByTitle = searchBlogByTitle;
+    }
+
     if (user.role !== RolesEnum.admin) {
       sql.andWhere({ user_id: user.id });
     }
 
     if (searchBlogById) {
       sql.andWhere({ id: searchBlogById });
-      page = 1;
     }
 
     if (searchBlogByTitle) {
       sql.andWhere({ title: Like(`%${searchBlogByTitle}%`) });
-      page = 1;
     }
 
     sql.skip((page - 1) * take);
     sql.take(take);
 
-    return await sql.getManyAndCount();
+    const manyAndCount = await sql.getManyAndCount();
+
+    return [...manyAndCount, page];
   }
 
   async deleteBlog(id: number) {

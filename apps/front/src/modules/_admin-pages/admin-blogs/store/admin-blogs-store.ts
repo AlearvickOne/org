@@ -24,7 +24,7 @@ export class AdminBlogsStore {
 
   async getBlogs() {
     try {
-      const [blogs, count] = await this.adminService.getBlogs(
+      const [blogs, count, page] = await this.adminService.getBlogs(
         this.page,
         this.take,
         this.searchBlogById,
@@ -32,6 +32,7 @@ export class AdminBlogsStore {
       );
       this.blogs = blogs;
       this.quantityPages = Math.ceil(count / this.take);
+      this.page = page;
     } catch (error: any) {
       alert('Ошибка при загрузке списка блогов - ' + error.message);
     }

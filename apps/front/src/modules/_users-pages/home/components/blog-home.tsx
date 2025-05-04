@@ -21,7 +21,7 @@ export const BlogHome = observer(() => {
           type={'text'}
           placeholder="Введите название блога для поиска"
           maxLength={100}
-          onClickSearch={(v) => homeBlogsStore.loadBlogs()}
+          onClickSearch={() => homeBlogsStore.loadBlogs()}
         />
 
         <div className="bg-white flex justify-end py-2 px-5 text-[18px]">

@@ -65,7 +65,7 @@ export class RegisterStore {
   async register() {
     try {
       await this.userService.register({
-        email: this.email,
+        email: this.email.toLowerCase(),
         password: this.password,
         name: this.name,
         surname: this.surname,

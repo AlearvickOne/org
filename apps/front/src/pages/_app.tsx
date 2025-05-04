@@ -4,10 +4,12 @@ import '../styles/styles.css';
 import { useRouter } from 'next/router';
 import ioc from '../../ioc/ioc';
 import { UserStore } from '../main-stores/user-store';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { pagesNames } from '../pages-names';
 import 'react-quill/dist/quill.snow.css';
 import { RolesEnum } from '@org/types';
+import setTimeout = jest.setTimeout;
+import { LogoImageAnim } from '@org/common-next';
 
 const userStore = ioc.get<UserStore>('UserStore');
 
@@ -70,16 +72,51 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <title>Блог</title>
       </Head>
       <main className="bg-stone-200 font-sans">
-        {isLoading ? (
-          <div className="h-screen flex justify-center items-center text-white text-[26px]">
-            Загрузка...
-          </div>
-        ) : (
-          <Component {...pageProps} />
-        )}
+        {isLoading ? <Loading /> : <Component {...pageProps} />}
       </main>
     </>
   );
 }
 
 export default CustomApp;
+
+function Loading() {
+  const [loadingText, setLoadingText] = useState<string>('');
+
+  const animationRef = useRef<number>();
+
+  useEffect(() => {
+    let indexCurrent = 0;
+    const fullText = 'Идёт загрузка...';
+
+    const typeWriter = () => {
+      if (indexCurrent < fullText.length) {
+        setLoadingText(fullText.substring(0, indexCurrent + 1));
+        indexCurrent++;
+        animationRef.current = window.setTimeout(typeWriter, 43); // Скорость печати
+      } else {
+        // Пауза 2 секунды с сохранением текста
+        animationRef.current = window.setTimeout(() => {
+          indexCurrent = 0;
+          setLoadingText(''); // Сброс только перед новым циклом
+          typeWriter(); // Запускаем заново
+        }, 2000);
+      }
+    };
+
+    typeWriter();
+
+    return () => {
+      animationRef.current && window.clearTimeout(animationRef.current);
+    };
+  }, []);
+
+  return (
+    <div className="h-screen flex justify-center flex-col items-center text-loading-gradient md:text-[40px] text-[30px]">
+      <div className="w-full md:max-w-[50%] max-w-full">
+        <LogoImageAnim />
+      </div>
+      <div>{loadingText}</div>
+    </div>
+  );
+}

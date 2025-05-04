@@ -8,3 +8,4 @@ export * from './textarea';
 export * from './checkbox';
 export * from './images';
 export * from './paginator';
+export * from './selectors';

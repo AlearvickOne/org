@@ -32,7 +32,7 @@ export class LoginStore {
   async login() {
     try {
       await this.userService.login({
-        email: this.email,
+        email: this.email.toLowerCase(),
         password: this.password,
       });
       window.location.replace(`http://localhost:4200/${pagesNames.home}`);

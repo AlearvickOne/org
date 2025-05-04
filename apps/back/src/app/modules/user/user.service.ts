@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ALLOWED_TYPES_IMAGE_FILES, UsersModel } from '@org/types';
-import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
+import { StringSharesNodeLib } from '@org/common-node';
 import { UsersEntity } from '../../database/entities';
 import { BlogsEntity } from '../../database/entities/blogs.entity';
 import { UploadedFile } from 'express-fileupload';
@@ -50,8 +50,14 @@ export class UserService {
     return await foundUser.save();
   }
 
+  private lastSearchTextBlog: string = '';
   async getBlogs(search: string, page: number, take: number) {
     const sql = BlogsEntity.createQueryBuilder('blogs');
+
+    if (search !== this.lastSearchTextBlog) {
+      page = 1;
+      this.lastSearchTextBlog = search;
+    }
 
     if (search) {
       sql.andWhere({ title: Like(`%${search}%`) });
@@ -61,7 +67,9 @@ export class UserService {
     sql.take(take);
     sql.orderBy('blogs.created_at', 'DESC');
 
-    return await sql.getManyAndCount();
+    const manyAndCount = await sql.getManyAndCount();
+
+    return [...manyAndCount, page];
   }
 
   async getBlog(id: number) {

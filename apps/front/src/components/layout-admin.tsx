@@ -5,7 +5,7 @@ import { AdminHeader } from './header/admin-header';
 import ioc from '../../ioc/ioc';
 import { AdminStore } from '../main-stores/admin-store';
 import { clsx } from 'clsx';
-import { SelectorBase } from '../../../../libs/common-next/src/ui/selectors';
+import { SelectorBase } from '@org/common-next';
 import { UserStore } from '../main-stores/user-store';
 
 interface LayoutAdminProps {

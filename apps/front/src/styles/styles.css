@@ -22,3 +22,10 @@
   scrollbar-width: thin;
   scrollbar-color: #6495ED transparent; /* цвет бегунка и трека */
 }
+
+.text-loading-gradient {
+  font-weight: 700;
+  background: -webkit-repeating-linear-gradient(50deg, black 5%, grey 30%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

@@ -4,7 +4,7 @@ import { RegistrationDto } from '../../common/dto/registration.dto';
 import { inject } from 'inversify';
 import { TYPES } from '../../../types';
 import { ConfigService } from '../../../services/config.service';
-import { StringSharesNodeLib } from '../../../../../../libs/common-node/src';
+import { StringSharesNodeLib } from '@org/common-node';
 import { UsersEntity } from '../../database/entities';
 import { RolesEnum } from '@org/types';
 import process from 'process';
