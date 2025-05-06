@@ -32,8 +32,8 @@ export class LoginStore {
   async login() {
     try {
       await this.userService.login({
-        email: this.email.toLowerCase(),
-        password: this.password,
+        email: this.email.toLowerCase().trim(),
+        password: this.password.trim(),
       });
       window.location.replace(`http://localhost:4200/${pagesNames.home}`);
     } catch (error: any) {

@@ -65,11 +65,11 @@ export class RegisterStore {
   async register() {
     try {
       await this.userService.register({
-        email: this.email.toLowerCase(),
-        password: this.password,
-        name: this.name,
-        surname: this.surname,
-        nickname: this.nickname,
+        email: this.email.toLowerCase().trim(),
+        password: this.password.trim(),
+        name: this.name.trim(),
+        surname: this.surname.trim(),
+        nickname: this.nickname.trim(),
       });
 
       this.setErrors({});

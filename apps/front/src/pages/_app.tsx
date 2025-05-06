@@ -7,8 +7,9 @@ import { UserStore } from '../main-stores/user-store';
 import { useEffect, useRef, useState } from 'react';
 import { pagesNames } from '../pages-names';
 import 'react-quill/dist/quill.snow.css';
+
 import { RolesEnum } from '@org/types';
-import setTimeout = jest.setTimeout;
+
 import { LogoImageAnim } from '@org/common-next';
 
 const userStore = ioc.get<UserStore>('UserStore');

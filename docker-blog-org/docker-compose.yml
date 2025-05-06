@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+
+  db:
+    image: mysql:9.0.1
+    container_name: blog-org-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+
+      TZ: Europe/Moscow
+    ports:
+      - "3306:3306"
+
+
+  redis:
+    image: redis:7.2
+    restart: always
+    ports:
+      - "6380:6380"
+    volumes:
+      - "./redis/data:/data"
+      - "./redis/redis.conf:/usr/local/etc/redis/redis.conf"
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]

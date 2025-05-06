@@ -28,10 +28,10 @@ export class RolesGuard implements CanActivate {
       throw new ForbiddenException('Пользователь с ролями не найден');
     }
 
-    const isNext = requiredRoles.includes(user.role);
+    const isNext = requiredRoles.includes(user.role.trim());
 
     if (!isNext) {
-      throw new ForbiddenException('Доступ запрещён: недостаточно прав.');
+      throw new ForbiddenException('@Доступ запрещён: недостаточно прав.');
     }
 
     return isNext;
