@@ -3,18 +3,24 @@
  * This is only a minimal backend to get started.
  */
 
-import { Logger } from '@nestjs/common';
+import { INestApplication, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import process from 'process';
+import * as dotenv from 'dotenv';
 import fileUpload from 'express-fileupload';
 import express from 'express';
 import fs from 'node:fs';
 import cookieParser from 'cookie-parser';
 import { ParseAndValidatePipe } from './common/custom';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
+  dotenv.config();
+
   const app = await NestFactory.create(AppModule);
+  await microservices(app);
+
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.BACK_PORT || 3000;
@@ -43,3 +49,19 @@ async function bootstrap() {
 }
 
 bootstrap().then();
+
+async function microservices(app: INestApplication) {
+  // REDIS
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.REDIS,
+    options: {
+      host: process.env.DOMAIN,
+      port: 6379,
+      retryAttempts: 5,
+      retryDelay: 3000,
+      wildcards: true,
+    },
+  });
+
+  await app.startAllMicroservices();
+}
