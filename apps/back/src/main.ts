@@ -14,9 +14,9 @@ import fs from 'node:fs';
 import cookieParser from 'cookie-parser';
 import { ParseAndValidatePipe } from './common/custom';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+dotenv.config();
 
 async function bootstrap() {
-  dotenv.config();
 
   const app = await NestFactory.create(AppModule);
   await microservices(app);

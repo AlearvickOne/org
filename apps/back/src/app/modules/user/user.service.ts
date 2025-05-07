@@ -5,7 +5,6 @@ import { UsersEntity } from '../../database/entities';
 import { BlogsEntity } from '../../database/entities/blogs.entity';
 import { UploadedFile } from 'express-fileupload';
 import { FilesService } from '../../../services/files.service';
-import { Like } from 'typeorm';
 import { httpError } from '../../common/errors';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
@@ -56,14 +55,12 @@ export class UserService {
 
   private lastSearchTextBlog: string = '';
   async getBlogs(search: string, page: number, take: number) {
-    // Проверка кеша
-    // const cacheKey = `get-blogs:${search}:${page}:${take}`;
-    // const cachedBlogs = await this.cacheManager.get(cacheKey);
-    //
-    // if (cachedBlogs) {
-    //   console.log(cachedBlogs);
-    //   return cachedBlogs;
-    // }
+    const cacheKey = `get-blogs:search="${search}":page=${page}:take=${take}`;
+    const cachedBlogs = await this.cacheManager.get(cacheKey);
+
+    if (cachedBlogs) {
+      return cachedBlogs;
+    }
 
     const sql = BlogsEntity.createQueryBuilder('blogs');
 
@@ -73,8 +70,9 @@ export class UserService {
       this.lastSearchTextBlog = search;
     }
 
-    if (search) {
-      sql.andWhere({ title: Like(`%${search}%`) });
+    // Если search не пустой, добавляем условие
+    if (search.trim()) {
+      sql.andWhere('blogs.title LIKE :search', { search: `%${search}%` });
     }
 
     sql.skip((page - 1) * take);
@@ -84,7 +82,8 @@ export class UserService {
     const manyAndCount = await sql.getManyAndCount();
     const manyCountAndPage = [...manyAndCount, page];
 
-    // await this.cacheManager.set(cacheKey, manyCountAndPage, 60);
+    // Сохраняем в кэш
+    await this.cacheManager.set(cacheKey, manyCountAndPage);
 
     return manyCountAndPage;
   }

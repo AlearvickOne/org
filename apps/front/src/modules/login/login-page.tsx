@@ -11,7 +11,7 @@ export const LoginPage = observer(() => {
   return (
     <div className="flex justify-center items-center h-screen relative z-20">
       <div className="absolute w-screen -z-10 top-0 left-0 h-1/3 right-0">
-        {/*<LogoImageAnim />*/}
+        <LogoImageAnim />
       </div>
 
       <div className="flex flex-col justify-center items-center gap-y-2 bg-white px-8 py-5 shadow-xl w-[300px] ">

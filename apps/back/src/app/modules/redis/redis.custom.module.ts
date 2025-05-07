@@ -9,7 +9,7 @@ import * as redisStore from 'cache-manager-ioredis';
         store: redisStore,
         host: process.env.DOMAIN,
         port: 6379,
-        ttl: 60,
+        ttl: 10 * 1000, // 10 cек
       }),
     }),
   ],

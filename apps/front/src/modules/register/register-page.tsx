@@ -11,7 +11,7 @@ export const RegisterPage = observer(() => {
   return (
     <div className="flex justify-center items-center h-screen z-20 relative">
       <div className="absolute w-screen -z-10 top-0 left-0 h-1/3 right-0">
-        {/*<LogoImageAnim />*/}
+        <LogoImageAnim />
       </div>
 
       <div className="flex flex-col justify-center items-center gap-y-2 bg-white md:px-8 px-5 py-5 shadow-xl md:w-[450px] w-[90%]">
