@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserController } from './modules/user/user.controller';
@@ -14,6 +19,7 @@ import { UserWebSocket } from './modules/websockets/user.websocket';
 import { UserWebSocketService } from './modules/websockets/user.websocket.service';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from '../guards';
+import { RedisCustomModule } from './modules/redis/redis.custom.module';
 
 const guards = [
   {
@@ -23,7 +29,7 @@ const guards = [
 ];
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, RedisCustomModule],
   controllers: [AppController, UserController, AuthController, AdminController],
   providers: [
     AppService,
@@ -38,6 +44,8 @@ const guards = [
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes('*');
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes({ path: '*path', method: RequestMethod.ALL });
   }
 }
