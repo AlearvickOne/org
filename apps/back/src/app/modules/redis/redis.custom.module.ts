@@ -1,5 +1,18 @@
 import { Module } from '@nestjs/common';
-import { RedisModule } from '@nestjs-modules/ioredis';
+import { CacheModule } from '@nestjs/cache-manager';
+import * as redisStore from 'cache-manager-ioredis';
 
-@Module({})
+@Module({
+  imports: [
+    CacheModule.registerAsync({
+      useFactory: () => ({
+        store: redisStore,
+        host: process.env.DOMAIN,
+        port: 6379,
+        ttl: 60,
+      }),
+    }),
+  ],
+  exports: [CacheModule],
+})
 export class RedisCustomModule {}

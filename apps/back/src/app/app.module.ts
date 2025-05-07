@@ -19,6 +19,7 @@ import { UserWebSocket } from './modules/websockets/user.websocket';
 import { UserWebSocketService } from './modules/websockets/user.websocket.service';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from '../guards';
+import { RedisCustomModule } from './modules/redis/redis.custom.module';
 
 const guards = [
   {
@@ -28,7 +29,7 @@ const guards = [
 ];
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, RedisCustomModule],
   controllers: [AppController, UserController, AuthController, AdminController],
   providers: [
     AppService,
