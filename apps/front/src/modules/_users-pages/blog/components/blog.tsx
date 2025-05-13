@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react';
 import { BlogStore } from '../store/blog-store';
-import { Button, TextareaBase } from '@org/common-next';
+import { Button, TextareaBase, IconClose } from '@org/common-next';
 import { clsx } from 'clsx';
-import { CloseIcon } from 'next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon';
 import Image from 'next/image';
 import { publicUrl } from '../../../../../conf';
 import { UserStore } from '../../../../main-stores/user-store';
@@ -29,7 +28,7 @@ export const Blog = observer(({ blogStore, userStore }: Props) => {
             {nickname}
             {closeBtn ? (
               <div onClick={closeBtn} className="text-black">
-                <CloseIcon />
+                <IconClose />
               </div>
             ) : null}
           </div>

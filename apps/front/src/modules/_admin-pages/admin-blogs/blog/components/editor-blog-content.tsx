@@ -17,16 +17,42 @@ export const EditorBlogContent = observer(
 
     const modules = {
       toolbar: [
-        ['bold', 'italic', 'underline', 'strike'],
-        ['link', 'image', 'video'],
-        [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
-        [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
-        [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
-        [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+        // Шрифты и заголовки
         [{ font: [] }],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+        // Стили текста
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ script: 'sub' }, { script: 'super' }],
+        [{ color: [] }, { background: [] }],
+
+        // Выравнивание и отступы
         [{ align: [] }],
-        ['clean'], // remove formatting button
+        [{ indent: '-1' }, { indent: '+1' }],
+
+        // Списки
+        [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+
+        // Разное
+        ['blockquote', 'code-block'],
+        ['link', 'image', 'video'],
+
+        // Размеры
+        [{ size: ['small', false, 'large', 'huge'] }],
+
+        // Очистка
+        ['clean']
       ],
+
+      // Дополнительные модули
+      clipboard: {
+        matchVisual: false, // Более точное копирование форматирования
+      },
+      history: {
+        delay: 2000,
+        maxStack: 500,
+        userOnly: true
+      }
     };
 
     return (

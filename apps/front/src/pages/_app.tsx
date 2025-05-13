@@ -1,12 +1,14 @@
+import '../styles/styles.css';
+import '../styles/react-quil-custom.styles.css'
+import 'react-quill/dist/quill.snow.css';
+
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import '../styles/styles.css';
 import { useRouter } from 'next/router';
 import ioc from '../../ioc/ioc';
 import { UserStore } from '../main-stores/user-store';
 import { useEffect, useRef, useState } from 'react';
 import { pagesNames } from '../pages-names';
-import 'react-quill/dist/quill.snow.css';
 
 import { RolesEnum } from '@org/types';
 
